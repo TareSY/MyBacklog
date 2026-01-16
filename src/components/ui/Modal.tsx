@@ -30,17 +30,12 @@ const sizeClasses = {
 export function Modal({
     isOpen,
     onClose,
-    title,
-    description,
     children,
     className,
-    showCloseButton = true,
     closeOnOverlayClick = true,
     closeOnEscape = true,
-    size = 'md',
 }: ModalProps) {
     const overlayRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
 
     const handleEscape = useCallback(
         (e: KeyboardEvent) => {
@@ -80,61 +75,71 @@ export function Modal({
             onClick={handleOverlayClick}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
         >
-            <div
-                ref={contentRef}
-                className={cn(
-                    'w-full bg-bg-surface border border-border-subtle rounded-2xl shadow-2xl animate-scale-in',
-                    sizeClasses[size],
-                    className
-                )}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby={title ? 'modal-title' : undefined}
-                aria-describedby={description ? 'modal-description' : undefined}
-            >
-                {/* Header */}
-                {(title || showCloseButton) && (
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-border-subtle">
-                        <div>
-                            {title && (
-                                <h2
-                                    id="modal-title"
-                                    className="text-lg font-semibold text-text-primary"
-                                >
-                                    {title}
-                                </h2>
-                            )}
-                            {description && (
-                                <p
-                                    id="modal-description"
-                                    className="text-sm text-text-muted mt-0.5"
-                                >
-                                    {description}
-                                </p>
-                            )}
-                        </div>
-                        {showCloseButton && (
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={onClose}
-                                className="text-text-muted hover:text-text-primary"
-                                aria-label="Close modal"
-                            >
-                                <X className="w-5 h-5" />
-                            </Button>
-                        )}
-                    </div>
-                )}
-
-                {/* Content */}
-                <div className="p-6">{children}</div>
-            </div>
+            {/* Pass onClose to children so the content can close the modal if needed */}
+            {children}
         </div>
     );
 
-    // Only render portal on client
     if (typeof window === 'undefined') return null;
 
     return createPortal(modalContent, document.body);
+}
+
+export function ModalContent({
+    children,
+    className,
+    size = 'md',
+    onClose
+}: {
+    children: React.ReactNode;
+    className?: string;
+    size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    onClose?: () => void;
+}) {
+    return (
+        <div
+            className={cn(
+                'w-full bg-bg-surface border border-border-subtle rounded-2xl shadow-2xl animate-scale-in flex flex-col max-h-[90vh]',
+                sizeClasses[size],
+                className
+            )}
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+        >
+            {children}
+        </div>
+    );
+}
+
+export function ModalHeader({ children, className }: { children: React.ReactNode; className?: string }) {
+    return (
+        <div className={cn('flex flex-col space-y-1.5 px-6 py-4 border-b border-border-subtle', className)}>
+            {children}
+        </div>
+    );
+}
+
+export function ModalTitle({ children, className }: { children: React.ReactNode; className?: string }) {
+    return (
+        <h2 className={cn('text-lg font-semibold text-text-primary', className)}>
+            {children}
+        </h2>
+    );
+}
+
+export function ModalDescription({ children, className }: { children: React.ReactNode; className?: string }) {
+    return (
+        <p className={cn('text-sm text-text-muted', className)}>
+            {children}
+        </p>
+    );
+}
+
+export function ModalFooter({ children, className }: { children: React.ReactNode; className?: string }) {
+    return (
+        <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-6 pt-0', className)}>
+            {children}
+        </div>
+    );
 }

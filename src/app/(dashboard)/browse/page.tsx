@@ -1,0 +1,272 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Film, Tv, BookOpen, Music, Plus, Sparkles, Loader2, ArrowRight } from 'lucide-react';
+import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge } from '@/components/ui';
+
+const categories = [
+    { id: 1, name: 'Movie', icon: Film, emoji: '🎬', color: 'text-movies' },
+    { id: 2, name: 'TV Show', icon: Tv, emoji: '📺', color: 'text-tv' },
+    { id: 3, name: 'Book', icon: BookOpen, emoji: '📚', color: 'text-books' },
+    { id: 4, name: 'Album', icon: Music, emoji: '🎵', color: 'text-music' },
+];
+
+export default function BrowsePage() {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+    const [title, setTitle] = useState('');
+    const [subtitle, setSubtitle] = useState('');
+    const [year, setYear] = useState('');
+    const [description, setDescription] = useState('');
+    const [saving, setSaving] = useState(false);
+
+    const [suggestions, setSuggestions] = useState<any[]>([]);
+    const [loadingSuggestions, setLoadingSuggestions] = useState(true);
+
+    // Load suggestions (public lists)
+    useEffect(() => {
+        async function loadSuggestions() {
+            try {
+                const res = await fetch('/api/lists?type=public');
+                const data = await res.json();
+                setSuggestions(Array.isArray(data) ? data : []);
+            } catch (error) {
+                console.error('Failed to load suggestions', error);
+            } finally {
+                setLoadingSuggestions(false);
+            }
+        }
+        loadSuggestions();
+    }, []);
+
+    function openAddModal(categoryId: number, prefill?: any) {
+        setSelectedCategory(categoryId);
+        if (prefill) {
+            setTitle(prefill.title);
+            setSubtitle(prefill.subtitle || '');
+            setYear(prefill.releaseYear || '');
+            setDescription(prefill.description || '');
+        } else {
+            resetForm();
+            setSelectedCategory(categoryId);
+        }
+        setIsOpen(true);
+    }
+
+    function resetForm() {
+        setTitle('');
+        setSubtitle('');
+        setYear('');
+        setDescription('');
+        setIsOpen(false);
+        setSelectedCategory(null);
+    }
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        if (!title || !selectedCategory) return;
+
+        setSaving(true);
+        try {
+            // Get or create the user's default list
+            const listsRes = await fetch('/api/lists');
+            let lists = await listsRes.json();
+
+            let listId: string;
+            if (!Array.isArray(lists) || lists.length === 0) {
+                const createRes = await fetch('/api/lists', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: 'My Backlog' }),
+                });
+                const newList = await createRes.json();
+                listId = newList.id;
+            } else {
+                listId = lists[0].id;
+            }
+
+            // Add item
+            await fetch('/api/items', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    listId,
+                    categoryId: selectedCategory,
+                    title,
+                    subtitle: subtitle || null,
+                    releaseYear: year ? parseInt(year) : null,
+                    description: description || null,
+                    externalId: null,
+                    externalSource: 'manual',
+                    imageUrl: null,
+                }),
+            });
+
+            alert(`Added "${title}" to your backlog! 🎉`);
+            resetForm();
+        } catch (error) {
+            console.error('Failed to add item:', error);
+            alert('Failed to add item. Please try again.');
+        } finally {
+            setSaving(false);
+        }
+    }
+
+    const selectedCat = categories.find(c => c.id === selectedCategory);
+
+    return (
+        <div className="space-y-12">
+            {/* Header */}
+            <div>
+                <h1 className="text-3xl font-bold text-text-primary flex items-center gap-3">
+                    <span>Add to Backlog</span>
+                    <span className="text-2xl">✨</span>
+                </h1>
+                <p className="text-text-muted mt-2">
+                    What do you want to watch, read, or listen to next?
+                </p>
+            </div>
+
+            {/* Category Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {categories.map(({ id, name, icon: Icon, emoji, color }) => (
+                    <Card
+                        key={id}
+                        variant="glass"
+                        hover
+                        className="p-6 cursor-pointer group text-center"
+                        onClick={() => openAddModal(id)}
+                    >
+                        <div className="text-4xl mb-4 group-hover:scale-125 transition-transform">
+                            {emoji}
+                        </div>
+                        <h3 className={`text-lg font-bold ${color} mb-2`}>Add {name}</h3>
+                        <p className="text-text-muted text-sm">
+                            Track a new {name.toLowerCase()}
+                        </p>
+                        <Button
+                            variant="secondary"
+                            size="sm"
+                            className="mt-4 w-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            leftIcon={<Plus className="w-4 h-4" />}
+                        >
+                            Add
+                        </Button>
+                    </Card>
+                ))}
+            </div>
+
+            {/* Suggestions Section */}
+            {suggestions.length > 0 && (
+                <div className="space-y-6 animate-fade-in">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                            <Sparkles className="w-4 h-4 text-primary" />
+                        </div>
+                        <h2 className="text-xl font-bold text-text-primary">Featured Suggestions</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {suggestions.map((list) => (
+                            <Card key={list.id} variant="default" className="p-6">
+                                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                    {list.name}
+                                    <span className="text-xs font-normal text-text-muted px-2 py-0.5 rounded-full bg-bg-elevated">Featured</span>
+                                </h3>
+                                <div className="space-y-3">
+                                    {list.items && list.items.slice(0, 5).map((item: any) => (
+                                        <div key={item.id} className="flex items-center justify-between p-3 rounded-xl bg-bg-elevated hover:bg-bg-surface transition-colors group">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-xl">
+                                                    {item.categoryId === 1 ? '🎬' : item.categoryId === 3 ? '📚' : '📺'}
+                                                </span>
+                                                <div>
+                                                    <p className="font-medium text-text-primary text-sm">{item.title}</p>
+                                                    <p className="text-xs text-text-muted">
+                                                        {item.releaseYear} {item.subtitle && `• ${item.subtitle}`}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <Button
+                                                size="sm"
+                                                variant="ghost"
+                                                onClick={() => openAddModal(item.categoryId, item)}
+                                                leftIcon={<Plus className="w-4 h-4" />}
+                                            >
+                                                Add
+                                            </Button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Add Modal */}
+            <Modal isOpen={isOpen} onClose={resetForm}>
+                <ModalContent size="md">
+                    <ModalHeader>
+                        <ModalTitle className="flex items-center gap-2">
+                            {selectedCat && <span className="text-2xl">{selectedCat.emoji}</span>}
+                            Add {selectedCat?.name}
+                        </ModalTitle>
+                        <ModalDescription>
+                            Add a new {selectedCat?.name.toLowerCase()} to your backlog
+                        </ModalDescription>
+                    </ModalHeader>
+
+                    <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        <Input
+                            label="Title *"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder={selectedCat?.id === 1 ? "The Shawshank Redemption" :
+                                selectedCat?.id === 2 ? "Breaking Bad" :
+                                    selectedCat?.id === 3 ? "1984" : "Abbey Road"}
+                            required
+                        />
+                        <Input
+                            label={selectedCat?.id === 3 ? "Author" : selectedCat?.id === 4 ? "Artist" : "Subtitle"}
+                            value={subtitle}
+                            onChange={(e) => setSubtitle(e.target.value)}
+                            placeholder={selectedCat?.id === 3 ? "George Orwell" :
+                                selectedCat?.id === 4 ? "The Beatles" : "Optional"}
+                        />
+                        <Input
+                            label="Year"
+                            type="number"
+                            value={year}
+                            onChange={(e) => setYear(e.target.value)}
+                            placeholder="2024"
+                            min="1800"
+                            max="2100"
+                        />
+                        <div>
+                            <label className="block text-sm font-medium text-text-secondary mb-1.5">
+                                Notes (optional)
+                            </label>
+                            <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="Why do you want to watch/read/listen to this?"
+                                className="w-full px-4 py-3 rounded-xl bg-bg-elevated border border-border-default text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none"
+                                rows={3}
+                            />
+                        </div>
+
+                        <div className="flex gap-3 pt-4">
+                            <Button type="button" variant="secondary" onClick={resetForm} className="flex-1">
+                                Cancel
+                            </Button>
+                            <Button type="submit" isLoading={saving} className="flex-1">
+                                Add to Backlog
+                            </Button>
+                        </div>
+                    </form>
+                </ModalContent>
+            </Modal>
+        </div>
+    );
+}

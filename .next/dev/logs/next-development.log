@@ -1,2 +1,101 @@
-[00:00:03.327] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:03.686] Server  LOG     ✓ Ready in 3.3s
+[00:00:01.695] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.950] Server  LOG     ✓ Ready in 1442ms
+[00:00:23.924] Server  ERROR   [auth][error] JWTSessionError: Read more at https://errors.authjs.dev#jwtsessionerror
+[00:00:23.927] Server  ERROR   [auth][cause]: Error: no matching decryption secret
+    at clockTolerance (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:915:15)
+    at async flattenedDecrypt (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\node_modules_jose_dist_webapi_f4e85af0._.js:3329:15)
+    at async compactDecrypt (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\node_modules_jose_dist_webapi_f4e85af0._.js:3425:23)
+    at async jwtDecrypt (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\node_modules_jose_dist_webapi_f4e85af0._.js:3459:23)
+    at async Object.decode (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:905:25)
+    at async Module.session (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:4547:29)
+    at async AuthInternal (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5132:24)
+    at async Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5371:34)
+    at async handleAuth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\node_modules_c8d6d2af._.js:4022:29)
+    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\node_modules_next_dist_5d0ce1e3._.js:13109:20
+[00:00:23.927] Server  ERROR   [auth][details]: {}
+[00:00:26.949] Server  LOG     ○ Compiling /browse ...
+[00:00:29.163] Server  ERROR   [auth][error] JWTSessionError: Read more at https://errors.authjs.dev#jwtsessionerror
+[00:00:29.166] Server  ERROR   [auth][cause]: "Error: no matching decryption secret\n    at clockTolerance (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\97170_@auth_core_fed2bd69._.js:915:15)\n    at async flattenedDecrypt (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\node_modules_jose_dist_webapi_f15cbee2._.js:3329:15)\n    at async compactDecrypt (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\node_modules_jose_dist_webapi_f15cbee2._.js:3425:23)\n    at async jwtDecrypt (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\node_modules_jose_dist_webapi_f15cbee2._.js:3459:23)\n    at async Object.decode (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\97170_@auth_core_fed2bd69._.js:905:25)\n    at async Module.session (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\97170_@auth_core_fed2bd69._.js:4546:29)\n    at async AuthInternal (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\97170_@auth_core_fed2bd69._.js:5131:24)\n    at async Auth (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\97170_@auth_core_fed2bd69._.js:5370:34)\n    at async DashboardLayout (C:\\Users\\slyat\\.gemini\\antigravity\\scratch\\MyBacklog\\.next\\dev\\server\\chunks\\ssr\\[root-of-the-server]__338f091f._.js:569:21)"
+[00:00:29.167] Server  ERROR   [auth][details]: "{}"
+[00:00:30.066] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:32.728] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/browse" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="dark"
+-                         data-jetski-tab-id="843567774"
+                        >
+                          <body
++                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
+-                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
+                          >
+                  ...
+
+[00:00:34.620] Server  ERROR   Search error: Error: TMDB_API_KEY is not configured
+[00:00:38.407] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:39.312] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="dark"
+-                         data-jetski-tab-id="843567775"
+                        >
+                          <body
++                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
+-                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
+                          >
+                  ...
+
+[00:00:42.588] Server  LOG     ○ Compiling /api/lists ...
