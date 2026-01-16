@@ -1,19 +1,31 @@
-import { type NextRequest } from 'next/server';
-import { updateSession } from '@/lib/supabase/middleware';
+import { auth } from '@/auth';
+import { NextResponse } from 'next/server';
 
-export async function middleware(request: NextRequest) {
-    return await updateSession(request);
-}
+export default auth((req) => {
+    const isLoggedIn = !!req.auth;
+    const isOnDashboard = req.nextUrl.pathname.startsWith('/dashboard') ||
+        req.nextUrl.pathname.startsWith('/lists') ||
+        req.nextUrl.pathname.startsWith('/browse') ||
+        req.nextUrl.pathname.startsWith('/settings');
+    const isOnAuthPage = req.nextUrl.pathname.startsWith('/login') ||
+        req.nextUrl.pathname.startsWith('/signup');
+
+    // Redirect logged-in users away from auth pages
+    if (isOnAuthPage && isLoggedIn) {
+        return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+    }
+
+    // For now, don't block unauthenticated users from dashboard (for development)
+    // In production, uncomment the following:
+    // if (isOnDashboard && !isLoggedIn) {
+    //   return NextResponse.redirect(new URL('/login', req.nextUrl));
+    // }
+
+    return NextResponse.next();
+});
 
 export const config = {
     matcher: [
-        /*
-         * Match all request paths except for the ones starting with:
-         * - _next/static (static files)
-         * - _next/image (image optimization files)
-         * - favicon.ico (favicon file)
-         * - Public files with extensions
-         */
-        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico|icons|manifest.json).*)',
     ],
 };

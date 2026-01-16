@@ -1,21 +1,11 @@
-[00:00:04.096] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:04.881] Server  LOG     ✓ Ready in 4.2s
-[00:00:19.239] Server  ERROR   ⨯ Error: Your project's URL and Key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:00:22.275] Server  LOG     ○ Compiling /_error ...
-[00:00:26.064] Browser ERROR   uncaughtError: Error: Your project's URL and Key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:00:27.062] Server  LOG     ○ Compiling /_not-found/page ...
-[00:01:43.733] Server  LOG     ✓ Compiled in 2.5s
-[00:01:50.008] Server  LOG     ○ Compiling / ...
-[00:02:00.187] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:01.946] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:04.079] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:04.412] Server  LOG     ✓ Ready in 3.6s
+[00:00:26.169] Server  ERROR   DATABASE_URL is not set. Database operations will fail.
+[00:00:26.231] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:00:26.234] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:00:30.271] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:30.556] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -46,312 +36,7 @@ It can also happen if the client has a browser extension installed which messes 
                         <html
                           lang="en"
                           className="dark"
--                         data-jetski-tab-id="843567410"
-                        >
-                  ...
-
-[00:02:04.614] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:05.157] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="dark"
--                         data-jetski-tab-id="843567411"
-                        >
-                  ...
-
-[00:08:59.005] Server  LOG     ✓ Compiled in 903ms
-[00:11:05.042] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:14:50.657] Server  LOG     ✓ Compiled in 1185ms
-[00:14:55.737] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:15:08.230] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="dark"
--                         data-jetski-tab-id="843567413"
-                        >
-                  ...
-
-[00:15:30.239] Server  ERROR   ⨯ Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:15:31.838] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:15:32.327] Browser ERROR   uncaughtError: Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:15:41.680] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:15:42.469] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="dark"
--                         data-jetski-tab-id="843567416"
-                        >
-                  ...
-
-[00:16:00.399] Browser ERROR   uncaughtError: Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:16:15.730] Server  ERROR   ⨯ Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:16:21.366] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:16:21.953] Browser ERROR   uncaughtError: Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:16:39.054] Server  LOG     ○ Compiling /signup ...
-[00:16:40.003] Server  ERROR   ⨯ Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:16:42.578] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:16:43.586] Browser ERROR   uncaughtError: Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:18:39.111] Server  LOG     ✓ Compiled in 758ms
-[00:18:39.151] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:18:39.151] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__0f0ba101._.css
-[00:18:39.164] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:18:39.171] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:18:39.184] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:18:39.238] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__0f0ba101._.css
-[00:18:41.696] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:18:42.827] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:18:42.929] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:18:44.098] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:18:44.787] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:18:44.827] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:18:44.828] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:18:46.753] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:18:46.753] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:18:47.780] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__0f0ba101._.css
-[00:18:48.894] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:18:49.165] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:18:49.183] Browser ERROR   unhandledRejection: Error: No link element found for chunk /_next/static/chunks/%5Broot-of-the-server%5D__0f0ba101._.css
-[00:19:51.304] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:19:54.029] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:20:07.918] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:20:09.264] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:20:18.063] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:20:18.064] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:20:18.064] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/login" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="dark"
--                         data-jetski-tab-id="843567417"
-                        >
-                  ...
-
-[00:20:22.518] Server  LOG     ✓ Compiled in 2.5s
-[00:21:05.656] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:05.657] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:05.898] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:05.898] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:05.898] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:05.898] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:06.998] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:06.999] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:07.212] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:07.212] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:21.830] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:21:30.555] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:21:31.306] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:21:31.306] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:22:41.297] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:22:41.297] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:22:49.100] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:22:49.100] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:22:49.100] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:22:49.100] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/signup" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="dark"
--                         data-jetski-tab-id="843567418"
-                        >
-                  ...
-
-[00:26:54.715] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:26:56.794] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:26:57.418] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:26:57.418] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:26:57.418] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
-      <AppDevOverlayErrorBoundary globalError={[...]}>
-        <ReplaySsrOnlyErrors>
-        <DevRootHTTPAccessFallbackBoundary>
-          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/signup" notFound={<NotAllowedRootHTTPFallbackError>} ...>
-              <RedirectBoundary>
-                <RedirectErrorBoundary router={{...}}>
-                  <Head>
-                  <__next_root_layout_boundary__>
-                    <SegmentViewNode type="layout" pagePath="layout.tsx">
-                      <SegmentTrieNode>
-                      <link>
-                      <script>
-                      <RootLayout>
-                        <html
-                          lang="en"
-                          className="dark"
--                         data-jetski-tab-id="843567445"
+-                         data-jetski-tab-id="843567620"
                         >
                           <body
 +                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
@@ -359,12 +44,22 @@ It can also happen if the client has a browser extension installed which messes 
                           >
                   ...
 
-[00:27:06.339] Server  LOG     ○ Compiling /dashboard ...
-[00:27:08.956] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:27:18.956] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:27:28.233] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:27:28.233] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:27:28.233] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:39.354] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:00:39.356] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:00:39.408] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:00:39.409] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:00:42.471] Server  LOG     ○ Compiling /dashboard ...
+[00:00:44.769] Server  WARN    DATABASE_URL is not set. Database operations will fail.
+[00:00:45.158] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:00:45.167] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+[00:00:46.025] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:46.204] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -395,17 +90,15 @@ It can also happen if the client has a browser extension installed which messes 
                         <html
                           lang="en"
                           className="dark"
--                         data-jetski-tab-id="843567446"
+-                         data-jetski-tab-id="843567620"
                         >
                   ...
 
-[00:27:28.499] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:27:28.499] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:27:43.171] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:27:45.879] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:27:47.518] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:27:47.518] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:27:47.518] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:57.233] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:00:57.233] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:00:58.325] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:58.524] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -423,7 +116,7 @@ It can also happen if the client has a browser extension installed which messes 
         <ReplaySsrOnlyErrors>
         <DevRootHTTPAccessFallbackBoundary>
           <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/login" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
               <RedirectBoundary>
                 <RedirectErrorBoundary router={{...}}>
                   <Head>
@@ -436,19 +129,24 @@ It can also happen if the client has a browser extension installed which messes 
                         <html
                           lang="en"
                           className="dark"
--                         data-jetski-tab-id="843567447"
+-                         data-jetski-tab-id="843567620"
                         >
-                          <body
-+                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
--                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
-                          >
                   ...
 
-[00:28:15.837] Server  WARN    Supabase credentials missing. Auth features will not work.
-[00:28:17.946] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:28:18.758] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:28:18.758] Browser WARN    Supabase credentials missing. Auth features will not work.
-[00:28:18.758] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:01:06.549] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:06.553] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:06.596] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:06.620] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:06.956] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:06.965] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+[00:01:07.619] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:07.847] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -466,7 +164,7 @@ It can also happen if the client has a browser extension installed which messes 
         <ReplaySsrOnlyErrors>
         <DevRootHTTPAccessFallbackBoundary>
           <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/signup" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
               <RedirectBoundary>
                 <RedirectErrorBoundary router={{...}}>
                   <Head>
@@ -479,11 +177,2674 @@ It can also happen if the client has a browser extension installed which messes 
                         <html
                           lang="en"
                           className="dark"
--                         data-jetski-tab-id="843567448"
+-                         data-jetski-tab-id="843567620"
                         >
-                          <body
-+                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
--                           className="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__var..."
-                          >
                   ...
+
+[00:01:19.266] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:19.267] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:19.357] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:19.362] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at async signOut (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_18301d7d._.js:4191:17)
+    at async logout (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\[root-of-the-server]__338f091f._.js:527:5)
+    at async onLogout (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\[root-of-the-server]__338f091f._.js:565:5)
+    at async executeActionAndPrepareForRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:3803)
+    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:1109
+    at async handleAction (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:34:23598)
+    at async renderToHTMLOrFlightImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:41:42106)
+    at async doRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d1c13609._.js:2859:28)
+    at async AppPageRouteModule.handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:43:64241)
+    at async handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d1c13609._.js:3065:32)
+    at async Module.handler (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d1c13609._.js:3436:20)
+    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1422:9)
+    at async DevServer.renderPageComponent (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1474:24)
+    at async DevServer.renderToResponseImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1524:32)
+    at async DevServer.pipeImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1018:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:909:17)
+    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\start-server.js:226:13)
+[00:01:21.398] Server  ERROR   ⨯ TypeError: Invalid URL
+[00:01:22.704] Server  ERROR   ⨯ TypeError: Invalid URL
+[00:01:24.908] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:24.922] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:24.952] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:24.968] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:26.808] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:26.974] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/undefined" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="dark"
+-                         data-jetski-tab-id="843567620"
+                        >
+                  ...
+
+[00:01:32.642] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:32.644] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:32.946] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:32.959] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+[00:01:33.876] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:42.927] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:42.932] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:42.976] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:42.979] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:43.230] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:43.245] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+[00:01:44.176] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:44.620] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="dark"
+-                         data-jetski-tab-id="843567620"
+                        >
+                  ...
+
+[00:01:51.135] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:51.138] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:51.173] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:51.176] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:01:51.527] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:01:51.538] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+[00:01:52.946] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:13.372] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:02:13.375] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:02:13.401] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:02:13.403] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:02:13.524] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:02:13.525] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5330:234)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+[00:02:14.815] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:17.458] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="dark"
+-                         data-jetski-tab-id="843567620"
+                        >
+                  ...
+
+[00:02:24.154] Server  ERROR   [auth][error] MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+[00:02:24.156] Server  ERROR       at assertConfig (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:513:16)
+    at Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\edge\chunks\97170_@auth_core_ba94114e._.js:5331:242)
+[00:02:25.264] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:27.253] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+                          className="dark"
+-                         data-jetski-tab-id="843567620"
+                        >
+                  ...
+
+[00:15:42.863] Server  LOG     ○ Compiling middleware ...
+[00:15:50.217] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js:5:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.235] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js:5:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.238] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:1:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.247] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:1:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.252] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.253] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.303] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.363] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.401] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.434] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.559] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:16:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.605] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:16:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.735] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js:23:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.849] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js:23:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.920] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:7:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:50.969] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:7:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.083] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:2:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.248] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:2:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.254] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:2:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.259] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/implicit-tags.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/implicit-tags.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.262] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/implicit-tags.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/implicit-tags.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.265] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/utils.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.280] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/utils.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.291] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/utils.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.303] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:8:1
+Module not found: Can't resolve '../../request/connection'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.311] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:8:1
+Module not found: Can't resolve '../../request/connection'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.632] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/work-store.js:1:1
+Module not found: Can't resolve '../after/after-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/work-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:51.915] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/work-store.js:1:1
+Module not found: Can't resolve '../after/after-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/work-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.278] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/internal-utils.js:1:1
+Module not found: Can't resolve '../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/internal-utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.401] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/internal-utils.js:1:1
+Module not found: Can't resolve '../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/internal-utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.415] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:4:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.437] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:4:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.457] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:18:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.465] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:18:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.477] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:2:1
+Module not found: Can't resolve '../spec-extension/image-response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.854] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:2:1
+Module not found: Can't resolve '../spec-extension/image-response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:52.948] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:3:1
+Module not found: Can't resolve '../spec-extension/request'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.283] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:3:1
+Module not found: Can't resolve '../spec-extension/request'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.305] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:4:1
+Module not found: Can't resolve '../spec-extension/response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.341] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:4:1
+Module not found: Can't resolve '../spec-extension/response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.368] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:6:1
+Module not found: Can't resolve '../spec-extension/url-pattern'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.389] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:6:1
+Module not found: Can't resolve '../spec-extension/url-pattern'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.409] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:5:1
+Module not found: Can't resolve '../spec-extension/user-agent'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.422] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:5:1
+Module not found: Can't resolve '../spec-extension/user-agent'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:53.986] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:5:1
+Module not found: Can't resolve '../spec-extension/user-agent'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.137] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.404] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.553] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:2:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.651] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:2:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.776] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/headers.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.788] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/headers.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.793] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:9:1
+Module not found: Can't resolve '../web/spec-extension/adapters/reflect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:54.796] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:9:1
+Module not found: Can't resolve '../web/spec-extension/adapters/reflect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.058] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.290] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.299] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.330] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.336] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.345] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.367] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.377] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.394] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:4:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.401] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:4:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.424] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:4:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.449] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:2:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:55.849] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:2:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:56.013] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:1:1
+Module not found: Can't resolve './constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:56.194] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:1:1
+Module not found: Can't resolve './constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:56.376] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:1:1
+Module not found: Can't resolve './constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:56.454] Server  ERROR   ⨯ ./node_modules/next/dist/experimental/testmode/fetch.js:27:18
+Module not found: Can't resolve './context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/experimental/testmode/fetch.js
+    ./node_modules/next/dist/experimental/testmode/server-edge.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:56.561] Server  ERROR   ⨯ ./node_modules/next/dist/experimental/testmode/server-edge.js:23:18
+Module not found: Can't resolve './context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/experimental/testmode/server-edge.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:56.752] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:12:1
+Module not found: Can't resolve './forbidden'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.060] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:12:1
+Module not found: Can't resolve './forbidden'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.071] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:6:1
+Module not found: Can't resolve './hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.080] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:6:1
+Module not found: Can't resolve './hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.263] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:4:1
+Module not found: Can't resolve './is-next-router-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.417] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:4:1
+Module not found: Can't resolve './is-next-router-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.428] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:11:1
+Module not found: Can't resolve './not-found'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.441] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:11:1
+Module not found: Can't resolve './not-found'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.447] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:1:1
+Module not found: Can't resolve './readonly-url-search-params'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.450] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:1:1
+Module not found: Can't resolve './readonly-url-search-params'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.454] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:9:1
+Module not found: Can't resolve './redirect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.458] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:9:1
+Module not found: Can't resolve './redirect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.462] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:9:1
+Module not found: Can't resolve './redirect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.465] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:10:1
+Module not found: Can't resolve './redirect-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.468] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:10:1
+Module not found: Can't resolve './redirect-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.473] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:3:1
+Module not found: Can't resolve './spec-extension/fetch-event'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.475] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:3:1
+Module not found: Can't resolve './spec-extension/fetch-event'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.501] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:3:1
+Module not found: Can't resolve './spec-extension/fetch-event'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.617] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:4:1
+Module not found: Can't resolve './spec-extension/request'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.684] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:4:1
+Module not found: Can't resolve './spec-extension/request'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.733] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:5:1
+Module not found: Can't resolve './spec-extension/response'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:57.920] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:5:1
+Module not found: Can't resolve './spec-extension/response'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:58.229] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:13:1
+Module not found: Can't resolve './unauthorized'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:58.431] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:13:1
+Module not found: Can't resolve './unauthorized'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:58.453] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:13:11
+Module not found: Can't resolve '@opentelemetry/api'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:58.479] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:65:27
+Module not found: Can't resolve 'next/dist/compiled/cookie'
+Import map: aliased to module 'next' with subpath '/dist/compiled/cookie' inside of [project]/
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:58.487] Server  ERROR   ⨯ ./node_modules/next/dist/esm/build/templates/middleware.js:6:1
+Module not found: Can't resolve 'next/dist/esm/client/components/is-next-router-error'
+Import map: aliased to module 'next' with subpath '/dist/esm/client/components/is-next-router-error' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:58.530] Server  ERROR   ⨯ ./node_modules/next/dist/esm/build/templates/middleware.js:6:1
+Module not found: Can't resolve 'next/dist/esm/client/components/is-next-router-error'
+Import map: aliased to module 'next' with subpath '/dist/esm/client/components/is-next-router-error' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:59.638] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js:5:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:59.768] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js:5:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/work-unit-async-storage.external.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:59.887] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:1:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:15:59.962] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:1:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.027] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.098] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.229] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.268] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.320] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.416] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:10:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.448] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:16:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.517] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:16:1
+Module not found: Can't resolve '../../client/components/app-router-headers'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.655] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js:23:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.732] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js:23:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.779] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:7:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.870] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:7:1
+Module not found: Can't resolve '../../client/components/hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:00.917] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:2:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.019] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:2:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.035] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:2:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.081] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/implicit-tags.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/implicit-tags.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.133] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/implicit-tags.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/implicit-tags.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.171] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/utils.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.202] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/utils.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.248] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/utils.js:1:1
+Module not found: Can't resolve '../../lib/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.332] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:8:1
+Module not found: Can't resolve '../../request/connection'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.343] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:8:1
+Module not found: Can't resolve '../../request/connection'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.347] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/work-store.js:1:1
+Module not found: Can't resolve '../after/after-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/work-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.350] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/work-store.js:1:1
+Module not found: Can't resolve '../after/after-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/work-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.401] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/internal-utils.js:1:1
+Module not found: Can't resolve '../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/internal-utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.463] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/internal-utils.js:1:1
+Module not found: Can't resolve '../client/components/app-router-headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/internal-utils.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.521] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:4:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.581] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:4:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.615] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:18:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.669] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:18:1
+Module not found: Can't resolve '../lib/trace/constants'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.686] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:2:1
+Module not found: Can't resolve '../spec-extension/image-response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.744] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:2:1
+Module not found: Can't resolve '../spec-extension/image-response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.780] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:3:1
+Module not found: Can't resolve '../spec-extension/request'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.802] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:3:1
+Module not found: Can't resolve '../spec-extension/request'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.853] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:4:1
+Module not found: Can't resolve '../spec-extension/response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.876] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:4:1
+Module not found: Can't resolve '../spec-extension/response'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.921] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:6:1
+Module not found: Can't resolve '../spec-extension/url-pattern'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.962] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:6:1
+Module not found: Can't resolve '../spec-extension/url-pattern'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:01.980] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:5:1
+Module not found: Can't resolve '../spec-extension/user-agent'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.011] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:5:1
+Module not found: Can't resolve '../spec-extension/user-agent'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.049] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/exports/index.js:5:1
+Module not found: Can't resolve '../spec-extension/user-agent'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/web/exports/index.js
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.061] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.070] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.084] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:2:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.098] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:2:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.132] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/headers.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.150] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/headers.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/headers'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.176] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:9:1
+Module not found: Can't resolve '../web/spec-extension/adapters/reflect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.210] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/draft-mode.js:9:1
+Module not found: Can't resolve '../web/spec-extension/adapters/reflect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/draft-mode.js
+    ./node_modules/next/dist/esm/api/headers.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.241] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.244] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.251] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.262] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.297] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:3:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.366] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.463] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.502] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:1:1
+Module not found: Can't resolve '../web/spec-extension/adapters/request-cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.516] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:4:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.533] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:4:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.636] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/async-storage/request-store.js:4:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.670] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:2:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.720] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/request/cookies.js:2:1
+Module not found: Can't resolve '../web/spec-extension/cookies'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/request/cookies.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.749] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:1:1
+Module not found: Can't resolve './constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.847] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:1:1
+Module not found: Can't resolve './constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.934] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:1:1
+Module not found: Can't resolve './constants'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:02.978] Server  ERROR   ⨯ ./node_modules/next/dist/experimental/testmode/fetch.js:27:18
+Module not found: Can't resolve './context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/experimental/testmode/fetch.js
+    ./node_modules/next/dist/experimental/testmode/server-edge.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.182] Server  ERROR   ⨯ ./node_modules/next/dist/experimental/testmode/server-edge.js:23:18
+Module not found: Can't resolve './context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/experimental/testmode/server-edge.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.267] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:12:1
+Module not found: Can't resolve './forbidden'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.321] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:12:1
+Module not found: Can't resolve './forbidden'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.411] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:6:1
+Module not found: Can't resolve './hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.497] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:6:1
+Module not found: Can't resolve './hooks-server-context'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.576] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:4:1
+Module not found: Can't resolve './is-next-router-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.634] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js:4:1
+Module not found: Can't resolve './is-next-router-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.server.js
+    ./node_modules/next/dist/esm/client/components/unstable-rethrow.js
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.647] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:11:1
+Module not found: Can't resolve './not-found'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.683] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:11:1
+Module not found: Can't resolve './not-found'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.733] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:1:1
+Module not found: Can't resolve './readonly-url-search-params'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.752] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:1:1
+Module not found: Can't resolve './readonly-url-search-params'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.844] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:9:1
+Module not found: Can't resolve './redirect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.879] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:9:1
+Module not found: Can't resolve './redirect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.948] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:9:1
+Module not found: Can't resolve './redirect'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:03.985] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:10:1
+Module not found: Can't resolve './redirect-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.030] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:10:1
+Module not found: Can't resolve './redirect-error'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.095] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:3:1
+Module not found: Can't resolve './spec-extension/fetch-event'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.134] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:3:1
+Module not found: Can't resolve './spec-extension/fetch-event'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.212] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:3:1
+Module not found: Can't resolve './spec-extension/fetch-event'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.221] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:4:1
+Module not found: Can't resolve './spec-extension/request'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.261] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:4:1
+Module not found: Can't resolve './spec-extension/request'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.298] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:5:1
+Module not found: Can't resolve './spec-extension/response'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.362] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/web/adapter.js:5:1
+Module not found: Can't resolve './spec-extension/response'
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.401] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:13:1
+Module not found: Can't resolve './unauthorized'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.418] Server  ERROR   ⨯ ./node_modules/next/dist/esm/client/components/navigation.react-server.js:13:1
+Module not found: Can't resolve './unauthorized'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/client/components/navigation.react-server.js
+    ./node_modules/next-auth/lib/actions.js
+    ./node_modules/next-auth/index.js
+    ./src/auth.ts
+    ./src/middleware.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.469] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/lib/trace/tracer.js:13:11
+Module not found: Can't resolve '@opentelemetry/api'
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/lib/trace/tracer.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.632] Server  ERROR   ⨯ ./node_modules/next/dist/esm/server/api-utils/index.js:65:27
+Module not found: Can't resolve 'next/dist/compiled/cookie'
+Import map: aliased to module 'next' with subpath '/dist/compiled/cookie' inside of [project]/
+
+
+Import trace:
+  Edge Middleware:
+    ./node_modules/next/dist/esm/server/api-utils/index.js
+    ./node_modules/next/dist/esm/server/async-storage/draft-mode-provider.js
+    ./node_modules/next/dist/esm/server/async-storage/request-store.js
+    ./node_modules/next/dist/esm/server/web/adapter.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.754] Server  ERROR   ⨯ ./node_modules/next/dist/esm/build/templates/middleware.js:6:1
+Module not found: Can't resolve 'next/dist/esm/client/components/is-next-router-error'
+Import map: aliased to module 'next' with subpath '/dist/esm/client/components/is-next-router-error' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:16:04.833] Server  ERROR   ⨯ ./node_modules/next/dist/esm/build/templates/middleware.js:6:1
+Module not found: Can't resolve 'next/dist/esm/client/components/is-next-router-error'
+Import map: aliased to module 'next' with subpath '/dist/esm/client/components/is-next-router-error' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
 
