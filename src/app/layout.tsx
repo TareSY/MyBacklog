@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "./providers";
+import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mybacklog.app",
+    url: "https://thebacklog.vercel.app",
     title: "MyBacklog - Track Your Entertainment",
     description: "Track movies, TV shows, books, and music you want to enjoy.",
     siteName: "MyBacklog",
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#6366f1",
+  themeColor: "#8b5cf6",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -60,6 +61,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
         <Providers>{children}</Providers>
+        <InstallPrompt />
       </body>
     </html>
   );

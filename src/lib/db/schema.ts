@@ -116,6 +116,23 @@ export const itemGenres = pgTable('item_genres', {
 ]);
 
 // ============================================
+// Social Features - Friendships
+// ============================================
+
+export const friendships = pgTable('friendships', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  requesterId: uuid('requester_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  addresseeId: uuid('addressee_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  status: text('status').notNull().default('pending'), // 'pending', 'accepted', 'rejected'
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+// ============================================
 // Relations
 // ============================================
 
@@ -123,6 +140,21 @@ export const usersRelations = relations(users, ({ many }) => ({
   lists: many(lists),
   accounts: many(accounts),
   sessions: many(sessions),
+  sentFriendRequests: many(friendships, { relationName: 'requester' }),
+  receivedFriendRequests: many(friendships, { relationName: 'addressee' }),
+}));
+
+export const friendshipsRelations = relations(friendships, ({ one }) => ({
+  requester: one(users, {
+    fields: [friendships.requesterId],
+    references: [users.id],
+    relationName: 'requester',
+  }),
+  addressee: one(users, {
+    fields: [friendships.addresseeId],
+    references: [users.id],
+    relationName: 'addressee',
+  }),
 }));
 
 export const listsRelations = relations(lists, ({ one, many }) => ({
