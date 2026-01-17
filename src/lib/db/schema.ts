@@ -133,6 +133,23 @@ export const friendships = pgTable('friendships', {
 });
 
 // ============================================
+// Activity Feed
+// ============================================
+
+export const activities = pgTable('activities', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  action: text('action').notNull(), // 'added_item', 'completed_item', 'created_list', 'added_friend'
+  targetType: text('target_type'), // 'item', 'list', 'user'
+  targetId: uuid('target_id'),
+  targetTitle: text('target_title'),
+  metadata: text('metadata'), // JSON string for extra data
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+// ============================================
 // Relations
 // ============================================
 
