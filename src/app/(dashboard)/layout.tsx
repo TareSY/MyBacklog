@@ -10,12 +10,12 @@ export default async function DashboardLayout({
 }) {
     const session = await auth();
 
-    // For development, allow access without login
-    const user = session?.user || {
-        name: 'Guest Explorer',
-        email: 'guest@example.com',
-        image: null,
-    };
+    // Redirect unauthenticated users to login
+    if (!session?.user) {
+        redirect('/login');
+    }
+
+    const user = session.user;
 
     return (
         <div className="min-h-screen bg-bg-base">

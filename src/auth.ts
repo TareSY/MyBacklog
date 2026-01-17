@@ -11,6 +11,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     adapter: isDatabaseConfigured() ? DrizzleAdapter(db) : undefined,
     session: {
         strategy: 'jwt',
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        updateAge: 24 * 60 * 60, // 24 hours - refresh token daily
     },
     pages: {
         signIn: '/login',
@@ -33,7 +35,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 }
 
                 if (!isDatabaseConfigured()) {
-                    // Mock user for development
+                    // Only allow mock auth in development
+                    if (process.env.NODE_ENV === 'production') {
+                        console.error('Database not configured in production!');
+                        return null;
+                    }
                     console.warn('Database not configured. Using mock authentication.');
                     return {
                         id: 'mock-user-id',

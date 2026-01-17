@@ -1,0 +1,160 @@
+'use client';
+
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { Button, Input, Card, CardHeader, CardTitle, CardDescription, CardContent, useToast } from '@/components/ui';
+import { User, Mail, Key, Trash2, Save, Loader2 } from 'lucide-react';
+
+export default function SettingsPage() {
+    const { data: session, update } = useSession();
+    const { addToast } = useToast();
+
+    const [name, setName] = useState(session?.user?.name || '');
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+
+    async function handleSave(e: React.FormEvent) {
+        e.preventDefault();
+        setSaving(true);
+
+        try {
+            const res = await fetch('/api/user', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            });
+
+            if (!res.ok) throw new Error('Failed to update profile');
+
+            await update({ name });
+            addToast('Profile updated successfully!', 'success');
+        } catch (error) {
+            addToast('Failed to update profile', 'error');
+        } finally {
+            setSaving(false);
+        }
+    }
+
+    async function handleDelete() {
+        if (!confirm('Are you sure you want to delete your account? This cannot be undone.')) {
+            return;
+        }
+
+        setDeleting(true);
+        try {
+            const res = await fetch('/api/user', { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete account');
+
+            window.location.href = '/';
+        } catch (error) {
+            addToast('Failed to delete account', 'error');
+            setDeleting(false);
+        }
+    }
+
+    return (
+        <div className="max-w-2xl mx-auto space-y-8">
+            {/* Header */}
+            <div>
+                <h1 className="text-3xl font-bold text-text-primary flex items-center gap-3">
+                    <span>Settings</span>
+                    <span className="text-2xl">⚙️</span>
+                </h1>
+                <p className="text-text-muted mt-2">
+                    Manage your account and preferences
+                </p>
+            </div>
+
+            {/* Profile Settings */}
+            <Card variant="default">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <User className="w-5 h-5 text-primary" />
+                        Profile
+                    </CardTitle>
+                    <CardDescription>
+                        Update your personal information
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSave} className="space-y-4">
+                        <Input
+                            label="Email"
+                            type="email"
+                            value={session?.user?.email || ''}
+                            disabled
+                            leftIcon={<Mail className="w-4 h-4" />}
+                        />
+                        <p className="text-xs text-text-muted -mt-3 mb-2">Email cannot be changed</p>
+                        <Input
+                            label="Display Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            leftIcon={<User className="w-4 h-4" />}
+                            placeholder="Your name"
+                        />
+                        <Button
+                            type="submit"
+                            isLoading={saving}
+                            leftIcon={<Save className="w-4 h-4" />}
+                        >
+                            Save Changes
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
+
+            {/* Account Security */}
+            <Card variant="default">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Key className="w-5 h-5 text-warning" />
+                        Security
+                    </CardTitle>
+                    <CardDescription>
+                        Manage your password and security settings
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-sm text-text-muted mb-4">
+                        Password management is handled through your authentication provider.
+                        {session?.user?.email?.includes('@') && !session?.user?.image && (
+                            <span> You signed up with email/password.</span>
+                        )}
+                    </p>
+                    <Button variant="secondary" disabled>
+                        Change Password (Coming Soon)
+                    </Button>
+                </CardContent>
+            </Card>
+
+            {/* Danger Zone */}
+            <Card variant="default" className="border-error/30">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-error">
+                        <Trash2 className="w-5 h-5" />
+                        Danger Zone
+                    </CardTitle>
+                    <CardDescription>
+                        Irreversible and destructive actions
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-sm text-text-muted mb-4">
+                        Once you delete your account, there is no going back.
+                        All your lists and items will be permanently removed.
+                    </p>
+                    <Button
+                        variant="ghost"
+                        className="text-error hover:bg-error/10"
+                        onClick={handleDelete}
+                        isLoading={deleting}
+                        leftIcon={<Trash2 className="w-4 h-4" />}
+                    >
+                        Delete Account
+                    </Button>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}

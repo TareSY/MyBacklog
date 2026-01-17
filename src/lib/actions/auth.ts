@@ -32,22 +32,56 @@ export async function register(formData: FormData) {
     const username = formData.get('username') as string;
     const name = formData.get('name') as string || username;
 
+    // Input validation
+    if (!email || !password || !username) {
+        throw new Error('Email, password, and username are required');
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        throw new Error('Invalid email format');
+    }
+
+    // Password strength validation
+    if (password.length < 8) {
+        throw new Error('Password must be at least 8 characters');
+    }
+    if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
+        throw new Error('Password must contain uppercase, lowercase, and a number');
+    }
+
+    // Username validation
+    const sanitizedUsername = username.trim().toLowerCase().slice(0, 30);
+    if (!/^[a-z0-9_]+$/.test(sanitizedUsername)) {
+        throw new Error('Username can only contain letters, numbers, and underscores');
+    }
+    if (sanitizedUsername.length < 3) {
+        throw new Error('Username must be at least 3 characters');
+    }
+
+    // Sanitize name
+    const sanitizedName = String(name).trim().slice(0, 100) || sanitizedUsername;
+
     if (!isDatabaseConfigured()) {
-        // Mock registration for development
+        // Only allow mock registration in development
+        if (process.env.NODE_ENV === 'production') {
+            throw new Error('Database not configured');
+        }
         console.warn('Database not configured. Simulating registration.');
         redirect('/dashboard');
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash password with strong cost factor
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     try {
         // Create user
         await db.insert(users).values({
-            email,
+            email: email.toLowerCase().trim(),
             password: hashedPassword,
-            username,
-            name,
+            username: sanitizedUsername,
+            name: sanitizedName,
         });
 
         // Auto sign in after registration
