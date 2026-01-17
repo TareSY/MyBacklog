@@ -1,13 +1,14 @@
-[00:00:02.474] Server  LOG     ✓ Ready in 1725ms
-[00:00:15.547] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:15.917] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:17.046] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:17.464] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:36.201] Server  ERROR   ⨯ Error: Password must be at least 6 characters
-[00:00:41.879] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:42.075] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:49.481] Server  ERROR   [auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:00:49.486] Server  ERROR       at Module.callback (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:4314:30)
+[00:00:03.563] Server  LOG     ✓ Ready in 2.2s
+[00:00:15.556] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:15.574] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:15.736] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:16.689] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:36.337] Server  ERROR   ⨯ Error: Password must be at least 6 characters
+[00:00:41.350] Server  ERROR   ⨯ Error: Username must be at least 3 characters
+[00:00:47.113] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:47.705] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:55.027] Server  ERROR   [auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
+[00:00:55.075] Server  ERROR       at Module.callback (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:4314:30)
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
     at async AuthInternal (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5148:24)
     at async Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5370:34)
@@ -34,159 +35,14 @@
     at async handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:447:24)
     at async requestHandlerImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:496:13)
     at async Server.requestListener (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\start-server.js:226:13)
-[00:00:51.802] Server  ERROR   ⨯ CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:01:02.813] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:10.088] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:15.690] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:18.201] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:18.823] Server  ERROR   [auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:01:18.827] Server  ERROR       at Module.callback (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:4314:30)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async AuthInternal (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5148:24)
-    at async Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5370:34)
-    at async signIn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_18301d7d._.js:4163:17)
-    at async login (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\_d9431328._.js:33:9)
-    at async executeActionAndPrepareForRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:3803)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:1109
-    at async handleAction (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:34:23598)
-    at async renderToHTMLOrFlightImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:41:42106)
-    at async doRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:2962:28)
-    at async AppPageRouteModule.handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:43:64241)
-    at async handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3168:32)
-    at async Module.handler (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3539:20)
-    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1422:9)
-    at async DevServer.renderPageComponent (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1474:24)
-    at async DevServer.renderToResponseImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1524:32)
-    at async DevServer.pipeImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1018:25)
-    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\next-server.js:395:17)
-    at async DevServer.handleRequestImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:909:17)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:387:20
-    at async Span.traceAsyncFn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\trace\trace.js:157:20)
-    at async DevServer.handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
-    at async invokeRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:248:21)
-    at async handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:447:24)
-    at async requestHandlerImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:496:13)
-    at async Server.requestListener (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\start-server.js:226:13)
-[00:01:20.613] Server  ERROR   ⨯ CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:01:31.011] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:31.538] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:31.892] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:32.159] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:57.889] Server  ERROR   ⨯ Error: Password must be at least 6 characters
-[00:01:59.877] Server  ERROR   ⨯ Error: Username must be at least 3 characters
-[00:02:16.547] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:22.741] Server  ERROR   ⨯ Error: Password must be at least 6 characters
-[00:02:24.920] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:30.616] Server  ERROR   ⨯ Error: Username must be at least 3 characters
-[00:02:39.316] Server  ERROR   ⨯ Error: Password must be at least 6 characters
-[00:02:52.209] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:01.833] Server  ERROR   [auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:03:01.835] Server  ERROR       at Module.callback (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:4314:30)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async AuthInternal (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5148:24)
-    at async Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5370:34)
-    at async signIn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_18301d7d._.js:4163:17)
-    at async login (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\_d9431328._.js:33:9)
-    at async executeActionAndPrepareForRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:3803)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:1109
-    at async handleAction (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:34:23598)
-    at async renderToHTMLOrFlightImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:41:42106)
-    at async doRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:2962:28)
-    at async AppPageRouteModule.handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:43:64241)
-    at async handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3168:32)
-    at async Module.handler (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3539:20)
-    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1422:9)
-    at async DevServer.renderPageComponent (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1474:24)
-    at async DevServer.renderToResponseImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1524:32)
-    at async DevServer.pipeImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1018:25)
-    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\next-server.js:395:17)
-    at async DevServer.handleRequestImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:909:17)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:387:20
-    at async Span.traceAsyncFn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\trace\trace.js:157:20)
-    at async DevServer.handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
-    at async invokeRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:248:21)
-    at async handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:447:24)
-    at async requestHandlerImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:496:13)
-    at async Server.requestListener (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\start-server.js:226:13)
-[00:03:02.942] Server  ERROR   ⨯ CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:03:06.441] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:25.743] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:26.065] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:27.080] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:47.055] Server  ERROR   ⨯ Error: Password must be at least 6 characters
-[00:03:52.638] Server  ERROR   ⨯ Error: Username must be at least 3 characters
-[00:03:53.834] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:57.481] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:18.996] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:23.060] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:28.734] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:31.056] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:38.330] Server  ERROR   [auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:04:38.332] Server  ERROR       at Module.callback (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:4314:30)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async AuthInternal (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5148:24)
-    at async Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5370:34)
-    at async signIn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_18301d7d._.js:4163:17)
-    at async login (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\_d9431328._.js:33:9)
-    at async executeActionAndPrepareForRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:3803)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:1109
-    at async handleAction (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:34:23598)
-    at async renderToHTMLOrFlightImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:41:42106)
-    at async doRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:2962:28)
-    at async AppPageRouteModule.handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:43:64241)
-    at async handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3168:32)
-    at async Module.handler (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3539:20)
-    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1422:9)
-    at async DevServer.renderPageComponent (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1474:24)
-    at async DevServer.renderToResponseImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1524:32)
-    at async DevServer.pipeImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1018:25)
-    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\next-server.js:395:17)
-    at async DevServer.handleRequestImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:909:17)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:387:20
-    at async Span.traceAsyncFn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\trace\trace.js:157:20)
-    at async DevServer.handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
-    at async invokeRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:248:21)
-    at async handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:447:24)
-    at async requestHandlerImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:496:13)
-    at async Server.requestListener (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\start-server.js:226:13)
-[00:04:40.194] Server  ERROR   ⨯ CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:04:43.930] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:16.309] Server  ERROR   [auth][error] CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:05:16.312] Server  ERROR       at Module.callback (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:4314:30)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async AuthInternal (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5148:24)
-    at async Auth (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\97170_@auth_core_fed2bd69._.js:5370:34)
-    at async signIn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_18301d7d._.js:4163:17)
-    at async login (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\_d9431328._.js:33:9)
-    at async executeActionAndPrepareForRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:3803)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:36:1109
-    at async handleAction (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:34:23598)
-    at async renderToHTMLOrFlightImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:41:42106)
-    at async doRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:2962:28)
-    at async AppPageRouteModule.handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:43:64241)
-    at async handleResponse (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3168:32)
-    at async Module.handler (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\.next\dev\server\chunks\ssr\node_modules_next_dist_d2d8e4c2._.js:3539:20)
-    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1422:9)
-    at async DevServer.renderPageComponent (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1474:24)
-    at async DevServer.renderToResponseImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1524:32)
-    at async DevServer.pipeImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:1018:25)
-    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\next-server.js:395:17)
-    at async DevServer.handleRequestImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\base-server.js:909:17)
-    at async C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:387:20
-    at async Span.traceAsyncFn (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\trace\trace.js:157:20)
-    at async DevServer.handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
-    at async invokeRender (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:248:21)
-    at async handleRequest (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:447:24)
-    at async requestHandlerImpl (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\router-server.js:496:13)
-    at async Server.requestListener (C:\Users\slyat\.gemini\antigravity\scratch\MyBacklog\node_modules\next\dist\server\lib\start-server.js:226:13)
-[00:05:17.506] Server  ERROR   ⨯ CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
-[00:05:36.862] Server  ERROR   ⨯ Error: Password must be at least 6 characters
-[00:05:41.480] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:49.529] Browser ERROR   uncaughtError: ChunkLoadError: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
-[00:06:08.026] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:13.822] Browser ERROR   uncaughtError: ChunkLoadError: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
-[00:06:15.067] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:28.219] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:28.760] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:49.669] Server  ERROR   ⨯ Error: Username must be at least 3 characters
-[00:07:03.107] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:56.683] Server  ERROR   ⨯ CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
+[00:01:06.315] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:12.116] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:15.833] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:25.981] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:26.717] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:31.414] Browser ERROR   uncaughtError: ChunkLoadError: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:01:32.387] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:37.692] Browser ERROR   uncaughtError: ChunkLoadError: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:01:53.882] Browser ERROR   uncaughtError: ChunkLoadError: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:02:07.804] Browser ERROR   uncaughtError: ChunkLoadError: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)

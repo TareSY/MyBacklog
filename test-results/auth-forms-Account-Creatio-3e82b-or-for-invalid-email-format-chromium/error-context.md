@@ -46,11 +46,6 @@
       - link "Log in" [ref=e59] [cursor=pointer]:
         - /url: /login
   - button "Open Next.js Dev Tools" [ref=e65] [cursor=pointer]:
-    - generic [ref=e68]:
-      - text: Compiling
-      - generic [ref=e69]:
-        - generic [ref=e70]: .
-        - generic [ref=e71]: .
-        - generic [ref=e72]: .
-  - alert [ref=e73]
+    - img [ref=e66]
+  - alert [ref=e69]
 ```

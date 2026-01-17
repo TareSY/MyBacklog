@@ -5,19 +5,23 @@
   - generic [active]:
     - generic [ref=e4]:
       - generic [ref=e5]:
-        - navigation [ref=e7]:
-          - button "previous" [disabled] [ref=e8]:
-            - img "previous" [ref=e9]
-          - generic [ref=e11]:
-            - generic [ref=e12]: 1/
-            - text: "1"
-          - button "next" [disabled] [ref=e13]:
-            - img "next" [ref=e14]
-        - link "Next.js 16.1.2 (stale) Turbopack" [ref=e17] [cursor=pointer]:
-          - /url: https://nextjs.org/docs/messages/version-staleness
-          - img [ref=e18]
-          - generic "There is a newer version (16.1.3) available, upgrade recommended!" [ref=e20]: Next.js 16.1.2 (stale)
-          - generic [ref=e21]: Turbopack
+        - generic [ref=e6]:
+          - navigation [ref=e7]:
+            - button "previous" [disabled] [ref=e8]:
+              - img "previous" [ref=e9]
+            - generic [ref=e11]:
+              - generic [ref=e12]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e13]:
+              - img "next" [ref=e14]
+          - img
+        - generic [ref=e16]:
+          - link "Next.js 16.1.2 (stale) Turbopack" [ref=e17] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e18]
+            - generic "There is a newer version (16.1.3) available, upgrade recommended!" [ref=e20]: Next.js 16.1.2 (stale)
+            - generic [ref=e21]: Turbopack
+          - img
       - dialog "Runtime ChunkLoadError" [ref=e23]:
         - generic [ref=e26]:
           - generic [ref=e27]:
@@ -50,9 +54,9 @@
               - generic [ref=e72]:
                 - paragraph [ref=e73]:
                   - text: Call Stack
-                  - generic [ref=e74]: "2"
-                - button "Show 1 ignore-listed frame(s)" [ref=e75] [cursor=pointer]:
-                  - text: Show 1 ignore-listed frame(s)
+                  - generic [ref=e74]: "31"
+                - button "Show 30 ignore-listed frame(s)" [ref=e75] [cursor=pointer]:
+                  - text: Show 30 ignore-listed frame(s)
                   - img [ref=e76]
               - generic [ref=e78]:
                 - generic [ref=e79]:
@@ -65,13 +69,13 @@
     - generic [ref=e89] [cursor=pointer]:
       - button "Open Next.js Dev Tools" [ref=e90]:
         - img [ref=e91]
-      - generic [ref=e94]:
-        - button "Open issues overlay" [ref=e95]:
-          - generic [ref=e96]:
-            - generic [ref=e97]: "0"
-            - generic [ref=e98]: "1"
-          - generic [ref=e99]: Issue
-        - button "Collapse issues badge" [ref=e100]:
-          - img [ref=e101]
-  - 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2] [ref=e105]'
+      - generic [ref=e95]:
+        - button "Open issues overlay" [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: "0"
+            - generic [ref=e99]: "1"
+          - generic [ref=e100]: Issue
+        - button "Collapse issues badge" [ref=e101]:
+          - img [ref=e102]
+  - 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2] [ref=e106]'
 ```

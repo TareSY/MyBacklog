@@ -21,21 +21,18 @@
             - img [ref=e23]
             - textbox "Username" [ref=e26]:
               - /placeholder: MovieBuff2024
-              - text: ab
         - generic [ref=e27]:
           - generic [ref=e28]: Email
           - generic [ref=e29]:
             - img [ref=e31]
             - textbox "Email" [ref=e34]:
               - /placeholder: name@example.com
-              - text: valid@email.com
         - generic [ref=e36]:
           - generic [ref=e37]: Password
           - generic [ref=e38]:
             - img [ref=e40]
             - textbox "Password" [ref=e43]:
               - /placeholder: ••••••••
-              - text: validpassword
           - paragraph [ref=e44]: Must be at least 6 characters
         - button "Create Account" [active] [ref=e45] [cursor=pointer]:
           - text: Create Account
@@ -49,11 +46,6 @@
       - link "Log in" [ref=e62] [cursor=pointer]:
         - /url: /login
   - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]:
-    - generic [ref=e71]:
-      - text: Compiling
-      - generic [ref=e72]:
-        - generic [ref=e73]: .
-        - generic [ref=e74]: .
-        - generic [ref=e75]: .
-  - alert [ref=e76]
+    - img [ref=e69]
+  - alert [ref=e72]
 ```

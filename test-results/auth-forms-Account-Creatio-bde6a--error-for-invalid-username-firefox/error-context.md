@@ -2,54 +2,80 @@
 
 ```yaml
 - generic [ref=e1]:
-  - generic [ref=e5]:
-    - generic [ref=e6]:
-      - link "MyBacklog" [ref=e7] [cursor=pointer]:
-        - /url: /
-        - img [ref=e9]
-        - generic [ref=e14]: MyBacklog
-      - heading "Start Your Journey" [level=3] [ref=e15]
-      - paragraph [ref=e16]: Create an account to track your entertainment world
-    - generic [ref=e17]:
-      - generic [ref=e18]:
-        - generic [ref=e19]:
-          - generic [ref=e20]: Username
-          - generic [ref=e21]:
-            - img [ref=e23]
-            - textbox "Username" [ref=e26]:
-              - /placeholder: MovieBuff2024
-              - text: ab
-        - generic [ref=e27]:
-          - generic [ref=e28]: Email
-          - generic [ref=e29]:
-            - img [ref=e31]
-            - textbox "Email" [ref=e34]:
-              - /placeholder: name@example.com
-              - text: valid@email.com
-        - generic [ref=e36]:
-          - generic [ref=e37]: Password
-          - generic [ref=e38]:
-            - img [ref=e40]
-            - textbox "Password" [ref=e43]:
-              - /placeholder: ••••••••
-              - text: validpassword
-          - paragraph [ref=e44]: Must be at least 6 characters
-        - button "Create Account" [active] [ref=e45] [cursor=pointer]:
-          - text: Create Account
-          - img [ref=e46]
-      - generic [ref=e55]: Or sign up with
-      - button "Google" [ref=e57] [cursor=pointer]:
-        - img [ref=e58]
-        - text: Google
-    - generic [ref=e63]:
-      - text: Already have an account?
-      - link "Log in" [ref=e64] [cursor=pointer]:
-        - /url: /login
-  - button "Open Next.js Dev Tools" [ref=e70] [cursor=pointer]:
-    - generic [ref=e73]:
-      - text: Compiling
-      - generic [ref=e74]:
-        - generic [ref=e75]: .
-        - generic [ref=e76]: .
-        - generic [ref=e77]: .
+  - generic [active]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - navigation [ref=e7]:
+            - button "previous" [disabled] [ref=e8]:
+              - img "previous" [ref=e9]
+            - generic [ref=e11]:
+              - generic [ref=e12]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e13]:
+              - img "next" [ref=e14]
+          - img
+        - generic [ref=e16]:
+          - link "Next.js 16.1.2 (stale) Turbopack" [ref=e17] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e18]
+            - generic "There is a newer version (16.1.3) available, upgrade recommended!" [ref=e20]: Next.js 16.1.2 (stale)
+            - generic [ref=e21]: Turbopack
+          - img
+      - dialog "Runtime ChunkLoadError" [ref=e23]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]:
+              - generic [ref=e30]: Runtime ChunkLoadError
+              - generic [ref=e31]:
+                - button "Copy Error Info" [ref=e32] [cursor=pointer]:
+                  - img [ref=e33]
+                - button "No related documentation found" [disabled] [ref=e35]:
+                  - img [ref=e36]
+                - button "Attach Node.js inspector" [ref=e38] [cursor=pointer]:
+                  - img [ref=e39]
+            - generic [ref=e48]: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+          - generic [ref=e49]:
+            - generic [ref=e50]:
+              - paragraph [ref=e52]:
+                - img [ref=e54]
+                - generic [ref=e57]: src\app\layout.tsx (63:9) @ RootLayout
+                - button "Open in editor" [ref=e58] [cursor=pointer]:
+                  - img [ref=e60]
+              - generic [ref=e63]:
+                - generic [ref=e64]: "61 | className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}"
+                - generic [ref=e65]: 62 | >
+                - generic [ref=e66]: "> 63 | <Providers>{children}</Providers>"
+                - generic [ref=e67]: "| ^"
+                - generic [ref=e68]: 64 | <InstallPrompt />
+                - generic [ref=e69]: 65 | </body>
+                - generic [ref=e70]: 66 | </html>
+            - generic [ref=e71]:
+              - generic [ref=e72]:
+                - paragraph [ref=e73]:
+                  - text: Call Stack
+                  - generic [ref=e74]: "31"
+                - button "Show 30 ignore-listed frame(s)" [ref=e75] [cursor=pointer]:
+                  - text: Show 30 ignore-listed frame(s)
+                  - img [ref=e76]
+              - generic [ref=e78]:
+                - generic [ref=e79]:
+                  - text: RootLayout
+                  - button "Open RootLayout in editor" [ref=e80] [cursor=pointer]:
+                    - img [ref=e81]
+                - text: src\app\layout.tsx (63:9)
+        - generic [ref=e83]: "1"
+        - generic [ref=e84]: "2"
+    - generic [ref=e89] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e90]:
+        - img [ref=e91]
+      - generic [ref=e95]:
+        - button "Open issues overlay" [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: "0"
+            - generic [ref=e99]: "1"
+          - generic [ref=e100]: Issue
+        - button "Collapse issues badge" [ref=e101]:
+          - img [ref=e102]
+  - 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2] [ref=e106]'
 ```

@@ -1,23 +1,10 @@
 {
-  "status": "failed",
+  "status": "interrupted",
   "failedTests": [
     "686c062fcedc8c66e036-54ce51784249a1986c35",
-    "686c062fcedc8c66e036-ab3a023af3ea5b4c208d",
     "686c062fcedc8c66e036-97f0e4ced03d3ff77ca1",
-    "686c062fcedc8c66e036-3b5f6e91bfb67e11f18d",
     "686c062fcedc8c66e036-454748f3c3969d55eda6",
     "686c062fcedc8c66e036-5cd8c59d4862397254c9",
-    "686c062fcedc8c66e036-a09b3bc20a7a115065db",
-    "686c062fcedc8c66e036-df256825b4ad03c600e8",
-    "686c062fcedc8c66e036-94fcfae89834d6764ac4",
-    "686c062fcedc8c66e036-3e93cfc73c7052e3e473",
-    "686c062fcedc8c66e036-de637308231e80db77ac",
-    "686c062fcedc8c66e036-3b6d20e686cc3d18392a",
-    "686c062fcedc8c66e036-a3a2dab309bab516714a",
-    "686c062fcedc8c66e036-ffa765286f4c5cf7acb7",
-    "686c062fcedc8c66e036-0bf0f9a0be7a98e95b7f",
-    "686c062fcedc8c66e036-3bf6c61d4281c9701384",
-    "686c062fcedc8c66e036-add74a4b3f7449283d03",
-    "686c062fcedc8c66e036-c447d0fdf9008f0c6a6d"
+    "686c062fcedc8c66e036-000a7222bd71d04ee81f"
   ]
 }
