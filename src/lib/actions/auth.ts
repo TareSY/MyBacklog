@@ -43,12 +43,9 @@ export async function register(formData: FormData) {
         throw new Error('Invalid email format');
     }
 
-    // Password strength validation
-    if (password.length < 8) {
-        throw new Error('Password must be at least 8 characters');
-    }
-    if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
-        throw new Error('Password must contain uppercase, lowercase, and a number');
+    // Password strength validation (relaxed for user experience)
+    if (password.length < 6) {
+        throw new Error('Password must be at least 6 characters');
     }
 
     // Username validation
