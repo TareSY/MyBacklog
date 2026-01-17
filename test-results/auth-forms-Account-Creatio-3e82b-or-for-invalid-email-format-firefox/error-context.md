@@ -1,0 +1,56 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - link "MyBacklog" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e9]
+        - generic [ref=e14]: MyBacklog
+      - heading "Start Your Journey" [level=3] [ref=e15]
+      - paragraph [ref=e16]: Create an account to track your entertainment world
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]: Username
+          - generic [ref=e21]:
+            - img [ref=e23]
+            - textbox "Username" [ref=e26]:
+              - /placeholder: MovieBuff2024
+              - text: validuser
+        - generic [ref=e27]:
+          - generic [ref=e28]: Email
+          - generic [ref=e29]:
+            - img [ref=e31]
+            - textbox "Email" [active] [ref=e34]:
+              - /placeholder: name@example.com
+              - text: invalid-email
+        - generic [ref=e36]:
+          - generic [ref=e37]: Password
+          - generic [ref=e38]:
+            - img [ref=e40]
+            - textbox "Password" [ref=e43]:
+              - /placeholder: ••••••••
+              - text: ValidPass123
+          - paragraph [ref=e44]: Must be at least 6 characters
+        - button "Create Account" [ref=e45] [cursor=pointer]:
+          - text: Create Account
+          - img [ref=e46]
+      - generic [ref=e55]: Or sign up with
+      - button "Google" [ref=e57] [cursor=pointer]:
+        - img [ref=e58]
+        - text: Google
+    - generic [ref=e63]:
+      - text: Already have an account?
+      - link "Log in" [ref=e64] [cursor=pointer]:
+        - /url: /login
+  - button "Open Next.js Dev Tools" [ref=e70] [cursor=pointer]:
+    - generic [ref=e73]:
+      - text: Compiling
+      - generic [ref=e74]:
+        - generic [ref=e75]: .
+        - generic [ref=e76]: .
+        - generic [ref=e77]: .
+  - alert [ref=e78]
+```

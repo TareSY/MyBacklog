@@ -1,0 +1,59 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [active]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - navigation [ref=e7]:
+            - button "previous" [disabled] [ref=e8]:
+              - img "previous" [ref=e9]
+            - generic [ref=e11]:
+              - generic [ref=e12]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e13]:
+              - img "next" [ref=e14]
+          - img
+        - generic [ref=e16]:
+          - link "Next.js 16.1.2 (stale) Turbopack" [ref=e17]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e18]
+            - generic "There is a newer version (16.1.3) available, upgrade recommended!" [ref=e20]: Next.js 16.1.2 (stale)
+            - generic [ref=e21]: Turbopack
+          - img
+      - dialog "Runtime ChunkLoadError" [ref=e23]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]:
+              - generic [ref=e30]: Runtime ChunkLoadError
+              - generic [ref=e31]:
+                - button "Copy Error Info" [ref=e32] [cursor=pointer]:
+                  - img [ref=e33]
+                - button "No related documentation found" [disabled] [ref=e35]:
+                  - img [ref=e36]
+                - button "Attach Node.js inspector" [ref=e38] [cursor=pointer]:
+                  - img [ref=e39]
+            - generic [ref=e51]: Failed to load chunk /_next/static/chunks/src_app_layout_tsx_1cddbe20._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+          - generic [ref=e54]:
+            - paragraph [ref=e55]:
+              - text: Call Stack
+              - generic [ref=e56]: "1"
+            - button "Show 1 ignore-listed frame(s)" [ref=e57] [cursor=pointer]:
+              - text: Show 1 ignore-listed frame(s)
+              - img [ref=e58]
+        - generic [ref=e60]: "1"
+        - generic [ref=e61]: "2"
+    - generic [ref=e66] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e67]:
+        - img [ref=e68]
+      - generic [ref=e73]:
+        - button "Open issues overlay" [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e76]: "0"
+            - generic [ref=e77]: "1"
+          - generic [ref=e78]: Issue
+        - button "Collapse issues badge" [ref=e79]:
+          - img [ref=e80]
+  - 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2] [ref=e84]'
+```
