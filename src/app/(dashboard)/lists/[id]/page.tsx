@@ -149,13 +149,38 @@ export default function ListPage() {
                         <p className="text-text-muted mt-1">{list.description}</p>
                     )}
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                    <span className="px-3 py-1 rounded-full bg-primary/20 text-primary-light">
-                        {pendingCount} pending
-                    </span>
-                    <span className="px-3 py-1 rounded-full bg-success/20 text-success">
-                        {completedCount} completed
-                    </span>
+                <div className="flex items-center gap-3">
+                    {/* Public/Private Toggle */}
+                    <button
+                        onClick={async () => {
+                            try {
+                                const res = await fetch(`/api/lists/${id}`, {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ isPublic: !list.isPublic }),
+                                });
+                                if (res.ok) {
+                                    setList(prev => prev ? { ...prev, isPublic: !prev.isPublic } : null);
+                                }
+                            } catch (error) {
+                                console.error('Failed to update list visibility:', error);
+                            }
+                        }}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${list.isPublic
+                                ? 'bg-success/20 text-success hover:bg-success/30'
+                                : 'bg-bg-elevated text-text-muted hover:bg-bg-surface'
+                            }`}
+                    >
+                        {list.isPublic ? '🌐 Public' : '🔒 Private'}
+                    </button>
+                    <div className="flex items-center gap-2 text-sm">
+                        <span className="px-3 py-1 rounded-full bg-primary/20 text-primary-light">
+                            {pendingCount} pending
+                        </span>
+                        <span className="px-3 py-1 rounded-full bg-success/20 text-success">
+                            {completedCount} completed
+                        </span>
+                    </div>
                 </div>
             </div>
 
