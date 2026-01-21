@@ -14,9 +14,15 @@ export default function LoginPage() {
         setLoading(true);
         setError(null);
         try {
-            await login(formData);
+            const result = await login(formData);
+            if (result?.error) {
+                setError(result.error);
+                setLoading(false);
+            }
+            // If no error, signIn will redirect automatically
         } catch (err: any) {
-            setError('Invalid email or password');
+            // Fallback for unexpected errors
+            setError('Login failed. Please try again.');
             setLoading(false);
         }
     }
@@ -59,6 +65,7 @@ export default function LoginPage() {
                             placeholder="name@example.com"
                             label="Email"
                             required
+                            autoComplete="email"
                             leftIcon={<Mail className="w-4 h-4" />}
                         />
                         <div className="space-y-1">
@@ -68,6 +75,7 @@ export default function LoginPage() {
                                 placeholder="••••••••"
                                 label="Password"
                                 required
+                                autoComplete="current-password"
                                 leftIcon={<Lock className="w-4 h-4" />}
                             />
                             <div className="flex justify-end">

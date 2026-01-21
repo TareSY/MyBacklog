@@ -6,9 +6,6 @@ const nextConfig = {
         // your project has type errors.
         ignoreBuildErrors: true,
     },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
 
     // Image optimization
     images: {

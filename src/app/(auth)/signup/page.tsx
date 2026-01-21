@@ -14,9 +14,15 @@ export default function SignupPage() {
         setLoading(true);
         setError(null);
         try {
-            await register(formData);
+            const result = await register(formData);
+            if (result?.error) {
+                setError(result.error);
+                setLoading(false);
+            }
+            // If no error, signIn will redirect automatically
         } catch (err: any) {
-            setError(err.message || 'Registration failed');
+            // Fallback for unexpected errors
+            setError(err.message || 'Registration failed. Please try again.');
             setLoading(false);
         }
     }
@@ -56,10 +62,12 @@ export default function SignupPage() {
                         <Input
                             name="username"
                             type="text"
-                            placeholder="MovieBuff2024"
+                            placeholder="moviebuff2024"
                             label="Username"
                             required
+                            autoComplete="username"
                             leftIcon={<User className="w-4 h-4" />}
+                            hint="Letters, numbers, and underscores only"
                         />
                         <Input
                             name="email"
@@ -67,6 +75,7 @@ export default function SignupPage() {
                             placeholder="name@example.com"
                             label="Email"
                             required
+                            autoComplete="email"
                             leftIcon={<Mail className="w-4 h-4" />}
                         />
                         <div className="space-y-1">
@@ -76,6 +85,7 @@ export default function SignupPage() {
                                 placeholder="••••••••"
                                 label="Password"
                                 required
+                                autoComplete="new-password"
                                 leftIcon={<Lock className="w-4 h-4" />}
                                 hint="Must be at least 6 characters"
                             />
