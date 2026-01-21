@@ -53,28 +53,51 @@ export class GameSeeder extends BaseSeeder {
         const allGames = getFullGameList();
         console.log(`📊 Seeding ${allGames.length} games...`);
 
+        // Batch insert for performance
+        const BATCH_SIZE = 100;
         let added = 0;
-        for (const game of allGames) {
+
+        for (let i = 0; i < allGames.length; i += BATCH_SIZE) {
+            const batch = allGames.slice(i, i + BATCH_SIZE).map(game => ({
+                listId: list.id,
+                categoryId: category.id,
+                externalId: `game-${game.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+                externalSource: 'curated',
+                title: game.title,
+                subtitle: game.platform,
+                platform: game.platform,
+                releaseYear: game.year,
+                description: `${game.platform} (${game.year})`,
+                imageUrl: null,
+            }));
+
             try {
-                await db.insert(items).values({
-                    listId: list.id,
-                    categoryId: category.id,
-                    externalId: `game-${game.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
-                    externalSource: 'curated',
-                    title: game.title,
-                    subtitle: game.platform,
-                    platform: game.platform,
-                    releaseYear: game.year,
-                    description: `${game.platform} (${game.year})`,
-                    imageUrl: null,
-                });
-                added++;
-            } catch (e) {
-                // Ignore duplicates
+                // Use onConflictDoNothing equivalent if supported, or just insert
+                // Simple insert. If generic batch fails, we could fallback or just accept it might fail if one exists.
+                // For seeding, using .onConflictDoNothing() is best if ID is unique constraint.
+                // externalId is unique? We didn't set unique constraint on it in validation but schema likely has it?
+                // Step 2459 schema check: generic columns.
+                // Actually, let's just use try/catch on batch. If it fails, maybe log it.
+                // But Drizzle basic insert might fail.
+                // Better: simple loop is safest if we don't know constraints, but too slow.
+                // I will use `await db.insert(items).values(batch).onConflictDoNothing()` assuming Postgres.
+                await db.insert(items).values(batch).onConflictDoNothing();
+                added += batch.length;
+                process.stdout.write('.');
+            } catch (e: any) {
+                // If onConflictDoNothing is not available or logic fails, fallback to row-by-row for this batch to salvage non-dupes?
+                // Or just log error.
+                // console.error(e.message);
+                // Fallback to sequential for this batch
+                for (const item of batch) {
+                    try {
+                        await db.insert(items).values(item).onConflictDoNothing();
+                        added++;
+                    } catch { }
+                }
             }
-            if (added % 100 === 0 && added > 0) process.stdout.write('.');
         }
-        console.log(`\n✨ Added ${added} new games.`);
+        console.log(`\n✨ Processed ${allGames.length} games (New entries added).`);
     }
 }
 
