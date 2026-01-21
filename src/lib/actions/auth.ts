@@ -80,13 +80,6 @@ export async function register(formData: FormData) {
             username: sanitizedUsername,
             name: sanitizedName,
         });
-
-        // Auto sign in after registration
-        await signIn('credentials', {
-            email,
-            password,
-            redirectTo: '/dashboard',
-        });
     } catch (error: any) {
         // Handle specific database errors
         const errorMessage = error?.message || String(error);
@@ -103,6 +96,15 @@ export async function register(formData: FormData) {
 
         throw new Error('Registration failed. Please try again.');
     }
+
+    // Auto sign in after registration
+    // This is outside the try/catch because signIn throws a NEXT_REDIRECT error on success
+    // which should NOT be caught.
+    await signIn('credentials', {
+        email,
+        password,
+        redirectTo: '/dashboard',
+    });
 }
 
 export async function logout() {

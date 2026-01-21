@@ -163,17 +163,38 @@ body {
 
 /* Glassmorphism with rainbow tint */
 .glass {
-  background: rgba(50, 35, 85, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(50, 35, 85, 0.85); /* More opaque for mobile */
   border: 1px solid rgba(167, 139, 250, 0.2);
 }
 
 .glass-strong {
-  background: rgba(30, 20, 60, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(30, 20, 60, 0.95); /* More opaque */
   border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+/* Enhancements for larger screens */
+@media (min-width: 768px) {
+  .glass {
+    background: rgba(50, 35, 85, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-strong {
+    background: rgba(30, 20, 60, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}
+
+/* Reduce animations for reduced motion preference or small screens if needed */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Fun gradient backgrounds */

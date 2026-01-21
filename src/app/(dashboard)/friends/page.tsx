@@ -31,6 +31,23 @@ export default function FriendsPage() {
     const [loading, setLoading] = useState(true);
     const [username, setUsername] = useState('');
     const [sending, setSending] = useState(false);
+    const [searching, setSearching] = useState(false);
+    const [searchResults, setSearchResults] = useState<Friend[]>([]);
+
+    async function searchUsers(query: string) {
+        setSearching(true);
+        try {
+            const res = await fetch(`/api/users/search?q=${encodeURIComponent(query)}`);
+            if (res.ok) {
+                const data = await res.json();
+                setSearchResults(data.users || []);
+            }
+        } catch (error) {
+            console.error('Error searching users:', error);
+        } finally {
+            setSearching(false);
+        }
+    }
 
     async function fetchFriends() {
         try {
@@ -137,19 +154,63 @@ export default function FriendsPage() {
                         Add Friend
                     </CardTitle>
                     <CardDescription>
-                        Send a friend request by username
+                        Search for users by username
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={sendRequest} className="flex gap-2">
-                        <Input
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Enter username"
-                            className="flex-1"
-                        />
-                        <Button type="submit" isLoading={sending}>
-                            Send Request
+                    <form onSubmit={sendRequest} className="space-y-3">
+                        <div className="relative">
+                            <Input
+                                value={username}
+                                onChange={(e) => {
+                                    setUsername(e.target.value);
+                                    // Trigger search
+                                    if (e.target.value.length >= 2) {
+                                        searchUsers(e.target.value);
+                                    } else {
+                                        setSearchResults([]);
+                                    }
+                                }}
+                                placeholder="Search username..."
+                                className="pr-10"
+                            />
+                            {searching && (
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                                </div>
+                            )}
+
+                            {/* Search Results Dropdown */}
+                            {searchResults.length > 0 && (
+                                <div className="absolute z-50 w-full mt-1 rounded-xl border border-border-default bg-bg-surface shadow-lg overflow-hidden">
+                                    {searchResults.map((user) => (
+                                        <button
+                                            key={user.id}
+                                            type="button"
+                                            onClick={() => {
+                                                setUsername(user.username);
+                                                setSearchResults([]);
+                                            }}
+                                            className="w-full flex items-center gap-3 p-3 hover:bg-bg-elevated transition-colors text-left"
+                                        >
+                                            {user.image ? (
+                                                <img src={user.image} alt="" className="w-8 h-8 rounded-full" />
+                                            ) : (
+                                                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
+                                                    {(user.name || user.username)?.[0]?.toUpperCase()}
+                                                </div>
+                                            )}
+                                            <div>
+                                                <p className="font-medium text-text-primary text-sm">{user.name || user.username}</p>
+                                                <p className="text-xs text-text-muted">@{user.username}</p>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <Button type="submit" isLoading={sending} disabled={!username.trim()}>
+                            Send Friend Request
                         </Button>
                     </form>
                 </CardContent>
