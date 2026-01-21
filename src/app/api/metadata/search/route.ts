@@ -26,8 +26,7 @@ export async function GET(request: NextRequest) {
                 results = await searchRAWG(query);
                 break;
             case 'music':
-                // No external API configured yet - return empty
-                results = [];
+                results = await searchSpotify(query);
                 break;
             default:
                 results = [];
@@ -42,6 +41,60 @@ export async function GET(request: NextRequest) {
     } catch (error) {
         console.error('[METADATA] Search error:', error);
         return NextResponse.json({ error: 'Metadata search failed' }, { status: 500 });
+    }
+}
+
+// ... existing TMDB/Google/RAWG functions ...
+
+// Spotify Search (Music)
+async function searchSpotify(query: string): Promise<any[]> {
+    // User provided token - normally this should be in env/session
+    // and handled via client credentials flow as these expire quickly.
+    const token = 'BQABVAV1zZERC3ySvqUWYWiuXbINluseOWY8S16V0iEBwzSCjd_8diF3gWP1q7A9xtoVAJE3mCrUYB9bDaOwSj2kLceCzvzKQP91ylVujP1HQFyUiUo-qTH4WcgV8-S4ViweVfDZhYAlk_ZsAJuNyVbDDR-oQy5MsJ0mtG5uYmiPf9fsFDV1ULSejARvr6jdmBduChLBoHM4tWDj31jhBJyziBe0UjUWpyiBwPgJQz4UFjPOFJEZxIXRq7aj4Tzg1LVzN-ws5OxoMks-HjhYStB9w4Y_SblPaI4h1Bcwh7imRCvB';
+
+    const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=album,track&limit=10`;
+
+    try {
+        const res = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (res.status === 401) {
+            console.warn('[METADATA] Spotify token expired or invalid');
+            return [];
+        }
+
+        const data = await res.json();
+
+        // Combine albums and tracks
+        const albums = (data.albums?.items || []).map((item: any) => ({
+            externalId: item.id,
+            externalSource: 'spotify',
+            title: item.name,
+            subtitle: item.artists?.map((a: any) => a.name).join(', '),
+            releaseYear: item.release_date?.split('-')[0],
+            imageUrl: item.images?.[0]?.url || item.images?.[1]?.url, // 0 is usually huge, 1 is medium
+            subtype: 'album',
+            description: `Album • ${item.total_tracks} tracks`,
+        }));
+
+        const tracks = (data.tracks?.items || []).map((item: any) => ({
+            externalId: item.id,
+            externalSource: 'spotify',
+            title: item.name,
+            subtitle: item.artists?.map((a: any) => a.name).join(', '),
+            releaseYear: item.album?.release_date?.split('-')[0],
+            imageUrl: item.album?.images?.[0]?.url,
+            subtype: 'song',
+            description: item.album?.name,
+        }));
+
+        return [...albums, ...tracks];
+    } catch (error) {
+        console.error('[METADATA] Spotify search error:', error);
+        return [];
     }
 }
 
