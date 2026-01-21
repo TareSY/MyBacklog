@@ -134,44 +134,50 @@ export function Header({ user, onLogout }: HeaderProps) {
 
                 {/* Mobile Navigation */}
                 {user && mobileMenuOpen && (
-                    <div className="md:hidden py-4 border-t border-border-subtle animate-slide-down">
-                        <nav className="flex flex-col gap-1">
-                            {navLinks.map(({ href, label, icon: Icon }) => (
+                    <>
+                        <div
+                            className="fixed inset-0 top-16 z-30 bg-black/50 backdrop-blur-sm md:hidden animate-fade-in"
+                            onClick={() => setMobileMenuOpen(false)}
+                        />
+                        <div className="md:hidden py-4 border-t border-border-subtle animate-slide-down relative z-40 bg-bg-surface/95 backdrop-blur-xl">
+                            <nav className="flex flex-col gap-1">
+                                {navLinks.map(({ href, label, icon: Icon }) => (
+                                    <Link
+                                        key={href}
+                                        href={href}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={cn(
+                                            'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all',
+                                            isActive(href)
+                                                ? 'bg-primary/20 text-primary-light'
+                                                : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
+                                        )}
+                                    >
+                                        <Icon className="w-5 h-5" />
+                                        {label}
+                                    </Link>
+                                ))}
                                 <Link
-                                    key={href}
-                                    href={href}
+                                    href="/settings"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className={cn(
-                                        'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all',
-                                        isActive(href)
-                                            ? 'bg-primary/20 text-primary-light'
-                                            : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
-                                    )}
+                                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-elevated"
                                 >
-                                    <Icon className="w-5 h-5" />
-                                    {label}
+                                    <Settings className="w-5 h-5" />
+                                    Settings
                                 </Link>
-                            ))}
-                            <Link
-                                href="/settings"
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-elevated"
-                            >
-                                <Settings className="w-5 h-5" />
-                                Settings
-                            </Link>
-                            <button
-                                onClick={() => {
-                                    setMobileMenuOpen(false);
-                                    onLogout?.();
-                                }}
-                                className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-error hover:bg-error/10"
-                            >
-                                <LogOut className="w-5 h-5" />
-                                Log out
-                            </button>
-                        </nav>
-                    </div>
+                                <button
+                                    onClick={() => {
+                                        setMobileMenuOpen(false);
+                                        onLogout?.();
+                                    }}
+                                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-error hover:bg-error/10"
+                                >
+                                    <LogOut className="w-5 h-5" />
+                                    Log out
+                                </button>
+                            </nav>
+                        </div>
+                    </>
                 )}
             </div>
         </header>

@@ -128,7 +128,7 @@ export default function BrowsePage() {
                     <span className="text-2xl">✨</span>
                 </h1>
                 <p className="text-text-muted mt-2">
-                    What do you want to watch, read, or listen to next?
+                    What do you want to watch, read, listen to, or play next?
                 </p>
             </div>
 
