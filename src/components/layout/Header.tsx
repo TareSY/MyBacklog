@@ -10,6 +10,7 @@ import {
     Settings,
     LogOut,
     User,
+    Users,
     Menu,
     X
 } from 'lucide-react';
@@ -33,6 +34,7 @@ export function Header({ user, onLogout }: HeaderProps) {
     const navLinks = [
         { href: '/dashboard', label: 'My Backlog', icon: Library },
         { href: '/browse', label: 'Browse', icon: Search },
+        { href: '/friends', label: 'Friends', icon: Users },
     ];
 
     return (

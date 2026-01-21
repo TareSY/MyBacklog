@@ -11,7 +11,8 @@ import {
     Music,
     CheckCircle2,
     Plus,
-    List
+    List,
+    Users
 } from 'lucide-react';
 import type { Category } from '@/types';
 
@@ -49,6 +50,18 @@ export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarP
                 >
                     <LayoutDashboard className="w-5 h-5" />
                     Dashboard
+                </Link>
+                <Link
+                    href="/friends"
+                    className={cn(
+                        'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
+                        isActive('/friends')
+                            ? 'bg-primary/20 text-primary-light'
+                            : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
+                    )}
+                >
+                    <Users className="w-5 h-5" />
+                    Friends
                 </Link>
             </nav>
 
