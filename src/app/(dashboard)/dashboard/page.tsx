@@ -35,16 +35,22 @@ export default function DashboardPage() {
                 const data = await res.json();
                 setLists(Array.isArray(data) ? data : []);
 
-                // Calculate stats from first list if it has items
-                if (data.length > 0 && data[0].items) {
-                    const items = data[0].items;
-                    setStats({
-                        movies: items.filter((i: any) => i.categoryId === 1).length,
-                        tv: items.filter((i: any) => i.categoryId === 2).length,
-                        books: items.filter((i: any) => i.categoryId === 3).length,
-                        music: items.filter((i: any) => i.categoryId === 4).length,
-                        games: items.filter((i: any) => i.categoryId === 5).length,
-                    });
+                // Calculate stats from first list if it has items or stats
+                if (data.length > 0) {
+                    // Use server-aggregated stats if available (preferred for large lists)
+                    if (data[0].stats) {
+                        setStats(data[0].stats);
+                    } else if (data[0].items) {
+                        // Fallback for mock data or legacy responses
+                        const items = data[0].items;
+                        setStats({
+                            movies: items.filter((i: any) => i.categoryId === 1).length,
+                            tv: items.filter((i: any) => i.categoryId === 2).length,
+                            books: items.filter((i: any) => i.categoryId === 3).length,
+                            music: items.filter((i: any) => i.categoryId === 4).length,
+                            games: items.filter((i: any) => i.categoryId === 5).length,
+                        });
+                    }
                 }
             } catch (error) {
                 console.error('Failed to fetch lists:', error);

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
 import { lists, items, categories } from '@/lib/db/schema';
-import { eq, or, and } from 'drizzle-orm';
+import { eq, or, and, sql } from 'drizzle-orm';
 
 // GET /api/lists - Get lists (user's + public featured)
 export async function GET(request: NextRequest) {
@@ -40,7 +40,6 @@ export async function GET(request: NextRequest) {
             .from(lists)
             .where(whereClause);
 
-        // If asking for public lists, also fetch their items to show as suggestions
         if (type === 'public') {
             const listsWithItems = await Promise.all(result.map(async (list) => {
                 const listItems = await db.select().from(items).where(eq(items.listId, list.id)).limit(10);
@@ -49,7 +48,34 @@ export async function GET(request: NextRequest) {
             return NextResponse.json(listsWithItems);
         }
 
-        return NextResponse.json(result);
+        // For user lists, attach stats (aggregated counts) to avoid sending all items
+        const listsWithStats = await Promise.all(result.map(async (list) => {
+            const counts = await db
+                .select({
+                    categoryId: items.categoryId,
+                    count: sql<number>`count(*)`
+                })
+                .from(items)
+                .where(eq(items.listId, list.id))
+                .groupBy(items.categoryId);
+
+            const stats = {
+                movies: 0, tv: 0, books: 0, music: 0, games: 0
+            };
+
+            counts.forEach(c => {
+                const count = Number(c.count);
+                if (c.categoryId === 1) stats.movies = count;
+                else if (c.categoryId === 2) stats.tv = count;
+                else if (c.categoryId === 3) stats.books = count;
+                else if (c.categoryId === 4) stats.music = count;
+                else if (c.categoryId === 5) stats.games = count;
+            });
+
+            return { ...list, stats };
+        }));
+
+        return NextResponse.json(listsWithStats);
     } catch (error) {
         console.error('Error fetching lists:', error);
         return NextResponse.json({ error: 'Failed to fetch lists' }, { status: 500 });
@@ -78,7 +104,7 @@ export async function POST(request: NextRequest) {
                 userId: session.user.id,
                 name: name || 'My Backlog',
                 description,
-                isPublic: isPublic || false,
+                isPublic: Boolean(isPublic),
             })
             .returning();
 

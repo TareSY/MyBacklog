@@ -2,7 +2,7 @@
 
 import { signIn, signOut } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
-import { users } from '@/lib/db/schema';
+import { users, lists } from '@/lib/db/schema';
 import bcrypt from 'bcryptjs';
 import { redirect } from 'next/navigation';
 
@@ -74,11 +74,19 @@ export async function register(formData: FormData) {
 
     try {
         // Create user
-        await db.insert(users).values({
+        const [newUser] = await db.insert(users).values({
             email: email.toLowerCase().trim(),
             password: hashedPassword,
             username: sanitizedUsername,
             name: sanitizedName,
+        }).returning();
+
+        // Create default list for the user
+        await db.insert(lists).values({
+            userId: newUser.id,
+            name: 'My Backlog',
+            description: 'My default collection',
+            isPublic: false,
         });
     } catch (error: any) {
         // Handle specific database errors

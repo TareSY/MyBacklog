@@ -25,6 +25,28 @@ export default function BrowsePage() {
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [loadingSuggestions, setLoadingSuggestions] = useState(true);
 
+    const [userLists, setUserLists] = useState<any[]>([]);
+    const [selectedListId, setSelectedListId] = useState('');
+
+    // Load user lists
+    useEffect(() => {
+        async function loadLists() {
+            try {
+                const res = await fetch('/api/lists');
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    setUserLists(data);
+                    if (data.length > 0 && !selectedListId) {
+                        setSelectedListId(data[0].id);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load lists', error);
+            }
+        }
+        loadLists();
+    }, []);
+
     // Load suggestions (public lists)
     useEffect(() => {
         async function loadSuggestions() {
@@ -72,12 +94,10 @@ export default function BrowsePage() {
 
         setSaving(true);
         try {
-            // Get or create the user's default list
-            const listsRes = await fetch('/api/lists');
-            let lists = await listsRes.json();
+            let listId = selectedListId;
 
-            let listId: string;
-            if (!Array.isArray(lists) || lists.length === 0) {
+            // If no list selected (or no lists exist), create one
+            if (!listId) {
                 const createRes = await fetch('/api/lists', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -85,8 +105,10 @@ export default function BrowsePage() {
                 });
                 const newList = await createRes.json();
                 listId = newList.id;
-            } else {
-                listId = lists[0].id;
+
+                // Update lists state
+                setUserLists(prev => [...prev, newList]);
+                setSelectedListId(newList.id);
             }
 
             // Add item
@@ -244,6 +266,31 @@ export default function BrowsePage() {
                                         selectedCat?.id === 5 ? "Search or type a game..." : "Search or type an album..."}
                             required
                         />
+
+                        {/* List Selection */}
+                        <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-text-secondary">
+                                Add to List
+                            </label>
+                            <div className="relative">
+                                <select
+                                    value={selectedListId}
+                                    onChange={(e) => setSelectedListId(e.target.value)}
+                                    className="w-full appearance-none px-4 py-3 rounded-xl bg-bg-elevated border border-border-default text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer"
+                                >
+                                    {userLists.map((list) => (
+                                        <option key={list.id} value={list.id}>
+                                            {list.name} {list.isPublic ? '(Public)' : '(Private)'}
+                                        </option>
+                                    ))}
+                                    {userLists.length === 0 && <option value="">Loading lists...</option>}
+                                </select>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                                </div>
+                            </div>
+                        </div>
+
                         {selectedCat?.id === 5 && (
                             <Input
                                 label="Platform"

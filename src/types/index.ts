@@ -1,6 +1,6 @@
 // Database model types for MyBacklog
 
-export type Category = 'movies' | 'tv' | 'books' | 'music';
+export type Category = 'movies' | 'tv' | 'books' | 'music' | 'games';
 
 export interface User {
     id: string;
@@ -42,7 +42,7 @@ export interface BacklogItem {
     categoryId: number;
     category: Category;
     externalId?: string;
-    externalSource?: 'tmdb' | 'google_books' | 'spotify';
+    externalSource?: 'tmdb' | 'google_books' | 'spotify' | 'curated' | 'rawg';
     title: string;
     subtitle?: string; // Author, Artist, Director, etc.
     imageUrl?: string;
@@ -109,7 +109,7 @@ export interface SpotifyAlbum {
 export interface SearchResult {
     id: string;
     externalId: string;
-    externalSource: 'tmdb' | 'google_books' | 'spotify';
+    externalSource: 'tmdb' | 'google_books' | 'spotify' | 'curated' | 'rawg';
     category: Category;
     title: string;
     subtitle?: string;
@@ -136,7 +136,7 @@ export interface AddItemInput {
     listId: string;
     category: Category;
     externalId?: string;
-    externalSource?: 'tmdb' | 'google_books' | 'spotify';
+    externalSource?: 'tmdb' | 'google_books' | 'spotify' | 'curated' | 'rawg';
     title: string;
     subtitle?: string;
     imageUrl?: string;

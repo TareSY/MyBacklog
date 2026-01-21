@@ -12,7 +12,8 @@ import {
     CheckCircle2,
     Plus,
     List,
-    Users
+    Users,
+    Gamepad2
 } from 'lucide-react';
 import type { Category } from '@/types';
 
@@ -26,6 +27,7 @@ const categories: { id: Category; label: string; icon: typeof Film; color: strin
     { id: 'movies', label: 'Movies', icon: Film, color: 'text-movies' },
     { id: 'tv', label: 'TV Shows', icon: Tv, color: 'text-tv' },
     { id: 'books', label: 'Books', icon: BookOpen, color: 'text-books' },
+    { id: 'games', label: 'Games', icon: Gamepad2, color: 'text-games' },
     { id: 'music', label: 'Music', icon: Music, color: 'text-music' },
 ];
 
