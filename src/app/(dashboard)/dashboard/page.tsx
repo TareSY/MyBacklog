@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
+import { CreateListModal } from '@/components/CreateListModal';
 import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, ArrowRight, Loader2 } from 'lucide-react';
 
 interface List {
@@ -24,6 +25,7 @@ export default function DashboardPage() {
     const [lists, setLists] = useState<List[]>([]);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0 });
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -122,7 +124,16 @@ export default function DashboardPage() {
                 </div>
             ) : lists.length > 0 ? (
                 <div className="space-y-4">
-                    <h2 className="text-xl font-bold text-text-primary">Your Lists</h2>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-bold text-text-primary">Your Lists</h2>
+                        <Button
+                            size="sm"
+                            onClick={() => setIsCreateModalOpen(true)}
+                            leftIcon={<Plus className="w-4 h-4" />}
+                        >
+                            Create List
+                        </Button>
+                    </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {lists.map((list) => (
                             <Link key={list.id} href={`/lists/${list.id}`}>
@@ -156,6 +167,13 @@ export default function DashboardPage() {
                     </Link>
                 </div>
             )}
+
+            {/* Create List Modal */}
+            <CreateListModal
+                isOpen={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onCreated={(newList) => setLists(prev => [...prev, newList])}
+            />
         </div>
     );
 }
