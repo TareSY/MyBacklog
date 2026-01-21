@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
 import { CreateListModal } from '@/components/CreateListModal';
 import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2 } from 'lucide-react';
+import { curatedContent } from '@/lib/curated-content';
 
 interface List {
     id: string;
@@ -192,6 +193,45 @@ export default function DashboardPage() {
                     })}
                 </div>
             )}
+
+            {/* Suggested For You */}
+            <div className="space-y-6">
+                <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    <h2 className="text-xl font-bold text-text-primary">Suggested For You</h2>
+                </div>
+                <p className="text-text-muted">Top picks from the past decade — add them to your backlog!</p>
+
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {[
+                        { key: 'movies', label: 'Top Movies', emoji: '🎬', color: 'text-movies' },
+                        { key: 'tv', label: 'Top TV Shows', emoji: '📺', color: 'text-tv' },
+                        { key: 'books', label: 'Top Books', emoji: '📚', color: 'text-books' },
+                        { key: 'music', label: 'Top Albums', emoji: '🎵', color: 'text-music' },
+                        { key: 'games', label: 'Top Games', emoji: '🎮', color: 'text-games' },
+                    ].map(cat => (
+                        <Card key={cat.key} variant="glass" className="p-4 space-y-3">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl">{cat.emoji}</span>
+                                <h3 className={`font-semibold ${cat.color}`}>{cat.label}</h3>
+                            </div>
+                            <div className="space-y-2">
+                                {curatedContent[cat.key as keyof typeof curatedContent].slice(0, 5).map((item, idx) => (
+                                    <div key={idx} className="flex justify-between items-center text-sm">
+                                        <span className="text-text-primary truncate">{item.title}</span>
+                                        <span className="text-text-muted text-xs shrink-0">{item.year}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <Link href={`/category/${cat.key}`}>
+                                <Button variant="ghost" size="sm" className="w-full mt-2">
+                                    See all →
+                                </Button>
+                            </Link>
+                        </Card>
+                    ))}
+                </div>
+            </div>
 
             {/* Friends Activity */}
             {friends.length > 0 && (

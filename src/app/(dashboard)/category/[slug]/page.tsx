@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Card, Button, Badge } from '@/components/ui';
-import { Film, Tv, BookOpen, Music, Gamepad2, ArrowLeft, Loader2, List as ListIcon } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Gamepad2, ArrowLeft, Loader2, List as ListIcon, Sparkles, Plus } from 'lucide-react';
+import { curatedContent, type CuratedCategory } from '@/lib/curated-content';
 
 const categoryMap: Record<string, { id: number; label: string; icon: any; color: string }> = {
     movies: { id: 1, label: 'Movies', icon: Film, color: 'text-movies' },
@@ -134,6 +135,27 @@ export default function CategoryPage() {
                     </Button>
                 </div>
             )}
+            {/* Suggested to Add */}
+            <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    <h2 className="text-xl font-bold text-text-primary">Top {category.label} to Add</h2>
+                </div>
+                <p className="text-text-muted">Curated picks from the past decade</p>
+                <div className="grid gap-3 md:grid-cols-2">
+                    {curatedContent[slug as keyof CuratedCategory]?.map((item, idx) => (
+                        <Card key={idx} variant="glass" className="p-3 flex items-center justify-between">
+                            <div className="min-w-0">
+                                <p className="font-medium text-text-primary truncate">{item.title}</p>
+                                <p className="text-sm text-text-muted">{item.subtitle} • {item.year}</p>
+                            </div>
+                            <Button variant="ghost" size="sm" className="shrink-0" onClick={() => router.push('/browse')}>
+                                <Plus className="w-4 h-4" />
+                            </Button>
+                        </Card>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

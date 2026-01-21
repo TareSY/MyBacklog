@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight, Check } from 'lucide-react';
 import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete, useToast } from '@/components/ui';
+import { curatedContent, type CuratedCategory } from '@/lib/curated-content';
 
 const categories = [
     { id: 1, name: 'Movie', icon: Film, emoji: '🎬', color: 'text-movies' },
@@ -218,6 +219,38 @@ export default function BrowsePage() {
                     </div>
                 </div>
             )}
+
+            {/* Curated Picks */}
+            <div className="space-y-6">
+                <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    Top Picks of the Decade
+                </h2>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {[
+                        { key: 'movies', label: 'Movies', emoji: '🎬', color: 'text-movies' },
+                        { key: 'tv', label: 'TV Shows', emoji: '📺', color: 'text-tv' },
+                        { key: 'books', label: 'Books', emoji: '📚', color: 'text-books' },
+                        { key: 'music', label: 'Albums', emoji: '🎵', color: 'text-music' },
+                        { key: 'games', label: 'Games', emoji: '🎮', color: 'text-games' },
+                    ].map(cat => (
+                        <Card key={cat.key} variant="glass" className="p-4 space-y-3">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl">{cat.emoji}</span>
+                                <h3 className={`font-semibold ${cat.color}`}>Top {cat.label}</h3>
+                            </div>
+                            <div className="space-y-2">
+                                {curatedContent[cat.key as keyof CuratedCategory].slice(0, 3).map((item, idx) => (
+                                    <div key={idx} className="flex justify-between items-center text-sm">
+                                        <span className="text-text-primary truncate">{item.title}</span>
+                                        <span className="text-text-muted text-xs shrink-0">{item.year}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            </div>
 
             {/* Add Modal */}
             <Modal isOpen={isOpen} onClose={resetForm}>

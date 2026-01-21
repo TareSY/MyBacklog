@@ -91,8 +91,11 @@ export async function POST(request: NextRequest) {
         // Use Strategy Pattern for validation and data preparation
         const strategy = ItemStrategyContext.getStrategy(categoryId);
 
+        // Ensure listId is set for validation
+        const dataWithListId = { ...body, listId };
+
         try {
-            strategy.validate(body);
+            strategy.validate(dataWithListId);
         } catch (validationError: any) {
             return NextResponse.json({ error: validationError.message }, { status: 400 });
         }
