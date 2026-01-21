@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share, MapPin } from 'lucide-react';
 import { Button, Card, Badge, useToast } from '@/components/ui';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -53,6 +53,7 @@ const categoryIcons: Record<number, any> = {
     3: BookOpen,
     4: Music,
     5: Gamepad2,
+    6: MapPin,
 };
 
 const categoryNames: Record<number, string> = {
@@ -61,6 +62,7 @@ const categoryNames: Record<number, string> = {
     3: 'Book',
     4: 'Album',
     5: 'Game',
+    6: 'Place',
 };
 
 const categoryEmojis: Record<number, string> = {
@@ -69,6 +71,7 @@ const categoryEmojis: Record<number, string> = {
     3: '📚',
     4: '🎵',
     5: '🎮',
+    6: '📍',
 };
 
 export default function ListPage() {
@@ -349,7 +352,7 @@ export default function ListPage() {
                     >
                         All
                     </button>
-                    {[1, 2, 3, 4, 5].map((cat) => (
+                    {[1, 2, 3, 4, 5, 6].map((cat) => (
                         <button
                             key={cat}
                             onClick={() => setCategoryFilter(cat)}
@@ -404,16 +407,25 @@ export default function ListPage() {
 
                                         {/* Content */}
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex items-start gap-2">
+                                            <div className="flex items-start gap-2 flex-wrap">
                                                 <h3 className={`font-semibold text-text-primary ${item.isCompleted ? 'line-through' : ''}`}>
                                                     {item.title}
                                                 </h3>
-                                                <Badge variant={item.categoryId === 1 ? 'movies' : item.categoryId === 2 ? 'tv' : item.categoryId === 3 ? 'books' : 'music'}>
-                                                    {categoryNames[item.categoryId]}
+                                                <Badge variant={item.categoryId === 1 ? 'movies' : item.categoryId === 2 ? 'tv' : item.categoryId === 3 ? 'books' : item.categoryId === 5 ? 'games' : 'music'}>
+                                                    {item.categoryId === 4 && item.subtype
+                                                        ? (item.subtype === 'song' ? 'Song' : 'Album')
+                                                        : categoryNames[item.categoryId]}
                                                 </Badge>
                                             </div>
-                                            {item.releaseYear && <p className="text-sm text-text-muted">{item.releaseYear}</p>}
-                                            {item.description && <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>}
+                                            {item.subtitle && <p className="text-sm text-text-muted">{item.subtitle}</p>}
+                                            {item.releaseYear && !item.subtitle && <p className="text-sm text-text-muted">{item.releaseYear}</p>}
+                                            {item.address && (
+                                                <div className="flex items-center gap-1 text-sm text-text-muted mt-1">
+                                                    <MapPin className="w-3 h-3" />
+                                                    <span className="truncate">{item.address}</span>
+                                                </div>
+                                            )}
+                                            {item.description && !item.address && <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>}
                                         </div>
 
                                         {/* Actions */}

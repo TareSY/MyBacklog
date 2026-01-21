@@ -1,6 +1,6 @@
 // Database model types for MyBacklog
 
-export type Category = 'movies' | 'tv' | 'books' | 'music' | 'games';
+export type Category = 'movies' | 'tv' | 'books' | 'music' | 'games' | 'places';
 
 export interface User {
     id: string;

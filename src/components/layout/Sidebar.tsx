@@ -34,11 +34,13 @@ const categories: { id: Category; label: string; icon: typeof Film; color: strin
     { id: 'books', label: 'Books', icon: BookOpen, color: 'text-books' },
     { id: 'games', label: 'Games', icon: Gamepad2, color: 'text-games' },
     { id: 'music', label: 'Music', icon: Music, color: 'text-music' },
+    { id: 'places', label: 'Places', icon: MapPin, color: 'text-accent' },
 ];
 
 export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarProps) {
     const pathname = usePathname();
     const [lists, setLists] = useState<any[]>([]);
+    const [friends, setFriends] = useState<any[]>([]);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [newListName, setNewListName] = useState('');
     const [isCreating, setIsCreating] = useState(false);
@@ -56,6 +58,16 @@ export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarP
                 }
             })
             .catch(err => console.error('Failed to fetch lists:', err));
+
+        // Fetch friends
+        fetch('/api/friends')
+            .then(res => res.json())
+            .then(data => {
+                if (data?.friends) {
+                    setFriends(data.friends);
+                }
+            })
+            .catch(err => console.error('Failed to fetch friends:', err));
     }, []);
 
     const handleCreateList = async (e: React.FormEvent) => {
@@ -223,6 +235,49 @@ export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarP
                         </Link>
                     </nav>
                 </div>
+
+                {/* Friends section */}
+                {friends.length > 0 && (
+                    <>
+                        <div className="my-4 h-px bg-border-subtle" />
+                        <div className="max-h-32 overflow-y-auto">
+                            <h3 className="px-3 mb-2 text-xs font-semibold text-text-muted uppercase tracking-wider">
+                                Friends
+                            </h3>
+                            <nav className="flex flex-col gap-1">
+                                {friends.slice(0, 5).map((friend) => (
+                                    <Link
+                                        key={friend.id}
+                                        href={`/friends/${friend.id}`}
+                                        className={cn(
+                                            'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                                            pathname === `/friends/${friend.id}`
+                                                ? 'bg-bg-elevated text-text-primary'
+                                                : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
+                                        )}
+                                    >
+                                        {friend.image ? (
+                                            <img src={friend.image} alt="" className="w-5 h-5 rounded-full" />
+                                        ) : (
+                                            <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">
+                                                {(friend.name || friend.username)?.[0]?.toUpperCase()}
+                                            </div>
+                                        )}
+                                        <span className="truncate">{friend.name || friend.username}</span>
+                                    </Link>
+                                ))}
+                                {friends.length > 5 && (
+                                    <Link
+                                        href="/friends"
+                                        className="px-3 py-2 text-sm text-primary-light hover:text-primary transition-colors"
+                                    >
+                                        View all {friends.length} friends
+                                    </Link>
+                                )}
+                            </nav>
+                        </div>
+                    </>
+                )}
             </aside>
 
             {/* Create List Modal */}

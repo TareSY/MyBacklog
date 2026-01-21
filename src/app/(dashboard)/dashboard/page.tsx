@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
 import { CreateListModal } from '@/components/CreateListModal';
-import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2 } from 'lucide-react';
+import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2, MapPin } from 'lucide-react';
 
 interface List {
     id: string;
@@ -20,33 +20,37 @@ interface CategoryStats {
     books: number;
     music: number;
     games: number;
+    places: number;
 }
 
 export default function DashboardPage() {
     const [lists, setLists] = useState<List[]>([]);
+    const [friends, setFriends] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0 });
+    const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0, places: 0 });
     const [featured, setFeatured] = useState<Record<string, any[]>>({});
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                // Parallel fetch for lists and featured items
-                const [listsRes, featuredRes] = await Promise.all([
+                // Parallel fetch for lists, featured, and friends
+                const [listsRes, featuredRes, friendsRes] = await Promise.all([
                     fetch('/api/lists'),
-                    fetch('/api/featured')
+                    fetch('/api/featured'),
+                    fetch('/api/friends')
                 ]);
 
                 const listsData = await listsRes.json();
                 const featuredData = await featuredRes.json();
+                const friendsData = await friendsRes.json();
 
                 if (Array.isArray(listsData)) {
                     setLists(listsData);
 
                     // Calculate stats
                     if (listsData.length > 0) {
-                        const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
+                        const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0, places: 0 };
                         listsData.forEach((list: any) => {
                             if (list.items) {
                                 aggregatedStats.movies += list.items.filter((i: any) => i.categoryId === 1).length;
@@ -54,6 +58,7 @@ export default function DashboardPage() {
                                 aggregatedStats.books += list.items.filter((i: any) => i.categoryId === 3).length;
                                 aggregatedStats.music += list.items.filter((i: any) => i.categoryId === 4).length;
                                 aggregatedStats.games += list.items.filter((i: any) => i.categoryId === 5).length;
+                                aggregatedStats.places += list.items.filter((i: any) => i.categoryId === 6).length;
                             }
                         });
                         setStats(aggregatedStats);
@@ -62,6 +67,10 @@ export default function DashboardPage() {
 
                 if (featuredData && !featuredData.error) {
                     setFeatured(featuredData);
+                }
+
+                if (friendsData?.friends) {
+                    setFriends(friendsData.friends);
                 }
 
             } catch (error) {
@@ -120,13 +129,14 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 {[
                     { label: 'Movies', slug: 'movies', count: stats.movies, color: 'text-movies', icon: Film, emoji: '🎬' },
                     { label: 'TV Shows', slug: 'tv', count: stats.tv, color: 'text-tv', icon: Tv, emoji: '📺' },
                     { label: 'Books', slug: 'books', count: stats.books, color: 'text-books', icon: BookOpen, emoji: '📚' },
                     { label: 'Music', slug: 'music', count: stats.music, color: 'text-music', icon: Music, emoji: '🎵' },
                     { label: 'Games', slug: 'games', count: stats.games, color: 'text-games', icon: Gamepad2, emoji: '🎮' },
+                    { label: 'Places', slug: 'places', count: stats.places, color: 'text-accent', icon: MapPin, emoji: '📍' },
                 ].map((stat) => (
                     <Link key={stat.label} href={`/category/${stat.slug}`}>
                         <Card variant="glass" hover className="p-4 flex items-center justify-between cursor-pointer">
@@ -183,6 +193,39 @@ export default function DashboardPage() {
                             </div>
                         );
                     })}
+                </div>
+            )}
+
+            {/* Friends Activity */}
+            {friends.length > 0 && (
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-bold text-text-primary">Friends Activity</h2>
+                        <Link href="/friends">
+                            <Button size="sm" variant="ghost">
+                                View All
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        {friends.slice(0, 4).map((friend) => (
+                            <Link key={friend.id} href={`/friends/${friend.id}`}>
+                                <Card variant="glass" hover className="p-4 flex items-center gap-3 cursor-pointer">
+                                    {friend.image ? (
+                                        <img src={friend.image} alt="" className="w-10 h-10 rounded-full" />
+                                    ) : (
+                                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                                            {(friend.name || friend.username)?.[0]?.toUpperCase()}
+                                        </div>
+                                    )}
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-text-primary truncate">{friend.name || friend.username}</p>
+                                        <p className="text-sm text-text-muted">@{friend.username}</p>
+                                    </div>
+                                </Card>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             )}
 

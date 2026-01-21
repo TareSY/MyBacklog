@@ -8,3 +8,4 @@ export { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalFo
 export { Skeleton, SkeletonCard, SkeletonListItem, SkeletonDashboard } from './Skeleton';
 export { EmptyState, EmptyStateNoItems, EmptyStateNoLists, EmptyStateSearch } from './EmptyState';
 export { Autocomplete } from './Autocomplete';
+export { MapPreview } from './MapPreview';
