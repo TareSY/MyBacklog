@@ -202,6 +202,15 @@ export default function ListPage() {
             return;
         }
 
+        // If not public, make it public first
+        await toggleVisibility(true);
+    }
+
+    async function toggleVisibility(makePublic?: boolean) {
+        if (!list) return;
+
+        const newPublicState = makePublic !== undefined ? makePublic : !list.isPublic;
+
         try {
             const res = await fetch(`/api/lists/${id}`, {
                 method: 'PUT',
@@ -209,21 +218,25 @@ export default function ListPage() {
                 body: JSON.stringify({
                     name: list.name,
                     description: list.description,
-                    isPublic: true
+                    isPublic: newPublicState
                 }),
             });
 
-            if (!res.ok) throw new Error('Failed to update share settings');
+            if (!res.ok) throw new Error('Failed to update visibility');
 
             const updated = await res.json();
-            setList(prev => prev ? { ...prev, isPublic: true, shareSlug: updated.shareSlug } : null);
+            setList(prev => prev ? { ...prev, isPublic: newPublicState, shareSlug: updated.shareSlug } : null);
 
-            const url = `${window.location.origin}/share/${updated.shareSlug}`;
-            await navigator.clipboard.writeText(url);
-            toast('List is now public. Link copied!', 'success');
+            if (newPublicState && updated.shareSlug) {
+                const url = `${window.location.origin}/share/${updated.shareSlug}`;
+                await navigator.clipboard.writeText(url);
+                toast('List is now public. Link copied!', 'success');
+            } else {
+                toast('List is now private', 'success');
+            }
         } catch (error) {
             console.error(error);
-            toast('Failed to share list', 'error');
+            toast('Failed to update visibility', 'error');
         }
     }
 
