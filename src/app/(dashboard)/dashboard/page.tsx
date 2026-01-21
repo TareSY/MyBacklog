@@ -26,41 +26,46 @@ export default function DashboardPage() {
     const [lists, setLists] = useState<List[]>([]);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0 });
+    const [featured, setFeatured] = useState<Record<string, any[]>>({});
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await fetch('/api/lists');
-                const data = await res.json();
-                setLists(Array.isArray(data) ? data : []);
+                // Parallel fetch for lists and featured items
+                const [listsRes, featuredRes] = await Promise.all([
+                    fetch('/api/lists'),
+                    fetch('/api/featured')
+                ]);
 
-                // Calculate stats from first list if it has items or stats
-                if (data.length > 0) {
-                    // Aggregate stats across ALL lists
-                    const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
+                const listsData = await listsRes.json();
+                const featuredData = await featuredRes.json();
 
-                    data.forEach((list: any) => {
-                        if (list.stats) {
-                            aggregatedStats.movies += list.stats.movies || 0;
-                            aggregatedStats.tv += list.stats.tv || 0;
-                            aggregatedStats.books += list.stats.books || 0;
-                            aggregatedStats.music += list.stats.music || 0;
-                            aggregatedStats.games += list.stats.games || 0;
-                        } else if (list.items) {
-                            // Fallback for mock data or legacy responses
-                            aggregatedStats.movies += list.items.filter((i: any) => i.categoryId === 1).length;
-                            aggregatedStats.tv += list.items.filter((i: any) => i.categoryId === 2).length;
-                            aggregatedStats.books += list.items.filter((i: any) => i.categoryId === 3).length;
-                            aggregatedStats.music += list.items.filter((i: any) => i.categoryId === 4).length;
-                            aggregatedStats.games += list.items.filter((i: any) => i.categoryId === 5).length;
-                        }
-                    });
+                if (Array.isArray(listsData)) {
+                    setLists(listsData);
 
-                    setStats(aggregatedStats);
+                    // Calculate stats
+                    if (listsData.length > 0) {
+                        const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
+                        listsData.forEach((list: any) => {
+                            if (list.items) {
+                                aggregatedStats.movies += list.items.filter((i: any) => i.categoryId === 1).length;
+                                aggregatedStats.tv += list.items.filter((i: any) => i.categoryId === 2).length;
+                                aggregatedStats.books += list.items.filter((i: any) => i.categoryId === 3).length;
+                                aggregatedStats.music += list.items.filter((i: any) => i.categoryId === 4).length;
+                                aggregatedStats.games += list.items.filter((i: any) => i.categoryId === 5).length;
+                            }
+                        });
+                        setStats(aggregatedStats);
+                    }
                 }
+
+                if (featuredData && !featuredData.error) {
+                    setFeatured(featuredData);
+                }
+
             } catch (error) {
-                console.error('Failed to fetch lists:', error);
+                console.error('Failed to fetch dashboard data:', error);
             } finally {
                 setLoading(false);
             }
@@ -134,6 +139,52 @@ export default function DashboardPage() {
                     </Link>
                 ))}
             </div>
+
+            {/* Featured / Jump Back In Sections */}
+            {!loading && Object.keys(featured).length > 0 && (
+                <div className="space-y-8">
+                    <h2 className="text-xl font-bold text-text-primary">Jump Back In</h2>
+
+                    {[
+                        { key: 'movies', label: 'Recent Movies', icon: Film, color: 'text-movies' },
+                        { key: 'tv', label: 'Recent TV Shows', icon: Tv, color: 'text-tv' },
+                        { key: 'books', label: 'Recent Books', icon: BookOpen, color: 'text-books' },
+                        { key: 'music', label: 'Recent Music', icon: Music, color: 'text-music' },
+                        { key: 'games', label: 'Recent Games', icon: Gamepad2, color: 'text-games' },
+                    ].map(category => {
+                        const items = featured[category.key];
+                        if (!items || items.length === 0) return null;
+
+                        return (
+                            <div key={category.key} className="space-y-4">
+                                <div className="flex items-center gap-2">
+                                    <category.icon className={`w-5 h-5 ${category.color}`} />
+                                    <h3 className="font-semibold text-text-primary">{category.label}</h3>
+                                </div>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                    {items.map((item: any) => (
+                                        <Link key={item.id} href={`/lists/${item.listId}`}>
+                                            <div className="group relative aspect-[2/3] rounded-xl overflow-hidden bg-bg-elevated border border-border-default hover:border-primary/50 transition-all">
+                                                {item.imageUrl ? (
+                                                    <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-4xl bg-bg-surface/50">
+                                                        {category.key === 'movies' ? '🎬' : category.key === 'tv' ? '📺' : category.key === 'books' ? '📚' : category.key === 'music' ? '🎵' : '🎮'}
+                                                    </div>
+                                                )}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
+                                                    <p className="text-white font-medium text-sm line-clamp-2">{item.title}</p>
+                                                    {item.releaseYear && <p className="text-white/60 text-xs">{item.releaseYear}</p>}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
 
             {/* Lists Section */}
             {loading ? (

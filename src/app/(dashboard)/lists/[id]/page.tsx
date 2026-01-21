@@ -3,22 +3,35 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2 } from 'lucide-react';
-import { Button, Card, Badge } from '@/components/ui';
+import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share } from 'lucide-react';
+import { Button, Card, Badge, useToast } from '@/components/ui';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverlay } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableItem } from '@/components/ui/SortableItem';
 
 interface Item {
     id: string;
+    listId: string;
+    categoryId: number;
+    externalId: string | null;
+    externalSource: string | null;
     title: string;
     subtitle: string | null;
     imageUrl: string | null;
     releaseYear: number | null;
     description: string | null;
-    categoryId: number;
     isCompleted: boolean;
     completedAt: string | null;
     addedAt: string;
     notes: string | null;
     rating: number | null;
+    platform: string | null;
+    placeId: string | null;
+    address: string | null;
+    latitude: string | null;
+    longitude: string | null;
+    subtype: string | null;
+    position: number;
 }
 
 interface List {
@@ -26,6 +39,10 @@ interface List {
     name: string;
     description: string | null;
     isPublic: boolean;
+    shareSlug: string | null;
+    userId: string;
+    createdAt: string;
+    updatedAt: string;
     items: Item[];
 }
 
@@ -55,34 +72,80 @@ const categoryEmojis: Record<number, string> = {
 
 export default function ListPage() {
     const { id } = useParams();
+    const { toast } = useToast();
     const [list, setList] = useState<List | null>(null);
+    const [items, setItems] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
     const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
+    const [activeId, setActiveId] = useState<string | null>(null);
+
+    // Dnd Sensors
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 8, // Require 8px movement before drag starts (prevents accidental drags on click)
+            },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
 
     useEffect(() => {
         async function fetchList() {
             try {
                 const res = await fetch(`/api/lists/${id}`);
-                const data = await res.json();
-
-                if (data.error) {
-                    console.error('API Error:', data.error);
-                    setList(null); // Or set an error state
-                    return;
+                if (!res.ok) {
+                    if (res.status === 404) throw new Error('List not found');
+                    if (res.status === 401) throw new Error('Unauthorized');
+                    throw new Error('Failed to fetch list');
                 }
-
+                const data = await res.json();
                 setList(data);
-            } catch (error) {
-                console.error('Failed to fetch list:', error);
-                setList(null);
+                setItems(data.items || []);
+            } catch (err: any) {
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
         }
-
-        fetchList();
+        if (id) fetchList();
     }, [id]);
+
+    async function handleDragEnd(event: DragEndEvent) {
+        const { active, over } = event;
+        setActiveId(null);
+
+        if (active.id !== over?.id) {
+            setItems((items) => {
+                const oldIndex = items.findIndex((item) => item.id === active.id);
+                const newIndex = items.findIndex((item) => item.id === over?.id);
+
+                const newOrder = arrayMove(items, oldIndex, newIndex);
+
+                // Optimistic UI update done. Now persist to backend.
+                // We need to send the new order to the API
+                // Map items to { id, position } based on new index
+                const updates = newOrder.map((item, index) => ({
+                    id: item.id,
+                    position: index
+                }));
+
+                fetch(`/api/lists/${id}/reorder`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items: updates })
+                }).catch(err => {
+                    console.error('Failed to save order', err);
+                    toast('Failed to save order', 'error');
+                });
+
+                return newOrder;
+            });
+        }
+    }
 
     async function toggleComplete(itemId: string, isCompleted: boolean) {
         try {
@@ -93,12 +156,9 @@ export default function ListPage() {
             });
 
             // Update local state
-            setList(prev => prev ? {
-                ...prev,
-                items: prev.items.map(item =>
-                    item.id === itemId ? { ...item, isCompleted: !isCompleted } : item
-                ),
-            } : null);
+            setItems(prev => prev.map(item =>
+                item.id === itemId ? { ...item, isCompleted: !isCompleted } : item
+            ));
         } catch (error) {
             console.error('Failed to update item:', error);
         }
@@ -111,10 +171,7 @@ export default function ListPage() {
             await fetch(`/api/items/${itemId}`, { method: 'DELETE' });
 
             // Update local state
-            setList(prev => prev ? {
-                ...prev,
-                items: prev.items.filter(item => item.id !== itemId),
-            } : null);
+            setItems(prev => prev.filter(item => item.id !== itemId));
         } catch (error) {
             console.error('Failed to delete item:', error);
         }
@@ -128,28 +185,75 @@ export default function ListPage() {
         );
     }
 
-    if (!list) {
+    async function toggleShare() {
+        if (!list) return;
+
+        // If already public, just copy link
+        if (list.isPublic && list.shareSlug) {
+            const url = `${window.location.origin}/share/${list.shareSlug}`;
+            await navigator.clipboard.writeText(url);
+            toast('Link copied to clipboard!', 'success');
+            return;
+        }
+
+        // If not public, make it public
+        try {
+            const res = await fetch(`/api/lists/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: list.name,
+                    description: list.description,
+                    isPublic: true
+                }),
+            });
+
+            if (!res.ok) throw new Error('Failed to update share settings');
+
+            const updated = await res.json();
+            setList(prev => prev ? { ...prev, isPublic: true, shareSlug: updated.shareSlug } : null);
+
+            const url = `${window.location.origin}/share/${updated.shareSlug}`;
+            await navigator.clipboard.writeText(url);
+            toast('List is now public. Link copied!', 'success');
+        } catch (error) {
+            console.error(error);
+            toast('Failed to share list', 'error');
+        }
+    }
+
+    if (error) {
         return (
             <div className="text-center py-16">
-                <div className="text-4xl mb-4">😢</div>
-                <h3 className="text-lg font-semibold text-text-primary">List not found</h3>
+                <div className="text-4xl mb-4">🚨</div>
+                <h3 className="text-lg font-semibold text-text-primary">Error loading list</h3>
+                <p className="text-text-muted mt-1">{error}</p>
             </div>
         );
     }
 
-    // Filter items
-    let filteredItems = list.items;
-    if (filter === 'pending') {
-        filteredItems = filteredItems.filter(item => !item.isCompleted);
-    } else if (filter === 'completed') {
-        filteredItems = filteredItems.filter(item => item.isCompleted);
-    }
-    if (categoryFilter) {
-        filteredItems = filteredItems.filter(item => item.categoryId === categoryFilter);
+    if (!list) {
+        return (
+            <div className="text-center py-16">
+                <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto" />
+            </div>
+        );
     }
 
-    const pendingCount = list.items.filter(i => !i.isCompleted).length;
-    const completedCount = list.items.filter(i => i.isCompleted).length;
+    // Filter logic needs to account for the fact that we might be filtering a sorted list
+    // BUT sorting only really makes sense when viewing "All" (or maybe we only allow sorting when no filter is active?)
+    // For now, let's disable sorting visual if filters are active, OR just let it happen but it might look weird if items are hidden.
+    // Actually, widespread standard: Drag & Drop usually disabled if sort/filter is active.
+    // Let's only enable DnD if filter === 'all' and categoryFilter === null.
+    const isDragEnabled = filter === 'all' && categoryFilter === null;
+
+    let filteredItems = items;
+    if (filter === 'pending') filteredItems = items.filter(i => !i.isCompleted);
+    if (filter === 'completed') filteredItems = items.filter(i => i.isCompleted);
+    if (categoryFilter) filteredItems = filteredItems.filter(i => i.categoryId === categoryFilter);
+
+    const pendingCount = items.filter(i => !i.isCompleted).length;
+    const completedCount = items.filter(i => i.isCompleted).length;
 
     return (
         <div className="space-y-6">
@@ -165,45 +269,34 @@ export default function ListPage() {
                         </svg>
                     </Link>
                     <div>
-                        <h1 className="text-3xl font-bold text-text-primary">{list.name}</h1>
+                        <div className="flex items-center gap-3">
+                            <h1 className="text-3xl font-bold text-text-primary">{list.name}</h1>
+                            {list.isPublic && (
+                                <Badge variant="secondary" className="text-xs">
+                                    Public
+                                </Badge>
+                            )}
+                        </div>
                         {list.description && (
                             <p className="text-text-muted mt-1">{list.description}</p>
                         )}
+                        <div className="flex items-center gap-2 mt-2 text-sm text-text-muted">
+                            <Badge variant="secondary">{list.items.length} items</Badge>
+                            <span>•</span>
+                            <span className="text-success">{completedCount} done</span>
+                            <span>•</span>
+                            <span>{pendingCount} remaining</span>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
-                    {/* Public/Private Toggle */}
-                    <button
-                        onClick={async () => {
-                            try {
-                                const res = await fetch(`/api/lists/${id}`, {
-                                    method: 'PUT',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ isPublic: !list.isPublic }),
-                                });
-                                if (res.ok) {
-                                    setList(prev => prev ? { ...prev, isPublic: !prev.isPublic } : null);
-                                }
-                            } catch (error) {
-                                console.error('Failed to update list visibility:', error);
-                            }
-                        }}
-                        className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${list.isPublic
-                            ? 'bg-success/20 text-success hover:bg-success/30'
-                            : 'bg-bg-elevated text-text-muted hover:bg-bg-surface'
-                            }`}
-                    >
-                        {list.isPublic ? '🌐 Public' : '🔒 Private'}
-                    </button>
-                    <div className="flex items-center gap-2 text-sm">
-                        <span className="px-3 py-1 rounded-full bg-primary/20 text-primary-light">
-                            {pendingCount} pending
-                        </span>
-                        <span className="px-3 py-1 rounded-full bg-success/20 text-success">
-                            {completedCount} completed
-                        </span>
-                    </div>
-                </div>
+
+                <Button
+                    variant={list.isPublic ? 'secondary' : 'primary'}
+                    onClick={toggleShare}
+                    leftIcon={<Share className="w-4 h-4" />}
+                >
+                    {list.isPublic ? 'Copy Link' : 'Share List'}
+                </Button>
             </div>
 
             {/* Filters */}
@@ -260,72 +353,83 @@ export default function ListPage() {
                     </p>
                 </div>
             ) : (
-                <div className="grid gap-3">
-                    {filteredItems.map((item) => {
-                        const Icon = categoryIcons[item.categoryId] || Film;
-                        return (
-                            <Card
-                                key={item.id}
-                                variant="default"
-                                className={`flex gap-4 p-4 transition-all ${item.isCompleted ? 'opacity-60' : ''
-                                    }`}
-                            >
-                                {/* Poster */}
-                                <div className="w-16 h-24 shrink-0 bg-bg-elevated rounded-lg overflow-hidden">
-                                    {item.imageUrl ? (
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={item.title}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-2xl">
-                                            {categoryEmojis[item.categoryId]}
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragStart={(event) => setActiveId(String(event.active.id))}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext
+                        items={filteredItems.map(i => i.id)}
+                        strategy={verticalListSortingStrategy}
+                        disabled={!isDragEnabled} // Disable DnD if filtered
+                    >
+                        <div className="grid gap-3">
+                            {filteredItems.map((item) => (
+                                <SortableItem key={item.id} id={item.id} handle={isDragEnabled}>
+                                    <div className={`relative group flex gap-4 p-4 rounded-xl bg-bg-surface border border-border-subtle transition-all ${item.isCompleted ? 'opacity-60' : ''}`}>
+                                        {/* Poster */}
+                                        <div className="w-16 h-24 shrink-0 bg-bg-elevated rounded-lg overflow-hidden">
+                                            {item.imageUrl ? (
+                                                <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-2xl">
+                                                    {categoryEmojis[item.categoryId]}
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
 
-                                {/* Content */}
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-start gap-2">
-                                        <h3 className={`font-semibold text-text-primary ${item.isCompleted ? 'line-through' : ''}`}>
-                                            {item.title}
-                                        </h3>
-                                        <Badge variant={item.categoryId === 1 ? 'movies' : item.categoryId === 2 ? 'tv' : item.categoryId === 3 ? 'books' : 'music'}>
-                                            {categoryNames[item.categoryId]}
-                                        </Badge>
+                                        {/* Content */}
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-start gap-2">
+                                                <h3 className={`font-semibold text-text-primary ${item.isCompleted ? 'line-through' : ''}`}>
+                                                    {item.title}
+                                                </h3>
+                                                <Badge variant={item.categoryId === 1 ? 'movies' : item.categoryId === 2 ? 'tv' : item.categoryId === 3 ? 'books' : 'music'}>
+                                                    {categoryNames[item.categoryId]}
+                                                </Badge>
+                                            </div>
+                                            {item.releaseYear && <p className="text-sm text-text-muted">{item.releaseYear}</p>}
+                                            {item.description && <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>}
+                                        </div>
+
+                                        {/* Actions */}
+                                        <div className="flex items-center gap-2 shrink-0">
+                                            <Button
+                                                variant={item.isCompleted ? 'secondary' : 'primary'}
+                                                size="sm"
+                                                onClick={() => toggleComplete(item.id, item.isCompleted)}
+                                                leftIcon={<Check className="w-4 h-4" />}
+                                            >
+                                                {item.isCompleted ? 'Undo' : 'Done'}
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => deleteItem(item.id)}
+                                                className="text-error hover:bg-error/10"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </Button>
+                                        </div>
                                     </div>
-                                    {item.releaseYear && (
-                                        <p className="text-sm text-text-muted">{item.releaseYear}</p>
-                                    )}
-                                    {item.description && (
-                                        <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>
-                                    )}
-                                </div>
+                                </SortableItem>
+                            ))}
+                        </div>
+                    </SortableContext>
 
-                                {/* Actions */}
-                                <div className="flex items-center gap-2 shrink-0">
-                                    <Button
-                                        variant={item.isCompleted ? 'secondary' : 'primary'}
-                                        size="sm"
-                                        onClick={() => toggleComplete(item.id, item.isCompleted)}
-                                        leftIcon={<Check className="w-4 h-4" />}
-                                    >
-                                        {item.isCompleted ? 'Undo' : 'Done'}
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => deleteItem(item.id)}
-                                        className="text-error hover:bg-error/10"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </Button>
+                    {/* Drag Overlay for smooth visuals */}
+                    <DragOverlay>
+                        {activeId ? (
+                            <Card variant="elevated" className="opacity-80 rotate-2 cursor-grabbing">
+                                {/* Minimal representation for overlay */}
+                                <div className="p-4 flex items-center gap-4">
+                                    Dragging...
                                 </div>
                             </Card>
-                        );
-                    })}
-                </div>
+                        ) : null}
+                    </DragOverlay>
+                </DndContext>
             )}
         </div>
     );

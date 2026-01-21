@@ -21,6 +21,7 @@ const badgeVariants = cva(
                 error: 'bg-error/20 text-error border border-error/30',
                 info: 'bg-info/20 text-info border border-info/30',
                 games: 'bg-games/20 text-games border border-games/30',
+                secondary: 'bg-bg-elevated text-text-muted border border-border-default',
             },
             size: {
                 sm: 'px-2 py-0.5 text-[10px]',

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
-import { lists, items, users, friendships, categories } from '@/lib/db/schema';
+import { lists, items, users, friendships, categories, itemLists } from '@/lib/db/schema';
 import { eq, and, or } from 'drizzle-orm';
 
 interface RouteParams {
@@ -73,12 +73,17 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
             .where(and(eq(lists.userId, friendId), eq(lists.isPublic, true)));
 
         // Get item counts for each list
+        // Use item_lists table for accurate counts including multi-list items
         const listsWithCounts = await Promise.all(
             friendLists.map(async (list) => {
                 const listItems = await db
-                    .select({ id: items.id, isCompleted: items.isCompleted })
-                    .from(items)
-                    .where(eq(items.listId, list.id));
+                    .select({
+                        itemId: itemLists.itemId,
+                        isCompleted: items.isCompleted
+                    })
+                    .from(itemLists)
+                    .innerJoin(items, eq(itemLists.itemId, items.id))
+                    .where(eq(itemLists.listId, list.id));
 
                 return {
                     ...list,
