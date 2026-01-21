@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
 import { CreateListModal } from '@/components/CreateListModal';
-import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2, MapPin } from 'lucide-react';
+import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2 } from 'lucide-react';
 
 interface List {
     id: string;
@@ -20,14 +20,13 @@ interface CategoryStats {
     books: number;
     music: number;
     games: number;
-    places: number;
 }
 
 export default function DashboardPage() {
     const [lists, setLists] = useState<List[]>([]);
     const [friends, setFriends] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0, places: 0 });
+    const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0 });
     const [featured, setFeatured] = useState<Record<string, any[]>>({});
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
@@ -50,7 +49,7 @@ export default function DashboardPage() {
 
                     // Calculate stats
                     if (listsData.length > 0) {
-                        const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0, places: 0 };
+                        const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
                         listsData.forEach((list: any) => {
                             if (list.items) {
                                 aggregatedStats.movies += list.items.filter((i: any) => i.categoryId === 1).length;
@@ -58,7 +57,6 @@ export default function DashboardPage() {
                                 aggregatedStats.books += list.items.filter((i: any) => i.categoryId === 3).length;
                                 aggregatedStats.music += list.items.filter((i: any) => i.categoryId === 4).length;
                                 aggregatedStats.games += list.items.filter((i: any) => i.categoryId === 5).length;
-                                aggregatedStats.places += list.items.filter((i: any) => i.categoryId === 6).length;
                             }
                         });
                         setStats(aggregatedStats);
@@ -129,14 +127,13 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {[
                     { label: 'Movies', slug: 'movies', count: stats.movies, color: 'text-movies', icon: Film, emoji: '🎬' },
                     { label: 'TV Shows', slug: 'tv', count: stats.tv, color: 'text-tv', icon: Tv, emoji: '📺' },
                     { label: 'Books', slug: 'books', count: stats.books, color: 'text-books', icon: BookOpen, emoji: '📚' },
                     { label: 'Music', slug: 'music', count: stats.music, color: 'text-music', icon: Music, emoji: '🎵' },
                     { label: 'Games', slug: 'games', count: stats.games, color: 'text-games', icon: Gamepad2, emoji: '🎮' },
-                    { label: 'Places', slug: 'places', count: stats.places, color: 'text-accent', icon: MapPin, emoji: '📍' },
                 ].map((stat) => (
                     <Link key={stat.label} href={`/category/${stat.slug}`}>
                         <Card variant="glass" hover className="p-4 flex items-center justify-between cursor-pointer">

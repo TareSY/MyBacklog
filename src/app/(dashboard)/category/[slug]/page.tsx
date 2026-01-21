@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Card, Button, Badge } from '@/components/ui';
-import { Film, Tv, BookOpen, Music, Gamepad2, MapPin, ArrowLeft, Loader2, List as ListIcon } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Gamepad2, ArrowLeft, Loader2, List as ListIcon } from 'lucide-react';
 
 const categoryMap: Record<string, { id: number; label: string; icon: any; color: string }> = {
     movies: { id: 1, label: 'Movies', icon: Film, color: 'text-movies' },
@@ -11,7 +11,6 @@ const categoryMap: Record<string, { id: number; label: string; icon: any; color:
     books: { id: 3, label: 'Books', icon: BookOpen, color: 'text-books' },
     music: { id: 4, label: 'Music', icon: Music, color: 'text-music' },
     games: { id: 5, label: 'Games', icon: Gamepad2, color: 'text-games' },
-    places: { id: 6, label: 'Places', icon: MapPin, color: 'text-accent' },
 };
 
 export default function CategoryPage() {

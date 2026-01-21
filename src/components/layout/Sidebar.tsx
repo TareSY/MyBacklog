@@ -17,8 +17,7 @@ import {
     Users,
     Gamepad2,
     Utensils,
-    PartyPopper,
-    MapPin
+    PartyPopper
 } from 'lucide-react';
 import type { Category } from '@/types';
 
@@ -34,7 +33,6 @@ const categories: { id: Category; label: string; icon: typeof Film; color: strin
     { id: 'books', label: 'Books', icon: BookOpen, color: 'text-books' },
     { id: 'games', label: 'Games', icon: Gamepad2, color: 'text-games' },
     { id: 'music', label: 'Music', icon: Music, color: 'text-music' },
-    { id: 'places', label: 'Places', icon: MapPin, color: 'text-accent' },
 ];
 
 export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarProps) {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share, MapPin } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share } from 'lucide-react';
 import { Button, Card, Badge, useToast } from '@/components/ui';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -53,7 +53,6 @@ const categoryIcons: Record<number, any> = {
     3: BookOpen,
     4: Music,
     5: Gamepad2,
-    6: MapPin,
 };
 
 const categoryNames: Record<number, string> = {
@@ -62,7 +61,6 @@ const categoryNames: Record<number, string> = {
     3: 'Book',
     4: 'Album',
     5: 'Game',
-    6: 'Place',
 };
 
 const categoryEmojis: Record<number, string> = {
@@ -71,7 +69,6 @@ const categoryEmojis: Record<number, string> = {
     3: '📚',
     4: '🎵',
     5: '🎮',
-    6: '📍',
 };
 
 export default function ListPage() {
@@ -444,13 +441,7 @@ export default function ListPage() {
                                             </div>
                                             {item.subtitle && <p className="text-sm text-text-muted">{item.subtitle}</p>}
                                             {item.releaseYear && !item.subtitle && <p className="text-sm text-text-muted">{item.releaseYear}</p>}
-                                            {item.address && (
-                                                <div className="flex items-center gap-1 text-sm text-text-muted mt-1">
-                                                    <MapPin className="w-3 h-3" />
-                                                    <span className="truncate">{item.address}</span>
-                                                </div>
-                                            )}
-                                            {item.description && !item.address && <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>}
+                                            {item.description && <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>}
                                         </div>
 
                                         {/* Actions */}
