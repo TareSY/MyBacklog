@@ -69,8 +69,9 @@ export async function GET(
                 .where(eq(lists.userId, session.user.id))
                 .orderBy(desc(items.addedAt));
         } else {
-            // Normal list: Get items from item_lists
-            listItems = await db
+            // Normal list: Get items linked to this list
+            // First try item_lists (new multi-list items), then fallback to items.listId (legacy)
+            const itemListsItems = await db
                 .select({
                     id: items.id,
                     listId: items.listId,
@@ -99,6 +100,46 @@ export async function GET(
                 .innerJoin(itemLists, eq(items.id, itemLists.itemId))
                 .where(eq(itemLists.listId, id))
                 .orderBy(itemLists.position, itemLists.addedAt);
+
+            // Also get legacy items that only have listId set (not in item_lists)
+            const legacyItems = await db
+                .select({
+                    id: items.id,
+                    listId: items.listId,
+                    categoryId: items.categoryId,
+                    externalId: items.externalId,
+                    externalSource: items.externalSource,
+                    title: items.title,
+                    subtitle: items.subtitle,
+                    imageUrl: items.imageUrl,
+                    releaseYear: items.releaseYear,
+                    description: items.description,
+                    isCompleted: items.isCompleted,
+                    completedAt: items.completedAt,
+                    addedAt: items.addedAt,
+                    notes: items.notes,
+                    rating: items.rating,
+                    platform: items.platform,
+                    placeId: items.placeId,
+                    address: items.address,
+                    latitude: items.latitude,
+                    longitude: items.longitude,
+                    subtype: items.subtype,
+                    position: items.position
+                })
+                .from(items)
+                .where(eq(items.listId, id))
+                .orderBy(items.position, items.addedAt);
+
+            // Merge: deduplicate by id (item_lists takes priority)
+            const seenIds = new Set(itemListsItems.map(i => i.id));
+            const mergedItems = [...itemListsItems];
+            for (const item of legacyItems) {
+                if (!seenIds.has(item.id)) {
+                    mergedItems.push(item);
+                }
+            }
+            listItems = mergedItems;
         }
 
         return NextResponse.json({ ...list, items: listItems });
