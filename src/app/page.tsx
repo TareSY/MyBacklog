@@ -11,7 +11,8 @@ import {
   Library,
   Wand2,
   Heart,
-  Zap
+  Zap,
+  Gamepad2
 } from 'lucide-react';
 
 export default function LandingPage() {
@@ -51,6 +52,15 @@ export default function LandingPage() {
       color: 'text-music',
       bgColor: 'bg-music/20',
       borderColor: 'border-music/40',
+    },
+    {
+      icon: Gamepad2,
+      emoji: '🎮',
+      title: 'Games',
+      description: 'Epics, indies, and virtual worlds to conquer.',
+      color: 'text-games',
+      bgColor: 'bg-games/20',
+      borderColor: 'border-games/40',
     },
   ];
 
@@ -133,7 +143,7 @@ export default function LandingPage() {
         <div className="absolute top-40 right-1/4 w-[400px] h-[400px] bg-secondary/30 rounded-full blur-[100px] float-delayed" />
         <div className="absolute bottom-0 left-1/2 w-[300px] h-[300px] bg-accent/20 rounded-full blur-[80px] float-slow" />
 
-        <div className="relative max-w-4xl mx-auto text-center">
+        <div className="relative max-w-4xl mx-auto text-left sm:text-center">
           {/* Fun tagline */}
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm font-medium text-primary-light animate-bounce">
             <Wand2 className="w-4 h-4" />
@@ -193,7 +203,7 @@ export default function LandingPage() {
       {/* Categories Section */}
       <section id="features" className="relative py-24 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left sm:text-center mb-16">
             <span className="text-4xl mb-4 block">🎨</span>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
               All Your Escapes, One Cozy Place
@@ -203,7 +213,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {features.map(({ icon: Icon, emoji, title, description, color, bgColor, borderColor }, index) => (
               <div
                 key={title}
@@ -228,7 +238,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
 
         <div className="relative max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left sm:text-center mb-16">
             <span className="text-4xl mb-4 block">⚡</span>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
               Superpowers Included

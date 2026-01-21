@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest) {
 
     try {
         const body = await request.json();
-        const { name, username } = body;
+        const { name, username, image } = body;
 
         // Input validation
         const updates: Record<string, string> = {};
@@ -58,6 +58,11 @@ export async function PUT(request: NextRequest) {
                 return NextResponse.json({ error: 'Username already taken' }, { status: 400 });
             }
             updates.username = sanitizedUsername;
+        }
+
+        if (image !== undefined) {
+            // Allow null to remove image
+            updates.image = image;
         }
 
         if (Object.keys(updates).length === 0) {

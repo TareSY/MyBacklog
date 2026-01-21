@@ -17,6 +17,7 @@ export default function BrowsePage() {
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
+    const [platform, setPlatform] = useState('');
     const [year, setYear] = useState('');
     const [description, setDescription] = useState('');
     const [saving, setSaving] = useState(false);
@@ -45,6 +46,7 @@ export default function BrowsePage() {
         if (prefill) {
             setTitle(prefill.title);
             setSubtitle(prefill.subtitle || '');
+            setPlatform(prefill.platform || '');
             setYear(prefill.releaseYear || '');
             setDescription(prefill.description || '');
         } else {
@@ -57,6 +59,7 @@ export default function BrowsePage() {
     function resetForm() {
         setTitle('');
         setSubtitle('');
+        setPlatform('');
         setYear('');
         setDescription('');
         setIsOpen(false);
@@ -95,6 +98,7 @@ export default function BrowsePage() {
                     categoryId: selectedCategory,
                     title,
                     subtitle: subtitle || null,
+                    platform: platform || null,
                     releaseYear: year ? parseInt(year) : null,
                     description: description || null,
                     externalId: null,
@@ -231,19 +235,29 @@ export default function BrowsePage() {
                             categorySlug={
                                 selectedCat?.id === 1 ? 'movies' :
                                     selectedCat?.id === 2 ? 'tv' :
-                                        selectedCat?.id === 3 ? 'books' : 'music'
+                                        selectedCat?.id === 3 ? 'books' :
+                                            selectedCat?.id === 5 ? 'games' : 'music'
                             }
                             placeholder={selectedCat?.id === 1 ? "Search or type a movie..." :
                                 selectedCat?.id === 2 ? "Search or type a TV show..." :
-                                    selectedCat?.id === 3 ? "Search or type a book..." : "Search or type an album..."}
+                                    selectedCat?.id === 3 ? "Search or type a book..." :
+                                        selectedCat?.id === 5 ? "Search or type a game..." : "Search or type an album..."}
                             required
                         />
+                        {selectedCat?.id === 5 && (
+                            <Input
+                                label="Platform"
+                                value={platform}
+                                onChange={(e) => setPlatform(e.target.value)}
+                                placeholder="PC, PS5, Switch..."
+                            />
+                        )}
                         <Input
-                            label={selectedCat?.id === 3 ? "Author" : selectedCat?.id === 4 ? "Artist" : "Subtitle"}
+                            label={selectedCat?.id === 3 ? "Author" : selectedCat?.id === 4 ? "Artist" : selectedCat?.id === 5 ? "Developer" : "Subtitle"}
                             value={subtitle}
                             onChange={(e) => setSubtitle(e.target.value)}
                             placeholder={selectedCat?.id === 3 ? "George Orwell" :
-                                selectedCat?.id === 4 ? "The Beatles" : "Optional"}
+                                selectedCat?.id === 4 ? "The Beatles" : selectedCat?.id === 5 ? "Nintendo" : "Optional"}
                         />
                         <Input
                             label="Year"

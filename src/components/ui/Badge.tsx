@@ -3,7 +3,7 @@
 import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Film, Tv, BookOpen, Music } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Gamepad2 } from 'lucide-react';
 import type { Category } from '@/types';
 
 const badgeVariants = cva(
@@ -20,6 +20,7 @@ const badgeVariants = cva(
                 warning: 'bg-warning/20 text-warning border border-warning/30',
                 error: 'bg-error/20 text-error border border-error/30',
                 info: 'bg-info/20 text-info border border-info/30',
+                games: 'bg-games/20 text-games border border-games/30',
             },
             size: {
                 sm: 'px-2 py-0.5 text-[10px]',
@@ -39,6 +40,7 @@ const categoryIcons = {
     tv: Tv,
     books: BookOpen,
     music: Music,
+    games: Gamepad2,
 };
 
 export interface BadgeProps

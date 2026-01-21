@@ -3,6 +3,7 @@ import { auth } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
 import { items, lists } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
+import { ItemStrategyContext } from '@/lib/strategies/item-strategy';
 
 // POST /api/items - Add item to a list
 export async function POST(request: NextRequest) {
@@ -18,17 +19,7 @@ export async function POST(request: NextRequest) {
 
     try {
         const body = await request.json();
-        const {
-            listId,
-            categoryId,
-            externalId,
-            externalSource,
-            title,
-            subtitle,
-            imageUrl,
-            releaseYear,
-            description,
-        } = body;
+        const { listId, categoryId } = body;
 
         // Verify user owns this list
         const [list] = await db
@@ -40,19 +31,20 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'List not found' }, { status: 404 });
         }
 
+        // Use Strategy Pattern for validation and data preparation
+        const strategy = ItemStrategyContext.getStrategy(categoryId);
+
+        try {
+            strategy.validate(body);
+        } catch (validationError: any) {
+            return NextResponse.json({ error: validationError.message }, { status: 400 });
+        }
+
+        const insertData = strategy.prepareForInsert(body);
+
         const [newItem] = await db
             .insert(items)
-            .values({
-                listId,
-                categoryId,
-                externalId,
-                externalSource,
-                title,
-                subtitle,
-                imageUrl,
-                releaseYear,
-                description,
-            })
+            .values(insertData as any)
             .returning();
 
         return NextResponse.json(newItem, { status: 201 });

@@ -102,6 +102,7 @@ export const items = pgTable('items', {
   addedAt: timestamp('added_at').defaultNow(),
   notes: text('notes'),
   rating: integer('rating'),
+  platform: text('platform'),
 });
 
 export const itemGenres = pgTable('item_genres', {

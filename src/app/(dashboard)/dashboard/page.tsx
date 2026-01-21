@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
 import { CreateListModal } from '@/components/CreateListModal';
-import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, ArrowRight, Loader2 } from 'lucide-react';
+import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2 } from 'lucide-react';
 
 interface List {
     id: string;
@@ -19,12 +19,13 @@ interface CategoryStats {
     tv: number;
     books: number;
     music: number;
+    games: number;
 }
 
 export default function DashboardPage() {
     const [lists, setLists] = useState<List[]>([]);
     const [loading, setLoading] = useState(true);
-    const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0 });
+    const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0 });
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     useEffect(() => {
@@ -42,6 +43,7 @@ export default function DashboardPage() {
                         tv: items.filter((i: any) => i.categoryId === 2).length,
                         books: items.filter((i: any) => i.categoryId === 3).length,
                         music: items.filter((i: any) => i.categoryId === 4).length,
+                        games: items.filter((i: any) => i.categoryId === 5).length,
                     });
                 }
             } catch (error) {
@@ -54,7 +56,7 @@ export default function DashboardPage() {
         fetchData();
     }, []);
 
-    const totalItems = stats.movies + stats.tv + stats.books + stats.music;
+    const totalItems = stats.movies + stats.tv + stats.books + stats.music + stats.games;
 
     return (
         <div className="space-y-8">
@@ -100,12 +102,13 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {[
                     { label: 'Movies', count: stats.movies, color: 'text-movies', icon: Film, emoji: '🎬' },
                     { label: 'TV Shows', count: stats.tv, color: 'text-tv', icon: Tv, emoji: '📺' },
                     { label: 'Books', count: stats.books, color: 'text-books', icon: BookOpen, emoji: '📚' },
                     { label: 'Music', count: stats.music, color: 'text-music', icon: Music, emoji: '🎵' },
+                    { label: 'Games', count: stats.games, color: 'text-games', icon: Gamepad2, emoji: '🎮' },
                 ].map((stat) => (
                     <Card key={stat.label} variant="glass" hover className="p-4 flex items-center justify-between">
                         <div>

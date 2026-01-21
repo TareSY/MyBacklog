@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Badge, Card, CardContent, EmptyState } from '@/components/ui';
 import { Film, Tv, Book, Music, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { FilteredList } from '@/components/lists/FilteredList';
 
 const categoryIcons: Record<string, React.ReactNode> = {
     movies: <Film className="w-4 h-4" />,
@@ -48,6 +49,7 @@ export default async function PublicListPage({ params }: PageProps) {
             id: items.id,
             title: items.title,
             subtitle: items.subtitle,
+            platform: items.platform, // Fetch platform
             imageUrl: items.imageUrl,
             releaseYear: items.releaseYear,
             isCompleted: items.isCompleted,
@@ -86,50 +88,7 @@ export default async function PublicListPage({ params }: PageProps) {
 
             {/* Items */}
             <main className="max-w-4xl mx-auto px-4 py-8">
-                {listItems.length === 0 ? (
-                    <EmptyState
-                        emoji="📭"
-                        title="No items yet"
-                        description="This list is empty."
-                    />
-                ) : (
-                    <div className="grid gap-4">
-                        {listItems.map((item) => (
-                            <Card key={item.id} variant="default" className="hover:border-primary/30 transition-colors">
-                                <CardContent className="flex items-center gap-4 p-4">
-                                    {item.imageUrl ? (
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={item.title}
-                                            className="w-16 h-20 object-cover rounded-lg"
-                                        />
-                                    ) : (
-                                        <div className="w-16 h-20 bg-bg-elevated rounded-lg flex items-center justify-center">
-                                            {categoryIcons[item.categorySlug || 'movies']}
-                                        </div>
-                                    )}
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2">
-                                            <h3 className="font-semibold text-text-primary truncate">{item.title}</h3>
-                                            {item.isCompleted && (
-                                                <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
-                                            )}
-                                        </div>
-                                        {item.subtitle && (
-                                            <p className="text-sm text-text-muted truncate">{item.subtitle}</p>
-                                        )}
-                                        {item.releaseYear && (
-                                            <p className="text-xs text-text-disabled">{item.releaseYear}</p>
-                                        )}
-                                    </div>
-                                    <Badge variant={item.categorySlug as any || 'default'}>
-                                        {item.categoryName || 'Unknown'}
-                                    </Badge>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                )}
+                <FilteredList items={listItems} categoryIcons={categoryIcons} />
             </main>
         </div>
     );
