@@ -64,9 +64,17 @@ export default function ListPage() {
             try {
                 const res = await fetch(`/api/lists/${id}`);
                 const data = await res.json();
+
+                if (data.error) {
+                    console.error('API Error:', data.error);
+                    setList(null); // Or set an error state
+                    return;
+                }
+
                 setList(data);
             } catch (error) {
                 console.error('Failed to fetch list:', error);
+                setList(null);
             } finally {
                 setLoading(false);
             }
