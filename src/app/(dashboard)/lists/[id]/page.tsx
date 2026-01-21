@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
 
 interface Item {
@@ -33,6 +33,7 @@ const categoryIcons: Record<number, any> = {
     2: Tv,
     3: BookOpen,
     4: Music,
+    5: Gamepad2,
 };
 
 const categoryNames: Record<number, string> = {
@@ -40,6 +41,7 @@ const categoryNames: Record<number, string> = {
     2: 'TV Show',
     3: 'Book',
     4: 'Album',
+    5: 'Game',
 };
 
 const categoryEmojis: Record<number, string> = {
@@ -47,6 +49,7 @@ const categoryEmojis: Record<number, string> = {
     2: '📺',
     3: '📚',
     4: '🎵',
+    5: '🎮',
 };
 
 export default function ListPage() {
@@ -143,11 +146,21 @@ export default function ListPage() {
         <div className="space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-3xl font-bold text-text-primary">{list.name}</h1>
-                    {list.description && (
-                        <p className="text-text-muted mt-1">{list.description}</p>
-                    )}
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => window.history.back()}
+                        className="p-2 rounded-lg hover:bg-bg-elevated transition-colors text-text-muted hover:text-text-primary"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <div>
+                        <h1 className="text-3xl font-bold text-text-primary">{list.name}</h1>
+                        {list.description && (
+                            <p className="text-text-muted mt-1">{list.description}</p>
+                        )}
+                    </div>
                 </div>
                 <div className="flex items-center gap-3">
                     {/* Public/Private Toggle */}
@@ -167,8 +180,8 @@ export default function ListPage() {
                             }
                         }}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${list.isPublic
-                                ? 'bg-success/20 text-success hover:bg-success/30'
-                                : 'bg-bg-elevated text-text-muted hover:bg-bg-surface'
+                            ? 'bg-success/20 text-success hover:bg-success/30'
+                            : 'bg-bg-elevated text-text-muted hover:bg-bg-surface'
                             }`}
                     >
                         {list.isPublic ? '🌐 Public' : '🔒 Private'}

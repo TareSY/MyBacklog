@@ -88,14 +88,14 @@ export default function DashboardPage() {
                             </Button>
                         </Link>
                         {lists.length > 0 && (
-                            <Link href={`/lists/${lists[0].id}`}>
+                            <Link href={lists.length === 1 ? `/lists/${lists[0].id}` : '/lists'}>
                                 <Button
                                     variant="secondary"
                                     className="bg-white/10 text-white border-white/20 hover:bg-white/20"
                                     size="lg"
                                     leftIcon={<ArrowRight className="w-5 h-5" />}
                                 >
-                                    View My List
+                                    View My {lists.length === 1 ? 'List' : 'Lists'}
                                 </Button>
                             </Link>
                         )}

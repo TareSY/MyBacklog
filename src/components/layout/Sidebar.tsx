@@ -79,10 +79,10 @@ export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarP
                     {categories.map(({ id, label, icon: Icon, color }) => (
                         <Link
                             key={id}
-                            href={`${listPath}?category=${id}`}
+                            href={`/category/${id}`}
                             className={cn(
                                 'flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all',
-                                pathname.includes(id)
+                                pathname === `/category/${id}`
                                     ? 'bg-bg-elevated text-text-primary'
                                     : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
                             )}
