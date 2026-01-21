@@ -69,7 +69,7 @@ export class LocalDatabaseSearchStrategy implements ISearchStrategy {
         const allCategories = await db.select().from(categories);
         const categoryMap = Object.fromEntries(allCategories.map(c => [c.id, c]));
 
-        return filteredResults.map(item => ({
+        const enhanced = filteredResults.map(item => ({
             id: item.id,
             title: item.title,
             subtitle: item.subtitle,
@@ -78,6 +78,15 @@ export class LocalDatabaseSearchStrategy implements ISearchStrategy {
             category: categoryMap[item.categoryId]?.name || 'Unknown',
             categorySlug: categoryMap[item.categoryId]?.slug || 'unknown',
         }));
+
+        // 6. Deduplicate by title + category (same item may exist in multiple lists)
+        const seen = new Set<string>();
+        return enhanced.filter(item => {
+            const key = `${item.title.toLowerCase()}|${item.categorySlug}`;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
     }
 }
 

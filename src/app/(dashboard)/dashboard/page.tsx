@@ -37,20 +37,27 @@ export default function DashboardPage() {
 
                 // Calculate stats from first list if it has items or stats
                 if (data.length > 0) {
-                    // Use server-aggregated stats if available (preferred for large lists)
-                    if (data[0].stats) {
-                        setStats(data[0].stats);
-                    } else if (data[0].items) {
-                        // Fallback for mock data or legacy responses
-                        const items = data[0].items;
-                        setStats({
-                            movies: items.filter((i: any) => i.categoryId === 1).length,
-                            tv: items.filter((i: any) => i.categoryId === 2).length,
-                            books: items.filter((i: any) => i.categoryId === 3).length,
-                            music: items.filter((i: any) => i.categoryId === 4).length,
-                            games: items.filter((i: any) => i.categoryId === 5).length,
-                        });
-                    }
+                    // Aggregate stats across ALL lists
+                    const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
+
+                    data.forEach((list: any) => {
+                        if (list.stats) {
+                            aggregatedStats.movies += list.stats.movies || 0;
+                            aggregatedStats.tv += list.stats.tv || 0;
+                            aggregatedStats.books += list.stats.books || 0;
+                            aggregatedStats.music += list.stats.music || 0;
+                            aggregatedStats.games += list.stats.games || 0;
+                        } else if (list.items) {
+                            // Fallback for mock data or legacy responses
+                            aggregatedStats.movies += list.items.filter((i: any) => i.categoryId === 1).length;
+                            aggregatedStats.tv += list.items.filter((i: any) => i.categoryId === 2).length;
+                            aggregatedStats.books += list.items.filter((i: any) => i.categoryId === 3).length;
+                            aggregatedStats.music += list.items.filter((i: any) => i.categoryId === 4).length;
+                            aggregatedStats.games += list.items.filter((i: any) => i.categoryId === 5).length;
+                        }
+                    });
+
+                    setStats(aggregatedStats);
                 }
             } catch (error) {
                 console.error('Failed to fetch lists:', error);
