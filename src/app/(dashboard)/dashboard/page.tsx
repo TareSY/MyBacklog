@@ -84,7 +84,7 @@ export default function DashboardPage() {
                                 size="lg"
                                 leftIcon={<Search className="w-5 h-5" />}
                             >
-                                Find Movies & Shows
+                                Find Entertainment
                             </Button>
                         </Link>
                         {lists.length > 0 && (
@@ -110,19 +110,21 @@ export default function DashboardPage() {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {[
-                    { label: 'Movies', count: stats.movies, color: 'text-movies', icon: Film, emoji: '🎬' },
-                    { label: 'TV Shows', count: stats.tv, color: 'text-tv', icon: Tv, emoji: '📺' },
-                    { label: 'Books', count: stats.books, color: 'text-books', icon: BookOpen, emoji: '📚' },
-                    { label: 'Music', count: stats.music, color: 'text-music', icon: Music, emoji: '🎵' },
-                    { label: 'Games', count: stats.games, color: 'text-games', icon: Gamepad2, emoji: '🎮' },
+                    { label: 'Movies', slug: 'movies', count: stats.movies, color: 'text-movies', icon: Film, emoji: '🎬' },
+                    { label: 'TV Shows', slug: 'tv', count: stats.tv, color: 'text-tv', icon: Tv, emoji: '📺' },
+                    { label: 'Books', slug: 'books', count: stats.books, color: 'text-books', icon: BookOpen, emoji: '📚' },
+                    { label: 'Music', slug: 'music', count: stats.music, color: 'text-music', icon: Music, emoji: '🎵' },
+                    { label: 'Games', slug: 'games', count: stats.games, color: 'text-games', icon: Gamepad2, emoji: '🎮' },
                 ].map((stat) => (
-                    <Card key={stat.label} variant="glass" hover className="p-4 flex items-center justify-between">
-                        <div>
-                            <p className="text-text-muted text-sm font-medium">{stat.label}</p>
-                            <p className={`text-2xl font-bold ${stat.color} mt-1`}>{stat.count}</p>
-                        </div>
-                        <span className="text-2xl">{stat.emoji}</span>
-                    </Card>
+                    <Link key={stat.label} href={`/category/${stat.slug}`}>
+                        <Card variant="glass" hover className="p-4 flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p className="text-text-muted text-sm font-medium">{stat.label}</p>
+                                <p className={`text-2xl font-bold ${stat.color} mt-1`}>{stat.count}</p>
+                            </div>
+                            <span className="text-2xl">{stat.emoji}</span>
+                        </Card>
+                    </Link>
                 ))}
             </div>
 

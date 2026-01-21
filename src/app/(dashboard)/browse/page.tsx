@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight } from 'lucide-react';
-import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete } from '@/components/ui';
+import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete, useToast } from '@/components/ui';
 
 const categories = [
     { id: 1, name: 'Movie', icon: Film, emoji: '🎬', color: 'text-movies' },
@@ -112,7 +112,7 @@ export default function BrowsePage() {
             }
 
             // Add item
-            await fetch('/api/items', {
+            const res = await fetch('/api/items', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -129,15 +129,25 @@ export default function BrowsePage() {
                 }),
             });
 
-            alert(`Added "${title}" to your backlog! 🎉`);
+            if (!res.ok) {
+                if (res.status === 409) {
+                    throw new Error('This item is already in your selected list.');
+                }
+                throw new Error('Failed to add item');
+            }
+
+            toast(`Added "${title}" to your backlog!`, 'success');
             resetForm();
-        } catch (error) {
+        } catch (error: any) {
             console.error('Failed to add item:', error);
-            alert('Failed to add item. Please try again.');
+            const msg = error.message || 'Failed to add item';
+            toast(msg, 'error');
         } finally {
             setSaving(false);
         }
     }
+
+    const { toast } = useToast();
 
     const selectedCat = categories.find(c => c.id === selectedCategory);
 
