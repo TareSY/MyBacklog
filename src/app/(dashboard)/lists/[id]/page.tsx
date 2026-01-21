@@ -317,13 +317,25 @@ export default function ListPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
+                    {/* Visibility Toggle */}
                     <Button
-                        variant={list.isPublic ? 'secondary' : 'primary'}
-                        onClick={toggleShare}
-                        leftIcon={<Share className="w-4 h-4" />}
+                        variant={list.isPublic ? 'secondary' : 'ghost'}
+                        onClick={() => toggleVisibility()}
+                        className={list.isPublic ? 'text-success' : 'text-text-muted'}
                     >
-                        {list.isPublic ? 'Copy Link' : 'Share List'}
+                        {list.isPublic ? '🌐 Public' : '🔒 Private'}
                     </Button>
+
+                    {/* Share / Copy Link */}
+                    {list.isPublic && (
+                        <Button
+                            variant="primary"
+                            onClick={toggleShare}
+                            leftIcon={<Share className="w-4 h-4" />}
+                        >
+                            Copy Link
+                        </Button>
+                    )}
 
                     {!list.isPrimary && (
                         <Button

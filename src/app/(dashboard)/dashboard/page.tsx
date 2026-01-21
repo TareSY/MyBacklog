@@ -151,7 +151,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Featured / Jump Back In Sections */}
-            {!loading && Object.keys(featured).length > 0 && (
+            {!loading && Object.values(featured).some((arr: any) => arr && arr.length > 0) && (
                 <div className="space-y-8">
                     <h2 className="text-xl font-bold text-text-primary">Jump Back In</h2>
 
