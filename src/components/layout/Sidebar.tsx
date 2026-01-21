@@ -13,7 +13,10 @@ import {
     Plus,
     List,
     Users,
-    Gamepad2
+    Gamepad2,
+    Utensils,
+    PartyPopper,
+    MapPin
 } from 'lucide-react';
 import type { Category } from '@/types';
 

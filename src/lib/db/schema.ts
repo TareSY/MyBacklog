@@ -91,7 +91,7 @@ export const items = pgTable('items', {
     .notNull()
     .references(() => categories.id),
   externalId: text('external_id'),
-  externalSource: text('external_source'), // 'tmdb', 'google_books', 'spotify'
+  externalSource: text('external_source'), // 'tmdb', 'google_books', 'spotify', 'google_places'
   title: text('title').notNull(),
   subtitle: text('subtitle'),
   imageUrl: text('image_url'),
@@ -103,6 +103,13 @@ export const items = pgTable('items', {
   notes: text('notes'),
   rating: integer('rating'),
   platform: text('platform'),
+  // Location fields for Places feature
+  placeId: text('place_id'),
+  address: text('address'),
+  latitude: text('latitude'),
+  longitude: text('longitude'),
+  // Music subtype (album vs song)
+  subtype: text('subtype'), // 'album' | 'song'
 });
 
 export const itemGenres = pgTable('item_genres', {
@@ -114,6 +121,22 @@ export const itemGenres = pgTable('item_genres', {
     .references(() => genres.id),
 }, (table) => [
   primaryKey({ columns: [table.itemId, table.genreId] }),
+]);
+
+// ============================================
+// Multi-List Support (M:N relationship)
+// ============================================
+
+export const itemLists = pgTable('item_lists', {
+  itemId: uuid('item_id')
+    .notNull()
+    .references(() => items.id, { onDelete: 'cascade' }),
+  listId: uuid('list_id')
+    .notNull()
+    .references(() => lists.id, { onDelete: 'cascade' }),
+  addedAt: timestamp('added_at').defaultNow(),
+}, (table) => [
+  primaryKey({ columns: [table.itemId, table.listId] }),
 ]);
 
 // ============================================
@@ -216,5 +239,16 @@ export const itemGenresRelations = relations(itemGenres, ({ one }) => ({
   genre: one(genres, {
     fields: [itemGenres.genreId],
     references: [genres.id],
+  }),
+}));
+
+export const itemListsRelations = relations(itemLists, ({ one }) => ({
+  item: one(items, {
+    fields: [itemLists.itemId],
+    references: [items.id],
+  }),
+  list: one(lists, {
+    fields: [itemLists.listId],
+    references: [lists.id],
   }),
 }));

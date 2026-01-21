@@ -5,13 +5,20 @@ export interface ItemInput {
     listId: string;
     categoryId: number;
     title: string;
-    subtitle?: string; // used for author, platform, etc. in some contexts, but we now have specific cols
-    platform?: string; // specific for games
+    subtitle?: string;
+    platform?: string;
     releaseYear?: number;
     imageUrl?: string;
     description?: string;
     externalId?: string;
     externalSource?: string;
+    // Location fields for Places
+    placeId?: string;
+    address?: string;
+    latitude?: string;
+    longitude?: string;
+    // Music subtype
+    subtype?: 'album' | 'song';
 }
 
 export interface IItemStrategy {
@@ -38,8 +45,11 @@ class BaseItemStrategy implements IItemStrategy {
             description: data.description?.trim() || null,
             externalId: data.externalId || null,
             externalSource: data.externalSource || 'manual',
-            // Default platform to null if not handled by subclass
             platform: null,
+            placeId: null,
+            address: null,
+            latitude: null,
+            longitude: null,
         };
     }
 }
@@ -48,13 +58,10 @@ class BaseItemStrategy implements IItemStrategy {
 class GameItemStrategy extends BaseItemStrategy {
     validate(data: Partial<ItemInput>): void {
         super.validate(data);
-        // Games might require a platform, or at least it's recommended
-        // For now we won't strictly enforce it to avoid breaking seeds, but we could.
     }
 
     prepareForInsert(data: Partial<ItemInput>): Record<string, any> {
         const base = super.prepareForInsert(data);
-        // Explicitly handle platform
         return {
             ...base,
             platform: data.platform?.trim() || null,
@@ -62,14 +69,47 @@ class GameItemStrategy extends BaseItemStrategy {
     }
 }
 
-// Strategy for other types (can be extended later)
+// Strategy for Places (Restaurant, Entertainment, Attraction)
+class PlacesItemStrategy extends BaseItemStrategy {
+    validate(data: Partial<ItemInput>): void {
+        super.validate(data);
+    }
+
+    prepareForInsert(data: Partial<ItemInput>): Record<string, any> {
+        const base = super.prepareForInsert(data);
+        return {
+            ...base,
+            externalSource: data.placeId ? 'google_places' : 'manual',
+            placeId: data.placeId || null,
+            address: data.address?.trim() || null,
+            latitude: data.latitude || null,
+            longitude: data.longitude || null,
+        };
+    }
+}
+
+// Strategy for Music (Album/Song)
+class MusicItemStrategy extends BaseItemStrategy {
+    prepareForInsert(data: Partial<ItemInput>): Record<string, any> {
+        const base = super.prepareForInsert(data);
+        return {
+            ...base,
+            subtype: data.subtype || 'album', // Default to album
+        };
+    }
+}
+
+// Strategy for other types
 class DefaultItemStrategy extends BaseItemStrategy { }
 
 // Context / Factory
 export class ItemStrategyContext {
     private static strategies: Record<number, IItemStrategy> = {
-        5: new GameItemStrategy(),
-        // 1 (Movie), 2 (TV), 3 (Book), 4 (Music) use Default for now
+        4: new MusicItemStrategy(),  // Music
+        5: new GameItemStrategy(),   // Games
+        6: new PlacesItemStrategy(), // Restaurant
+        7: new PlacesItemStrategy(), // Entertainment
+        8: new PlacesItemStrategy(), // Attraction
     };
 
     static getStrategy(categoryId: number): IItemStrategy {

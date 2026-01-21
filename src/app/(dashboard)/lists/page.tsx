@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
 import { CreateListModal } from '@/components/CreateListModal';
-import { Plus, List as ListIcon, Loader2, Lock, Globe } from 'lucide-react';
+import { Plus, List as ListIcon, Loader2, Lock, Globe, Crown } from 'lucide-react';
 
 interface List {
     id: string;
@@ -83,8 +83,13 @@ export default function ListsPage() {
                                         )}
                                     </div>
 
-                                    <h3 className="text-lg font-bold text-text-primary mb-2 line-clamp-1">
+                                    <h3 className="text-lg font-bold text-text-primary mb-2 line-clamp-1 flex items-center gap-2">
                                         {list.name}
+                                        {lists.indexOf(list) === 0 && (
+                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-warning/10 text-warning text-xs font-medium" title="Default List">
+                                                <Crown className="w-3 h-3" />
+                                            </span>
+                                        )}
                                     </h3>
                                     <p className="text-text-muted text-sm line-clamp-2 mb-6 flex-1">
                                         {list.description || 'No description provided.'}

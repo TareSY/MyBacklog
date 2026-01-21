@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
-import { items, lists } from '@/lib/db/schema';
+import { items, lists, itemLists } from '@/lib/db/schema';
 import { eq, and, sql } from 'drizzle-orm';
 import { ItemStrategyContext } from '@/lib/strategies/item-strategy';
 
@@ -110,6 +110,12 @@ export async function POST(request: NextRequest) {
             .insert(items)
             .values(insertData as any)
             .returning();
+
+        // Also insert into item_lists for multi-list support
+        await db.insert(itemLists).values({
+            itemId: newItem.id,
+            listId: listId,
+        }).onConflictDoNothing();
 
         return NextResponse.json(newItem, { status: 201 });
     } catch (error) {

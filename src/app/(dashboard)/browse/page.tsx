@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight, Utensils, PartyPopper, MapPin } from 'lucide-react';
 import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete, useToast } from '@/components/ui';
 
 const categories = [
@@ -10,6 +10,9 @@ const categories = [
     { id: 3, name: 'Book', icon: BookOpen, emoji: '📚', color: 'text-books' },
     { id: 4, name: 'Album', icon: Music, emoji: '🎵', color: 'text-music' },
     { id: 5, name: 'Game', icon: Gamepad2, emoji: '🎮', color: 'text-games' },
+    { id: 6, name: 'Restaurant', icon: Utensils, emoji: '🍽️', color: 'text-warning', isPlace: true },
+    { id: 7, name: 'Entertainment', icon: PartyPopper, emoji: '🎉', color: 'text-secondary', isPlace: true },
+    { id: 8, name: 'Attraction', icon: MapPin, emoji: '📍', color: 'text-error', isPlace: true },
 ];
 
 export default function BrowsePage() {
@@ -20,6 +23,7 @@ export default function BrowsePage() {
     const [platform, setPlatform] = useState('');
     const [year, setYear] = useState('');
     const [description, setDescription] = useState('');
+    const [subtype, setSubtype] = useState<'album' | 'song'>('album');
     const [saving, setSaving] = useState(false);
 
     const [suggestions, setSuggestions] = useState<any[]>([]);
@@ -126,6 +130,7 @@ export default function BrowsePage() {
                     externalId: null,
                     externalSource: 'manual',
                     imageUrl: null,
+                    subtype: selectedCategory === 4 ? subtype : null,
                 }),
             });
 
@@ -300,6 +305,28 @@ export default function BrowsePage() {
                                 </div>
                             </div>
                         </div>
+
+                        {selectedCat?.id === 4 && (
+                            <div className="space-y-3 pt-2">
+                                <label className="block text-sm font-medium text-text-secondary">Type</label>
+                                <div className="flex bg-bg-elevated p-1 rounded-xl border border-border-default">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSubtype('album')}
+                                        className={`flex-1 py-1.5 text-sm font-medium rounded-lg transition-all ${subtype === 'album' ? 'bg-primary text-white shadow-sm' : 'text-text-muted hover:text-text-primary'}`}
+                                    >
+                                        Album
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSubtype('song')}
+                                        className={`flex-1 py-1.5 text-sm font-medium rounded-lg transition-all ${subtype === 'song' ? 'bg-primary text-white shadow-sm' : 'text-text-muted hover:text-text-primary'}`}
+                                    >
+                                        Song
+                                    </button>
+                                </div>
+                            </div>
+                        )}
 
                         {selectedCat?.id === 5 && (
                             <Input
