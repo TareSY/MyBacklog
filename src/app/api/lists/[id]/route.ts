@@ -35,38 +35,71 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // Get items for this list, joined with item_lists for position and inclusion
-        // We use item_lists as the source of truth for "what is in this list"
-        const listItems = await db
-            .select({
-                id: items.id,
-                listId: items.listId, // Original listId
-                categoryId: items.categoryId,
-                externalId: items.externalId,
-                externalSource: items.externalSource,
-                title: items.title,
-                subtitle: items.subtitle,
-                imageUrl: items.imageUrl,
-                releaseYear: items.releaseYear,
-                description: items.description,
-                isCompleted: items.isCompleted,
-                completedAt: items.completedAt,
-                // Use addedAt and position from the join table to respect this specific list's order
-                addedAt: itemLists.addedAt,
-                notes: items.notes,
-                rating: items.rating,
-                platform: items.platform,
-                placeId: items.placeId,
-                address: items.address,
-                latitude: items.latitude,
-                longitude: items.longitude,
-                subtype: items.subtype,
-                position: itemLists.position
-            })
-            .from(items)
-            .innerJoin(itemLists, eq(items.id, itemLists.itemId))
-            .where(eq(itemLists.listId, id))
-            .orderBy(itemLists.position, itemLists.addedAt);
+        let listItems;
+
+        // If this is the Master List (isPrimary), fetch ALL items for the user
+        if (list.isPrimary && list.userId === session?.user?.id) {
+            listItems = await db
+                .select({
+                    id: items.id,
+                    listId: items.listId,
+                    categoryId: items.categoryId,
+                    externalId: items.externalId,
+                    externalSource: items.externalSource,
+                    title: items.title,
+                    subtitle: items.subtitle,
+                    imageUrl: items.imageUrl,
+                    releaseYear: items.releaseYear,
+                    description: items.description,
+                    isCompleted: items.isCompleted,
+                    completedAt: items.completedAt,
+                    addedAt: items.addedAt, // Use item's addedAt
+                    notes: items.notes,
+                    rating: items.rating,
+                    platform: items.platform,
+                    placeId: items.placeId,
+                    address: items.address,
+                    latitude: items.latitude,
+                    longitude: items.longitude,
+                    subtype: items.subtype,
+                    position: items.position // Use item's position (though global sorting might be tricky)
+                })
+                .from(items)
+                .innerJoin(lists, eq(items.listId, lists.id))
+                .where(eq(lists.userId, session.user.id))
+                .orderBy(desc(items.addedAt));
+        } else {
+            // Normal list: Get items from item_lists
+            listItems = await db
+                .select({
+                    id: items.id,
+                    listId: items.listId,
+                    categoryId: items.categoryId,
+                    externalId: items.externalId,
+                    externalSource: items.externalSource,
+                    title: items.title,
+                    subtitle: items.subtitle,
+                    imageUrl: items.imageUrl,
+                    releaseYear: items.releaseYear,
+                    description: items.description,
+                    isCompleted: items.isCompleted,
+                    completedAt: items.completedAt,
+                    addedAt: itemLists.addedAt,
+                    notes: items.notes,
+                    rating: items.rating,
+                    platform: items.platform,
+                    placeId: items.placeId,
+                    address: items.address,
+                    latitude: items.latitude,
+                    longitude: items.longitude,
+                    subtype: items.subtype,
+                    position: itemLists.position
+                })
+                .from(items)
+                .innerJoin(itemLists, eq(items.id, itemLists.itemId))
+                .where(eq(itemLists.listId, id))
+                .orderBy(itemLists.position, itemLists.addedAt);
+        }
 
         return NextResponse.json({ ...list, items: listItems });
     } catch (error) {

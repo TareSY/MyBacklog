@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share } from 'lucide-react';
 import { Button, Card, Badge, useToast } from '@/components/ui';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverlay } from '@dnd-kit/core';
@@ -39,6 +39,7 @@ interface List {
     name: string;
     description: string | null;
     isPublic: boolean;
+    isPrimary: boolean;
     shareSlug: string | null;
     userId: string;
     createdAt: string;
@@ -72,6 +73,7 @@ const categoryEmojis: Record<number, string> = {
 
 export default function ListPage() {
     const { id } = useParams();
+    const router = useRouter();
     const { toast } = useToast();
     const [list, setList] = useState<List | null>(null);
     const [items, setItems] = useState<Item[]>([]);
@@ -85,7 +87,7 @@ export default function ListPage() {
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
-                distance: 8, // Require 8px movement before drag starts (prevents accidental drags on click)
+                distance: 8, // Require 8px movement before drag starts
             },
         }),
         useSensor(KeyboardSensor, {
@@ -125,9 +127,6 @@ export default function ListPage() {
 
                 const newOrder = arrayMove(items, oldIndex, newIndex);
 
-                // Optimistic UI update done. Now persist to backend.
-                // We need to send the new order to the API
-                // Map items to { id, position } based on new index
                 const updates = newOrder.map((item, index) => ({
                     id: item.id,
                     position: index
@@ -155,7 +154,6 @@ export default function ListPage() {
                 body: JSON.stringify({ isCompleted: !isCompleted }),
             });
 
-            // Update local state
             setItems(prev => prev.map(item =>
                 item.id === itemId ? { ...item, isCompleted: !isCompleted } : item
             ));
@@ -169,26 +167,31 @@ export default function ListPage() {
 
         try {
             await fetch(`/api/items/${itemId}`, { method: 'DELETE' });
-
-            // Update local state
             setItems(prev => prev.filter(item => item.id !== itemId));
         } catch (error) {
             console.error('Failed to delete item:', error);
         }
     }
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center py-16">
-                <Loader2 className="w-8 h-8 text-primary animate-spin" />
-            </div>
-        );
+    async function deleteList() {
+        if (!list || list.isPrimary) return;
+        if (!confirm('Are you sure you want to delete this list? This action cannot be undone.')) return;
+
+        try {
+            const res = await fetch(`/api/lists/${id}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Failed to delete list');
+
+            toast('List deleted', 'success');
+            router.push('/lists');
+        } catch (error) {
+            console.error('Failed to delete list:', error);
+            toast('Failed to delete list', 'error');
+        }
     }
 
     async function toggleShare() {
         if (!list) return;
 
-        // If already public, just copy link
         if (list.isPublic && list.shareSlug) {
             const url = `${window.location.origin}/share/${list.shareSlug}`;
             await navigator.clipboard.writeText(url);
@@ -196,7 +199,6 @@ export default function ListPage() {
             return;
         }
 
-        // If not public, make it public
         try {
             const res = await fetch(`/api/lists/${id}`, {
                 method: 'PUT',
@@ -222,6 +224,14 @@ export default function ListPage() {
         }
     }
 
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center py-16">
+                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+            </div>
+        );
+    }
+
     if (error) {
         return (
             <div className="text-center py-16">
@@ -240,11 +250,6 @@ export default function ListPage() {
         );
     }
 
-    // Filter logic needs to account for the fact that we might be filtering a sorted list
-    // BUT sorting only really makes sense when viewing "All" (or maybe we only allow sorting when no filter is active?)
-    // For now, let's disable sorting visual if filters are active, OR just let it happen but it might look weird if items are hidden.
-    // Actually, widespread standard: Drag & Drop usually disabled if sort/filter is active.
-    // Let's only enable DnD if filter === 'all' and categoryFilter === null.
     const isDragEnabled = filter === 'all' && categoryFilter === null;
 
     let filteredItems = items;
@@ -276,6 +281,11 @@ export default function ListPage() {
                                     Public
                                 </Badge>
                             )}
+                            {list.isPrimary && (
+                                <Badge variant="movies" className="text-xs">
+                                    Master List
+                                </Badge>
+                            )}
                         </div>
                         {list.description && (
                             <p className="text-text-muted mt-1">{list.description}</p>
@@ -290,13 +300,26 @@ export default function ListPage() {
                     </div>
                 </div>
 
-                <Button
-                    variant={list.isPublic ? 'secondary' : 'primary'}
-                    onClick={toggleShare}
-                    leftIcon={<Share className="w-4 h-4" />}
-                >
-                    {list.isPublic ? 'Copy Link' : 'Share List'}
-                </Button>
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant={list.isPublic ? 'secondary' : 'primary'}
+                        onClick={toggleShare}
+                        leftIcon={<Share className="w-4 h-4" />}
+                    >
+                        {list.isPublic ? 'Copy Link' : 'Share List'}
+                    </Button>
+
+                    {!list.isPrimary && (
+                        <Button
+                            variant="ghost"
+                            onClick={deleteList}
+                            className="text-error hover:bg-error/10 hover:text-error"
+                            leftIcon={<Trash2 className="w-4 h-4" />}
+                        >
+                            Delete List
+                        </Button>
+                    )}
+                </div>
             </div>
 
             {/* Filters */}
@@ -362,7 +385,7 @@ export default function ListPage() {
                     <SortableContext
                         items={filteredItems.map(i => i.id)}
                         strategy={verticalListSortingStrategy}
-                        disabled={!isDragEnabled} // Disable DnD if filtered
+                        disabled={!isDragEnabled}
                     >
                         <div className="grid gap-3">
                             {filteredItems.map((item) => (
@@ -418,11 +441,9 @@ export default function ListPage() {
                         </div>
                     </SortableContext>
 
-                    {/* Drag Overlay for smooth visuals */}
                     <DragOverlay>
                         {activeId ? (
                             <Card variant="elevated" className="opacity-80 rotate-2 cursor-grabbing">
-                                {/* Minimal representation for overlay */}
                                 <div className="p-4 flex items-center gap-4">
                                     Dragging...
                                 </div>

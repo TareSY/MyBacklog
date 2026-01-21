@@ -38,7 +38,23 @@ export async function GET(request: NextRequest) {
         const result = await db
             .select()
             .from(lists)
-            .where(whereClause);
+            .where(whereClause)
+            .orderBy(lists.createdAt);
+
+        // Auto-fix: Ensure user has a Primary list
+        if (session?.user?.id && type !== 'public') {
+            const userId = session.user.id;
+            const myLists = result.filter(l => l.userId === userId);
+            if (myLists.length > 0 && !myLists.some(l => l.isPrimary)) {
+                // Set the first/oldest list as primary
+                const firstList = myLists[0];
+                await db
+                    .update(lists)
+                    .set({ isPrimary: true })
+                    .where(eq(lists.id, firstList.id));
+                firstList.isPrimary = true; // Update local for response
+            }
+        }
 
         if (type === 'public') {
             const listsWithItems = await Promise.all(result.map(async (list) => {
@@ -98,6 +114,13 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const { name, description, isPublic } = body;
 
+        // Check if this is the first list
+        const [existing] = await db
+            .select()
+            .from(lists)
+            .where(eq(lists.userId, session.user.id))
+            .limit(1);
+
         const [newList] = await db
             .insert(lists)
             .values({
@@ -105,6 +128,7 @@ export async function POST(request: NextRequest) {
                 name: name || 'My Backlog',
                 description,
                 isPublic: Boolean(isPublic),
+                isPrimary: !existing // True if no existing lists
             })
             .returning();
 
