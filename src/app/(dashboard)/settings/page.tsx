@@ -6,18 +6,18 @@ import { Button, Input, Card, CardHeader, CardTitle, CardDescription, CardConten
 import { User, Mail, Key, Trash2, Save, Loader2 } from 'lucide-react';
 
 const PRESET_AVATARS = [
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Felix',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Aneka',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Molly',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Leo',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Zoe',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Max',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Sam',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Coco',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Oscar',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Bella',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Jack',
-    'https://api.dicebear.com/7.x/notionists/svg?seed=Lilly',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Maya',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Kenji',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Amara',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Diego',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Priya',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Marcus',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Yuki',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Fatima',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Chen',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Aaliya',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Kofi',
+    'https://api.dicebear.com/7.x/notionists/svg?seed=Sofia',
 ];
 
 export default function SettingsPage() {
@@ -200,21 +200,21 @@ export default function SettingsPage() {
                 </CardContent>
             </Card>
 
-            {/* Danger Zone */}
-            <Card variant="default" className="border-error/30">
+            {/* Moving On */}
+            <Card variant="default" className="border-warning/30">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-error">
+                    <CardTitle className="flex items-center gap-2 text-warning">
                         <Trash2 className="w-5 h-5" />
-                        Danger Zone
+                        Time to Say Goodbye?
                     </CardTitle>
                     <CardDescription>
-                        Irreversible and destructive actions
+                        We'll miss you, but we understand! 🌟
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm text-text-muted mb-4">
-                        Once you delete your account, there is no going back.
-                        All your lists and items will be permanently removed.
+                        If you delete your account, all your lists and saved items will be cleared.
+                        No hard feelings—maybe we'll see you again someday!
                     </p>
                     <Button
                         variant="ghost"
