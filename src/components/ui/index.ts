@@ -6,3 +6,4 @@ export { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalFo
 export { ToastProvider, useToast } from './Toast';
 export { Skeleton, SkeletonCard, SkeletonListItem, SkeletonDashboard } from './Skeleton';
 export { EmptyState, EmptyStateNoItems, EmptyStateNoLists, EmptyStateSearch } from './EmptyState';
+export { Autocomplete } from './Autocomplete';

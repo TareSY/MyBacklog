@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Film, Tv, BookOpen, Music, Plus, Sparkles, Loader2, ArrowRight } from 'lucide-react';
-import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge } from '@/components/ui';
+import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete } from '@/components/ui';
 
 const categories = [
     { id: 1, name: 'Movie', icon: Film, emoji: '🎬', color: 'text-movies' },
@@ -218,13 +218,23 @@ export default function BrowsePage() {
                     </ModalHeader>
 
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                        <Input
-                            label="Title *"
+                        <Autocomplete
+                            label="Title"
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder={selectedCat?.id === 1 ? "The Shawshank Redemption" :
-                                selectedCat?.id === 2 ? "Breaking Bad" :
-                                    selectedCat?.id === 3 ? "1984" : "Abbey Road"}
+                            onChange={setTitle}
+                            onSelect={(item) => {
+                                setTitle(item.title);
+                                if (item.subtitle) setSubtitle(item.subtitle);
+                                if (item.releaseYear) setYear(String(item.releaseYear));
+                            }}
+                            categorySlug={
+                                selectedCat?.id === 1 ? 'movies' :
+                                    selectedCat?.id === 2 ? 'tv' :
+                                        selectedCat?.id === 3 ? 'books' : 'music'
+                            }
+                            placeholder={selectedCat?.id === 1 ? "Search or type a movie..." :
+                                selectedCat?.id === 2 ? "Search or type a TV show..." :
+                                    selectedCat?.id === 3 ? "Search or type a book..." : "Search or type an album..."}
                             required
                         />
                         <Input
