@@ -110,6 +110,7 @@ export const items = pgTable('items', {
   longitude: text('longitude'),
   // Music subtype (album vs song)
   subtype: text('subtype'), // 'album' | 'song'
+  position: integer('position').default(0),
 });
 
 export const itemGenres = pgTable('item_genres', {
@@ -135,6 +136,7 @@ export const itemLists = pgTable('item_lists', {
     .notNull()
     .references(() => lists.id, { onDelete: 'cascade' }),
   addedAt: timestamp('added_at').defaultNow(),
+  position: integer('position').default(0),
 }, (table) => [
   primaryKey({ columns: [table.itemId, table.listId] }),
 ]);

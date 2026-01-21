@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2 } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
@@ -155,14 +156,14 @@ export default function ListPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <button
-                        onClick={() => window.history.back()}
+                    <Link
+                        href="/lists"
                         className="p-2 rounded-lg hover:bg-bg-elevated transition-colors text-text-muted hover:text-text-primary"
                     >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                         </svg>
-                    </button>
+                    </Link>
                     <div>
                         <h1 className="text-3xl font-bold text-text-primary">{list.name}</h1>
                         {list.description && (
@@ -232,7 +233,7 @@ export default function ListPage() {
                     >
                         All
                     </button>
-                    {[1, 2, 3, 4].map((cat) => (
+                    {[1, 2, 3, 4, 5].map((cat) => (
                         <button
                             key={cat}
                             onClick={() => setCategoryFilter(cat)}

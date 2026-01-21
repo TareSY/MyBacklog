@@ -62,16 +62,30 @@ export async function POST(request: NextRequest) {
 
     try {
         const body = await request.json();
-        const { listId, categoryId } = body;
 
-        // Verify user owns this list
-        const [list] = await db
+        // Handle both single listId (legacy) and listIds array
+        let { listId, listIds, categoryId } = body;
+
+        if (!listIds && listId) {
+            listIds = [listId];
+        } else if (listIds && listIds.length > 0) {
+            // Use the first list as the primary "owner" for the items table
+            listId = listIds[0];
+        } else {
+            return NextResponse.json({ error: 'At least one list is required' }, { status: 400 });
+        }
+
+        // Verify user owns all these lists
+        const userLists = await db
             .select()
             .from(lists)
-            .where(and(eq(lists.id, listId), eq(lists.userId, session.user.id)));
+            .where(and(eq(lists.userId, session.user.id)));
 
-        if (!list) {
-            return NextResponse.json({ error: 'List not found' }, { status: 404 });
+        const userListIds = new Set(userLists.map(l => l.id));
+        const allValid = listIds.every((id: string) => userListIds.has(id));
+
+        if (!allValid) {
+            return NextResponse.json({ error: 'One or more lists not found or unauthorized' }, { status: 404 });
         }
 
         // Use Strategy Pattern for validation and data preparation
@@ -83,10 +97,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: validationError.message }, { status: 400 });
         }
 
-        // Check for duplicates in the target list
-        // Rules: duplicate if same title AND same category.
-        // If externalId is present, check that too? No, manual items might not have it.
-        // Title comparison should be case-insensitive? Ideally yes.
+        // Check for duplicates in the PRIMARY list (optional: check all? simplified for now)
         const [existing] = await db
             .select()
             .from(items)
@@ -99,23 +110,29 @@ export async function POST(request: NextRequest) {
 
         if (existing) {
             return NextResponse.json(
-                { error: 'This item is already in your list.' },
+                { error: 'This item is already in your primary list.' },
                 { status: 409 }
             );
         }
 
         const insertData = strategy.prepareForInsert(body);
+        // Ensure primary listId is set
+        insertData.listId = listId;
 
         const [newItem] = await db
             .insert(items)
             .values(insertData as any)
             .returning();
 
-        // Also insert into item_lists for multi-list support
-        await db.insert(itemLists).values({
+        // Insert into item_lists for ALL selected lists
+        const linksToInsert = listIds.map((lid: string) => ({
             itemId: newItem.id,
-            listId: listId,
-        }).onConflictDoNothing();
+            listId: lid,
+        }));
+
+        if (linksToInsert.length > 0) {
+            await db.insert(itemLists).values(linksToInsert).onConflictDoNothing();
+        }
 
         return NextResponse.json(newItem, { status: 201 });
     } catch (error) {

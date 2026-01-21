@@ -103,6 +103,18 @@ export function Sidebar({ listId, categoryCounts, completedCount = 0 }: SidebarP
                         Dashboard
                     </Link>
                     <Link
+                        href="/lists"
+                        className={cn(
+                            'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
+                            isActive('/lists') && !pathname.match(/\/lists\/[a-zA-Z0-9-]+/)
+                                ? 'bg-primary/20 text-primary-light'
+                                : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
+                        )}
+                    >
+                        <List className="w-5 h-5" />
+                        All Lists
+                    </Link>
+                    <Link
                         href="/friends"
                         className={cn(
                             'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all',

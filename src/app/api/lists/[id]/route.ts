@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
-import { lists, items } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { lists, items, itemLists } from '@/lib/db/schema';
+import { eq, and, asc, desc } from 'drizzle-orm';
 
 // GET /api/lists/[id] - Get a specific list with items
 export async function GET(
@@ -35,11 +35,38 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // Get items for this list
+        // Get items for this list, joined with item_lists for position and inclusion
+        // We use item_lists as the source of truth for "what is in this list"
         const listItems = await db
-            .select()
+            .select({
+                id: items.id,
+                listId: items.listId, // Original listId
+                categoryId: items.categoryId,
+                externalId: items.externalId,
+                externalSource: items.externalSource,
+                title: items.title,
+                subtitle: items.subtitle,
+                imageUrl: items.imageUrl,
+                releaseYear: items.releaseYear,
+                description: items.description,
+                isCompleted: items.isCompleted,
+                completedAt: items.completedAt,
+                // Use addedAt and position from the join table to respect this specific list's order
+                addedAt: itemLists.addedAt,
+                notes: items.notes,
+                rating: items.rating,
+                platform: items.platform,
+                placeId: items.placeId,
+                address: items.address,
+                latitude: items.latitude,
+                longitude: items.longitude,
+                subtype: items.subtype,
+                position: itemLists.position
+            })
             .from(items)
-            .where(eq(items.listId, id));
+            .innerJoin(itemLists, eq(items.id, itemLists.itemId))
+            .where(eq(itemLists.listId, id))
+            .orderBy(itemLists.position, itemLists.addedAt);
 
         return NextResponse.json({ ...list, items: listItems });
     } catch (error) {
