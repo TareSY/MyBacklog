@@ -22,7 +22,7 @@ const PRESET_AVATARS = [
 
 export default function SettingsPage() {
     const { data: session, update } = useSession();
-    const { addToast } = useToast();
+    const { toast } = useToast();
 
     const [name, setName] = useState(session?.user?.name || '');
     const [image, setImage] = useState(session?.user?.image || '');
@@ -43,9 +43,9 @@ export default function SettingsPage() {
             if (!res.ok) throw new Error('Failed to update profile');
 
             await update({ name, image });
-            addToast('Profile updated successfully!', 'success');
+            toast('Profile updated successfully!', 'success');
         } catch (error) {
-            addToast('Failed to update profile', 'error');
+            toast('Failed to update profile', 'error');
         } finally {
             setSaving(false);
         }
@@ -63,7 +63,7 @@ export default function SettingsPage() {
 
             window.location.href = '/';
         } catch (error) {
-            addToast('Failed to delete account', 'error');
+            toast('Failed to delete account', 'error');
             setDeleting(false);
         }
     }
