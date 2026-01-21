@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Film, Tv, BookOpen, Music, Plus, Sparkles, Loader2, ArrowRight } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight } from 'lucide-react';
 import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete } from '@/components/ui';
 
 const categories = [
@@ -9,6 +9,7 @@ const categories = [
     { id: 2, name: 'TV Show', icon: Tv, emoji: '📺', color: 'text-tv' },
     { id: 3, name: 'Book', icon: BookOpen, emoji: '📚', color: 'text-books' },
     { id: 4, name: 'Album', icon: Music, emoji: '🎵', color: 'text-music' },
+    { id: 5, name: 'Game', icon: Gamepad2, emoji: '🎮', color: 'text-games' },
 ];
 
 export default function BrowsePage() {

@@ -87,8 +87,21 @@ export async function register(formData: FormData) {
             password,
             redirectTo: '/dashboard',
         });
-    } catch (error) {
-        throw new Error('Registration failed. Email or username may already exist.');
+    } catch (error: any) {
+        // Handle specific database errors
+        const errorMessage = error?.message || String(error);
+
+        if (errorMessage.includes('unique') || errorMessage.includes('duplicate') || errorMessage.includes('23505')) {
+            if (errorMessage.toLowerCase().includes('email')) {
+                throw new Error('An account with this email already exists. Please log in instead.');
+            }
+            if (errorMessage.toLowerCase().includes('username')) {
+                throw new Error('This username is already taken. Please choose another.');
+            }
+            throw new Error('An account with this email or username already exists.');
+        }
+
+        throw new Error('Registration failed. Please try again.');
     }
 }
 
