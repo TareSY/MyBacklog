@@ -25,9 +25,6 @@ export default function BrowsePage() {
     const [subtype, setSubtype] = useState<'album' | 'song'>('album');
     const [saving, setSaving] = useState(false);
 
-    const [suggestions, setSuggestions] = useState<any[]>([]);
-    const [loadingSuggestions, setLoadingSuggestions] = useState(true);
-
     const [userLists, setUserLists] = useState<any[]>([]);
     const [selectedListIds, setSelectedListIds] = useState<string[]>([]);
 
@@ -48,22 +45,6 @@ export default function BrowsePage() {
             }
         }
         loadLists();
-    }, []);
-
-    // Load suggestions (public lists)
-    useEffect(() => {
-        async function loadSuggestions() {
-            try {
-                const res = await fetch('/api/lists?type=public');
-                const data = await res.json();
-                setSuggestions(Array.isArray(data) ? data : []);
-            } catch (error) {
-                console.error('Failed to load suggestions', error);
-            } finally {
-                setLoadingSuggestions(false);
-            }
-        }
-        loadSuggestions();
     }, []);
 
     function openAddModal(categoryId: number, prefill?: any) {
@@ -190,35 +171,6 @@ export default function BrowsePage() {
                     );
                 })}
             </div>
-
-            {/* Recent Public Lists */}
-            {!loadingSuggestions && suggestions.length > 0 && (
-                <div className="space-y-6">
-                    <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-primary" />
-                        Public Lists to Explore
-                    </h2>
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {suggestions.slice(0, 6).map((list: any) => (
-                            <Card key={list.id} variant="glass" hover className="p-4">
-                                <h3 className="font-semibold text-text-primary mb-2">{list.name}</h3>
-                                {list.items && list.items.length > 0 && (
-                                    <div className="flex gap-1 flex-wrap">
-                                        {list.items.slice(0, 3).map((item: any) => (
-                                            <Badge key={item.id} variant="secondary" className="text-xs">
-                                                {item.title}
-                                            </Badge>
-                                        ))}
-                                        {list.items.length > 3 && (
-                                            <span className="text-xs text-text-muted">+{list.items.length - 3} more</span>
-                                        )}
-                                    </div>
-                                )}
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            )}
 
             {/* Curated Picks */}
             <div className="space-y-6">

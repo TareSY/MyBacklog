@@ -64,31 +64,39 @@ export async function GET(request: NextRequest) {
             return NextResponse.json(listsWithItems);
         }
 
-        // For user lists, attach stats (aggregated counts) to avoid sending all items
-        const listsWithStats = await Promise.all(result.map(async (list) => {
-            const counts = await db
-                .select({
-                    categoryId: items.categoryId,
-                    count: sql<number>`count(*)`
-                })
-                .from(items)
-                .where(eq(items.listId, list.id))
-                .groupBy(items.categoryId);
+        // For user lists, attach stats using a SINGLE batched query (no N+1)
+        const listIds = result.map(l => l.id);
 
-            const stats = {
-                movies: 0, tv: 0, books: 0, music: 0, games: 0
-            };
+        // Get all counts in one query
+        const allCounts = listIds.length > 0 ? await db
+            .select({
+                listId: items.listId,
+                categoryId: items.categoryId,
+                count: sql<number>`count(*)`
+            })
+            .from(items)
+            .where(sql`${items.listId} IN (${sql.join(listIds.map(id => sql`${id}`), sql`, `)})`)
+            .groupBy(items.listId, items.categoryId) : [];
 
-            counts.forEach(c => {
-                const count = Number(c.count);
-                if (c.categoryId === 1) stats.movies = count;
-                else if (c.categoryId === 2) stats.tv = count;
-                else if (c.categoryId === 3) stats.books = count;
-                else if (c.categoryId === 4) stats.music = count;
-                else if (c.categoryId === 5) stats.games = count;
-            });
+        // Build a map of listId -> stats
+        const statsMap: Record<string, { movies: number; tv: number; books: number; music: number; games: number }> = {};
+        listIds.forEach(id => {
+            statsMap[id] = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
+        });
 
-            return { ...list, stats };
+        allCounts.forEach(c => {
+            const count = Number(c.count);
+            if (!statsMap[c.listId]) return;
+            if (c.categoryId === 1) statsMap[c.listId].movies = count;
+            else if (c.categoryId === 2) statsMap[c.listId].tv = count;
+            else if (c.categoryId === 3) statsMap[c.listId].books = count;
+            else if (c.categoryId === 4) statsMap[c.listId].music = count;
+            else if (c.categoryId === 5) statsMap[c.listId].games = count;
+        });
+
+        const listsWithStats = result.map(list => ({
+            ...list,
+            stats: statsMap[list.id] || { movies: 0, tv: 0, books: 0, music: 0, games: 0 }
         }));
 
         return NextResponse.json(listsWithStats);
