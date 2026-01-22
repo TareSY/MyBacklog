@@ -15,7 +15,7 @@ const cardVariants = cva(
                 gradient: 'bg-bg-surface border border-border-subtle relative before:absolute before:inset-[-1px] before:rounded-xl before:p-[1px] before:bg-gradient-to-br before:from-primary before:via-secondary before:to-accent before:-z-10',
             },
             hover: {
-                true: 'transition-all duration-200 hover:border-border-default hover:shadow-lg hover:-translate-y-0.5 cursor-pointer',
+                true: 'transition-all duration-300 ease-out hover:border-primary/40 hover:shadow-[0_8px_30px_rgba(139,92,246,0.25)] hover:-translate-y-1 hover:scale-[1.02] cursor-pointer active:scale-[0.98]',
                 false: '',
             },
         },

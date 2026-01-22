@@ -19,6 +19,13 @@ export default async function DashboardLayout({
 
     return (
         <div className="min-h-screen bg-bg-base">
+            {/* Skip link for keyboard navigation */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:outline-none"
+            >
+                Skip to main content
+            </a>
             <Header
                 user={{
                     email: user.email || '',
@@ -31,8 +38,13 @@ export default async function DashboardLayout({
                 }}
             />
             <Sidebar />
-            <main className="lg:pl-64 pt-16 min-h-screen">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <main
+                id="main-content"
+                className="lg:pl-64 pt-16 min-h-screen"
+                role="main"
+                aria-label="Main content"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 pb-safe">
                     {children}
                 </div>
             </main>
