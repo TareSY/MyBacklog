@@ -26,7 +26,7 @@ interface FriendsData {
 }
 
 export default function FriendsPage() {
-    const { addToast } = useToast();
+    const { toast } = useToast();
     const [data, setData] = useState<FriendsData | null>(null);
     const [loading, setLoading] = useState(true);
     const [username, setUsername] = useState('');
@@ -79,15 +79,15 @@ export default function FriendsPage() {
             });
 
             if (res.ok) {
-                addToast('Friend request sent!', 'success');
+                toast('Friend request sent!', 'success');
                 setUsername('');
                 fetchFriends();
             } else {
                 const data = await res.json();
-                addToast(data.error || 'Failed to send request', 'error');
+                toast(data.error || 'Failed to send request', 'error');
             }
         } catch (error) {
-            addToast('Failed to send request', 'error');
+            toast('Failed to send request', 'error');
         } finally {
             setSending(false);
         }
@@ -102,11 +102,11 @@ export default function FriendsPage() {
             });
 
             if (res.ok) {
-                addToast(action === 'accept' ? 'Friend added!' : 'Request declined', 'success');
+                toast(action === 'accept' ? 'Friend added!' : 'Request declined', 'success');
                 fetchFriends();
             }
         } catch (error) {
-            addToast('Failed to respond to request', 'error');
+            toast('Failed to respond to request', 'error');
         }
     }
 
@@ -116,11 +116,11 @@ export default function FriendsPage() {
         try {
             const res = await fetch(`/api/friends/${id}`, { method: 'DELETE' });
             if (res.ok) {
-                addToast('Friend removed', 'success');
+                toast('Friend removed', 'success');
                 fetchFriends();
             }
         } catch (error) {
-            addToast('Failed to remove friend', 'error');
+            toast('Failed to remove friend', 'error');
         }
     }
 

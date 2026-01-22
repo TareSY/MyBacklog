@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share } from 'lucide-react';
+import { Film, Tv, BookOpen, Music, Check, Trash2, Loader2, Filter, SortAsc, Gamepad2, Share, Star } from 'lucide-react';
 import { Button, Card, Badge, useToast } from '@/components/ui';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -159,6 +159,22 @@ export default function ListPage() {
             ));
         } catch (error) {
             console.error('Failed to update item:', error);
+        }
+    }
+
+    async function updateRating(itemId: string, rating: number) {
+        try {
+            await fetch(`/api/items/${itemId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rating }),
+            });
+
+            setItems(prev => prev.map(item =>
+                item.id === itemId ? { ...item, rating } : item
+            ));
+        } catch (error) {
+            console.error('Failed to update rating:', error);
         }
     }
 
@@ -442,6 +458,22 @@ export default function ListPage() {
                                             {item.subtitle && <p className="text-sm text-text-muted">{item.subtitle}</p>}
                                             {item.releaseYear && !item.subtitle && <p className="text-sm text-text-muted">{item.releaseYear}</p>}
                                             {item.description && <p className="text-sm text-text-muted mt-1 line-clamp-2">{item.description}</p>}
+                                            {/* Star Rating for completed items */}
+                                            {item.isCompleted && (
+                                                <div className="flex items-center gap-1 mt-2">
+                                                    {[1, 2, 3, 4, 5].map((star) => (
+                                                        <button
+                                                            key={star}
+                                                            onClick={() => updateRating(item.id, item.rating === star ? 0 : star)}
+                                                            className="p-0.5 hover:scale-110 transition-transform"
+                                                        >
+                                                            <Star
+                                                                className={`w-4 h-4 ${(item.rating || 0) >= star ? 'fill-yellow-400 text-yellow-400' : 'text-text-muted'}`}
+                                                            />
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
 
                                         {/* Actions */}
