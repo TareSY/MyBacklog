@@ -69,25 +69,6 @@ class GameItemStrategy extends BaseItemStrategy {
     }
 }
 
-// Strategy for Places (Restaurant, Entertainment, Attraction)
-class PlacesItemStrategy extends BaseItemStrategy {
-    validate(data: Partial<ItemInput>): void {
-        super.validate(data);
-    }
-
-    prepareForInsert(data: Partial<ItemInput>): Record<string, any> {
-        const base = super.prepareForInsert(data);
-        return {
-            ...base,
-            externalSource: data.placeId ? 'google_places' : 'manual',
-            placeId: data.placeId || null,
-            address: data.address?.trim() || null,
-            latitude: data.latitude || null,
-            longitude: data.longitude || null,
-        };
-    }
-}
-
 // Strategy for Music (Album/Song)
 class MusicItemStrategy extends BaseItemStrategy {
     prepareForInsert(data: Partial<ItemInput>): Record<string, any> {
@@ -107,9 +88,6 @@ export class ItemStrategyContext {
     private static strategies: Record<number, IItemStrategy> = {
         4: new MusicItemStrategy(),  // Music
         5: new GameItemStrategy(),   // Games
-        6: new PlacesItemStrategy(), // Restaurant
-        7: new PlacesItemStrategy(), // Entertainment
-        8: new PlacesItemStrategy(), // Attraction
     };
 
     static getStrategy(categoryId: number): IItemStrategy {

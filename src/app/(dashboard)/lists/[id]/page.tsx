@@ -364,15 +364,15 @@ export default function ListPage() {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                 <div className="flex gap-1 p-1 bg-bg-elevated rounded-xl">
                     {(['all', 'pending', 'completed'] as const).map((f) => (
                         <button
                             key={f}
                             onClick={() => setFilter(f)}
                             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all capitalize ${filter === f
-                                ? 'bg-primary text-white'
-                                : 'text-text-muted hover:text-text-primary'
+                                ? 'bg-primary text-white shadow-md'
+                                : 'text-text-muted hover:text-text-primary hover:bg-white/5'
                                 }`}
                         >
                             {f}
@@ -380,28 +380,56 @@ export default function ListPage() {
                     ))}
                 </div>
 
-                <div className="flex gap-1 p-1 bg-bg-elevated rounded-xl">
+                <div className="h-8 w-px bg-border-subtle hidden sm:block" />
+
+                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide max-w-full">
                     <button
                         onClick={() => setCategoryFilter(null)}
-                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${categoryFilter === null
-                            ? 'bg-primary text-white'
-                            : 'text-text-muted hover:text-text-primary'
+                        className={`group flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all whitespace-nowrap border ${categoryFilter === null
+                            ? 'bg-bg-elevated border-text-muted text-text-primary'
+                            : 'border-transparent text-text-muted hover:text-text-primary hover:bg-bg-elevated'
                             }`}
                     >
                         All
+                        <span className="opacity-50 text-xs bg-bg-base/50 px-1.5 py-0.5 rounded-full">{items.length}</span>
                     </button>
-                    {[1, 2, 3, 4, 5, 6].map((cat) => (
-                        <button
-                            key={cat}
-                            onClick={() => setCategoryFilter(cat)}
-                            className={`px-3 py-1.5 rounded-lg text-sm transition-all ${categoryFilter === cat
-                                ? 'bg-primary text-white'
-                                : 'text-text-muted hover:text-text-primary'
-                                }`}
-                        >
-                            {categoryEmojis[cat]}
-                        </button>
-                    ))}
+
+                    {[1, 2, 3, 4, 5].map((catId) => {
+                        const Icon = categoryIcons[catId];
+                        const isActive = categoryFilter === catId;
+                        const count = items.filter(i => i.categoryId === catId).length;
+
+                        // Don't show filter if no items (optional, but cleaner)
+                        if (count === 0 && !isActive) return null;
+
+                        let colorClass = 'text-text-muted';
+                        let activeClass = 'bg-bg-elevated border-transparent';
+
+                        if (isActive) {
+                            if (catId === 1) { colorClass = 'text-movies'; activeClass = 'bg-movies/10 border-movies/20'; }
+                            else if (catId === 2) { colorClass = 'text-tv'; activeClass = 'bg-tv/10 border-tv/20'; }
+                            else if (catId === 3) { colorClass = 'text-books'; activeClass = 'bg-books/10 border-books/20'; }
+                            else if (catId === 4) { colorClass = 'text-music'; activeClass = 'bg-music/10 border-music/20'; }
+                            else if (catId === 5) { colorClass = 'text-games'; activeClass = 'bg-games/10 border-games/20'; }
+                        }
+
+                        return (
+                            <button
+                                key={catId}
+                                onClick={() => setCategoryFilter(isActive ? null : catId)}
+                                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all whitespace-nowrap border ${isActive
+                                    ? activeClass
+                                    : 'border-transparent hover:bg-bg-elevated text-text-muted'
+                                    }`}
+                            >
+                                <Icon className={`w-4 h-4 ${isActive ? colorClass : ''}`} />
+                                <span className={isActive ? colorClass : ''}>{categoryNames[catId]}</span>
+                                <span className={`opacity-50 text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-bg-base/50' : 'bg-bg-elevated'}`}>
+                                    {count}
+                                </span>
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
 
