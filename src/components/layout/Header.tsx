@@ -14,7 +14,8 @@ import {
     User,
     Users,
     Menu,
-    X
+    X,
+    Sparkles
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -37,6 +38,7 @@ export function Header({ user, onLogout }: HeaderProps) {
         { href: '/dashboard', label: 'My Backlog', icon: Library },
         { href: '/browse', label: 'Browse', icon: Search },
         { href: '/friends', label: 'Friends', icon: Users },
+        { href: '/changelog', label: 'Changelog', icon: Sparkles },
     ];
 
     return (
