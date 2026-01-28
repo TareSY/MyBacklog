@@ -11,6 +11,11 @@ interface ChangelogEntry {
 
 const changelog: ChangelogEntry[] = [
     {
+        version: 'v0.2.0',
+        date: '2026-01-28',
+        content: '📝 Request Media feature added. Can\'t find what you\'re looking for? Request it!',
+    },
+    {
         version: 'v0.1.18',
         date: '2026-01-28',
         content: 'Fixings',

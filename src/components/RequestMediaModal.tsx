@@ -18,7 +18,7 @@ const categories = [
     { value: 'games', label: '🎮 Games' },
 ];
 
-export function RequestItemModal({ isOpen, onClose, defaultCategory }: RequestItemModalProps) {
+export function RequestMediaModal({ isOpen, onClose, defaultCategory }: RequestItemModalProps) {
     const { toast } = useToast();
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState(defaultCategory || 'movies');

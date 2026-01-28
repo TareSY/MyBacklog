@@ -195,6 +195,25 @@ export const notifications = pgTable('notifications', {
 });
 
 // ============================================
+// Item Requests (for users to request new media)
+// ============================================
+
+export const itemRequests = pgTable('item_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  userEmail: text('user_email').notNull(),
+  title: text('title').notNull(),
+  category: text('category').notNull(), // 'movies', 'tv', 'books', 'music', 'games'
+  year: text('year'),
+  notes: text('notes'),
+  status: text('status').notNull().default('pending'), // 'pending', 'added', 'rejected'
+  createdAt: timestamp('created_at').defaultNow(),
+  reviewedAt: timestamp('reviewed_at'),
+});
+
+// ============================================
 // Relations
 // ============================================
 

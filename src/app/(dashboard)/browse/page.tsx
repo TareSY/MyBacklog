@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight, Check } from 'lucide-react';
 import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete, useToast } from '@/components/ui';
-import { RequestItemModal } from '@/components/RequestItemModal';
+import { RequestMediaModal } from '@/components/RequestMediaModal';
 import { MessageSquarePlus } from 'lucide-react';
 import { curatedContent, type CuratedCategory } from '@/lib/curated-content';
 
@@ -163,7 +163,7 @@ export default function BrowsePage() {
             </div>
 
             {/* Request Media Modal */}
-            <RequestItemModal
+            <RequestMediaModal
                 isOpen={isRequestModalOpen}
                 onClose={() => setIsRequestModalOpen(false)}
             />
