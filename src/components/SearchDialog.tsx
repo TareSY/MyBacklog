@@ -43,9 +43,13 @@ export function SearchDialog() {
 
     // Load recent searches from localStorage
     useEffect(() => {
-        const saved = localStorage.getItem('recentSearches');
-        if (saved) {
-            setRecentSearches(JSON.parse(saved).slice(0, 5));
+        try {
+            const saved = localStorage.getItem('recentSearches');
+            if (saved) {
+                setRecentSearches(JSON.parse(saved).slice(0, 5));
+            }
+        } catch {
+            // Ignore corrupted localStorage data
         }
     }, []);
 

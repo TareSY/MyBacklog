@@ -20,7 +20,8 @@ export async function GET(request: NextRequest) {
         const userId = session.user.id;
         const searchParams = request.nextUrl.searchParams;
         const unreadOnly = searchParams.get('unread') === 'true';
-        const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 50);
+        const rawLimit = parseInt(searchParams.get('limit') || '20');
+        const limit = Math.min(isNaN(rawLimit) ? 20 : rawLimit, 50);
 
         // Build query conditions
         const conditions = [eq(notifications.userId, userId)];
@@ -88,13 +89,15 @@ export async function PUT(request: NextRequest) {
                 .set({ isRead: true })
                 .where(eq(notifications.userId, userId));
         } else if (ids && Array.isArray(ids) && ids.length > 0) {
-            // Mark specific notifications as read
-            for (const id of ids) {
-                await db
-                    .update(notifications)
-                    .set({ isRead: true })
-                    .where(and(eq(notifications.id, id), eq(notifications.userId, userId)));
-            }
+            // Mark specific notifications as read - batch update
+            const { inArray } = await import('drizzle-orm');
+            await db
+                .update(notifications)
+                .set({ isRead: true })
+                .where(and(
+                    inArray(notifications.id, ids),
+                    eq(notifications.userId, userId)
+                ));
         } else {
             return NextResponse.json({ error: 'Must provide ids or all=true' }, { status: 400 });
         }
