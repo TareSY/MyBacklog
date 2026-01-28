@@ -28,6 +28,8 @@ interface QuickAddItem {
     subtitle?: string;
     year?: number;
     categoryId: number;
+    categoryKey?: string;
+    imageUrl?: string | null;
 }
 
 export default function DashboardPage() {
@@ -43,6 +45,7 @@ export default function DashboardPage() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [itemToAdd, setItemToAdd] = useState<QuickAddItem | null>(null);
     const [selectedListId, setSelectedListId] = useState<string>('');
+    const [fetchingImage, setFetchingImage] = useState(false);
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
@@ -99,10 +102,29 @@ export default function DashboardPage() {
         fetchData();
     }, []);
 
-    // Open quick add modal
-    function openQuickAdd(item: QuickAddItem) {
+    // Open quick add modal and fetch image
+    async function openQuickAdd(item: QuickAddItem) {
         setItemToAdd(item);
         setIsAddModalOpen(true);
+
+        // Fetch metadata to get image
+        if (item.categoryKey) {
+            setFetchingImage(true);
+            try {
+                const res = await fetch(`/api/metadata/search?q=${encodeURIComponent(item.title)}&category=${item.categoryKey}`);
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    const match = data.results.find((r: any) => r.title.toLowerCase() === item.title.toLowerCase()) || data.results[0];
+                    if (match.imageUrl) {
+                        setItemToAdd(prev => prev ? { ...prev, imageUrl: match.imageUrl } : null);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch metadata', error);
+            } finally {
+                setFetchingImage(false);
+            }
+        }
     }
 
     // Handle quick add submit
@@ -120,6 +142,7 @@ export default function DashboardPage() {
                     title: itemToAdd.title,
                     subtitle: itemToAdd.subtitle || null,
                     releaseYear: itemToAdd.year || null,
+                    imageUrl: itemToAdd.imageUrl || null,
                     externalSource: 'curated',
                 }),
             });
@@ -296,7 +319,8 @@ export default function DashboardPage() {
                                                 title: item.title,
                                                 subtitle: item.subtitle,
                                                 year: item.year,
-                                                categoryId: cat.id
+                                                categoryId: cat.id,
+                                                categoryKey: cat.key
                                             })}
                                         >
                                             <Plus className="w-4 h-4" />
@@ -406,7 +430,7 @@ export default function DashboardPage() {
             />
 
             {/* Quick Add Modal */}
-            <Modal open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+            <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
                 <ModalContent>
                     <ModalHeader>
                         <ModalTitle>Add to List</ModalTitle>

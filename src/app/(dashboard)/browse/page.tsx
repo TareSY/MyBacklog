@@ -26,6 +26,7 @@ export default function BrowsePage() {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [subtype, setSubtype] = useState<'album' | 'song'>('album');
     const [saving, setSaving] = useState(false);
+    const [fetchingMetadata, setFetchingMetadata] = useState(false);
 
     const [userLists, setUserLists] = useState<any[]>([]);
     const [selectedListIds, setSelectedListIds] = useState<string[]>([]);
@@ -77,6 +78,36 @@ export default function BrowsePage() {
         setSubtype('album');
         setIsOpen(false);
         setSelectedCategory(null);
+    }
+
+    // Fetch metadata for curated item to get image
+    async function openCuratedItem(categoryId: number, categoryKey: string, item: { title: string; subtitle?: string; year: number }) {
+        setSelectedCategory(categoryId);
+        setTitle(item.title);
+        setSubtitle(item.subtitle || '');
+        setYear(String(item.year));
+        setImageUrl(null);
+        setIsOpen(true);
+        setFetchingMetadata(true);
+
+        try {
+            const res = await fetch(`/api/metadata/search?q=${encodeURIComponent(item.title)}&category=${categoryKey}`);
+            const data = await res.json();
+
+            if (data.results && data.results.length > 0) {
+                // Find the best match by title
+                const match = data.results.find((r: any) =>
+                    r.title.toLowerCase() === item.title.toLowerCase()
+                ) || data.results[0];
+
+                if (match.imageUrl) setImageUrl(match.imageUrl);
+                if (match.description && !description) setDescription(match.description);
+            }
+        } catch (error) {
+            console.error('Failed to fetch metadata', error);
+        } finally {
+            setFetchingMetadata(false);
+        }
     }
 
     async function handleSubmit(e: React.FormEvent) {
@@ -196,11 +227,11 @@ export default function BrowsePage() {
                 </h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {[
-                        { key: 'movies', label: 'Movies', emoji: '🎬', color: 'text-movies' },
-                        { key: 'tv', label: 'TV Shows', emoji: '📺', color: 'text-tv' },
-                        { key: 'books', label: 'Books', emoji: '📚', color: 'text-books' },
-                        { key: 'music', label: 'Albums', emoji: '🎵', color: 'text-music' },
-                        { key: 'games', label: 'Games', emoji: '🎮', color: 'text-games' },
+                        { key: 'movies', label: 'Movies', emoji: '🎬', color: 'text-movies', categoryId: 1 },
+                        { key: 'tv', label: 'TV Shows', emoji: '📺', color: 'text-tv', categoryId: 2 },
+                        { key: 'books', label: 'Books', emoji: '📚', color: 'text-books', categoryId: 3 },
+                        { key: 'music', label: 'Albums', emoji: '🎵', color: 'text-music', categoryId: 4 },
+                        { key: 'games', label: 'Games', emoji: '🎮', color: 'text-games', categoryId: 5 },
                     ].map(cat => (
                         <Card key={cat.key} variant="glass" className="p-4 space-y-3">
                             <div className="flex items-center gap-2">
@@ -209,10 +240,21 @@ export default function BrowsePage() {
                             </div>
                             <div className="space-y-2">
                                 {curatedContent[cat.key as keyof CuratedCategory].slice(0, 3).map((item, idx) => (
-                                    <div key={idx} className="flex justify-between items-center text-sm">
+                                    <button
+                                        key={idx}
+                                        onClick={() => openCuratedItem(cat.categoryId, cat.key, {
+                                            title: item.title,
+                                            subtitle: item.subtitle,
+                                            year: item.year
+                                        })}
+                                        className="w-full flex justify-between items-center text-sm p-2 -mx-2 rounded-lg hover:bg-bg-elevated transition-colors group"
+                                    >
                                         <span className="text-text-primary truncate">{item.title}</span>
-                                        <span className="text-text-muted text-xs shrink-0">{item.year}</span>
-                                    </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-text-muted text-xs shrink-0">{item.year}</span>
+                                            <Plus className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        </div>
+                                    </button>
                                 ))}
                             </div>
                         </Card>
