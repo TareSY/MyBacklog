@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Input, Card, CardHeader, CardTitle, CardDescription, CardContent, Badge, useToast } from '@/components/ui';
-import { UserPlus, Users, Clock, Check, X, Trash2, Eye } from 'lucide-react';
+import { UserPlus, Users, Clock, Check, X, Trash2, Eye, BarChart3 } from 'lucide-react';
 
 interface Friend {
     id: string;
@@ -286,13 +286,22 @@ export default function FriendsPage() {
                                         </div>
                                     </div>
                                     <div className="flex gap-2">
+                                        <Link href={`/friends/${friend.id}/compare`}>
+                                            <Button
+                                                size="sm"
+                                                variant="primary"
+                                                leftIcon={<BarChart3 className="w-4 h-4" />}
+                                            >
+                                                Compare
+                                            </Button>
+                                        </Link>
                                         <Link href={`/friends/${friend.id}`}>
                                             <Button
                                                 size="sm"
                                                 variant="secondary"
                                                 leftIcon={<Eye className="w-4 h-4" />}
                                             >
-                                                View Lists
+                                                View
                                             </Button>
                                         </Link>
                                         <Button

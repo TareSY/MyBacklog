@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Card, CardHeader, CardTitle, CardContent, Badge, EmptyState } from '@/components/ui';
+import { VennDiagram } from '@/components/ui/VennDiagram';
 import { ArrowLeft, BarChart3, Check, X } from 'lucide-react';
 
 interface CompareData {
@@ -49,8 +50,8 @@ export default function ComparePage() {
     if (loading) {
         return (
             <div className="max-w-4xl mx-auto space-y-6">
-                <div className="skeleton h-8 w-48 rounded-lg" />
-                <div className="skeleton h-32 rounded-2xl" />
+                <div className="h-8 w-48 bg-bg-elevated rounded-lg animate-pulse" />
+                <div className="h-32 bg-bg-elevated rounded-2xl animate-pulse" />
             </div>
         );
     }
@@ -78,6 +79,19 @@ export default function ComparePage() {
                     Compare Backlogs
                 </h1>
             </div>
+
+            {/* Venn Diagram */}
+            <Card variant="glass">
+                <CardContent className="py-4">
+                    <VennDiagram
+                        yourCount={data.stats.yourTotal}
+                        friendCount={data.stats.friendTotal}
+                        commonCount={data.stats.common}
+                        yourLabel="You"
+                        friendLabel={data.friend.name || data.friend.username}
+                    />
+                </CardContent>
+            </Card>
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
