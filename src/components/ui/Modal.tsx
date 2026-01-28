@@ -138,7 +138,15 @@ export function ModalDescription({ children, className }: { children: React.Reac
 
 export function ModalFooter({ children, className }: { children: React.ReactNode; className?: string }) {
     return (
-        <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-6 pt-0', className)}>
+        <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-6 pt-0 shrink-0', className)}>
+            {children}
+        </div>
+    );
+}
+
+export function ModalBody({ children, className }: { children: React.ReactNode; className?: string }) {
+    return (
+        <div className={cn('px-6 py-4 overflow-y-auto flex-1', className)}>
             {children}
         </div>
     );

@@ -133,15 +133,25 @@ async function searchGoogleBooks(query: string): Promise<any[]> {
     const res = await fetch(url);
     const data = await res.json();
 
-    return (data.items || []).map((item: any) => ({
-        externalId: item.id,
-        externalSource: 'google_books',
-        title: item.volumeInfo?.title,
-        subtitle: item.volumeInfo?.authors?.join(', '),
-        releaseYear: item.volumeInfo?.publishedDate?.split('-')[0],
-        description: item.volumeInfo?.description?.slice(0, 500),
-        imageUrl: item.volumeInfo?.imageLinks?.thumbnail?.replace('http:', 'https:') || null,
-    }));
+    return (data.items || []).map((item: any) => {
+        const imageLinks = item.volumeInfo?.imageLinks;
+        // Try to get the best quality image available (large > medium > small > thumbnail)
+        const imageUrl = imageLinks?.large
+            || imageLinks?.medium
+            || imageLinks?.small
+            || imageLinks?.thumbnail;
+
+        return {
+            externalId: item.id,
+            externalSource: 'google_books',
+            title: item.volumeInfo?.title,
+            subtitle: item.volumeInfo?.authors?.join(', '),
+            releaseYear: item.volumeInfo?.publishedDate?.split('-')[0],
+            description: item.volumeInfo?.description?.slice(0, 500),
+            // Replace http with https and remove edge=curl parameter for cleaner images
+            imageUrl: imageUrl?.replace('http:', 'https:').replace('&edge=curl', '') || null,
+        };
+    });
 }
 
 // RAWG Search (Games)
