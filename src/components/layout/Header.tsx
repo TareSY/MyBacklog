@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui';
+import { SearchDialog } from '@/components/SearchDialog';
 import {
     Library,
     Search,
@@ -74,6 +75,7 @@ export function Header({ user, onLogout }: HeaderProps) {
 
                     {/* Right side actions */}
                     <div className="flex items-center gap-3">
+                        {user && <SearchDialog />}
                         {user ? (
                             <>
                                 <Link href="/settings">
