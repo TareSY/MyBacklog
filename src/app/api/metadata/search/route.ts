@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
                 results = await searchTMDB(query, category);
                 break;
             case 'books':
-                results = await searchGoogleBooks(query);
+                results = await searchOpenLibrary(query);
                 break;
             case 'games':
                 results = await searchRAWG(query);
@@ -218,47 +218,47 @@ async function searchTMDB(query: string, type: 'movies' | 'tv'): Promise<any[]> 
     }));
 }
 
-// Google Books Search (with OpenLibrary fallback)
-async function searchGoogleBooks(query: string): Promise<any[]> {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=10`;
+// OpenLibrary Search (Books - free, no rate limits)
+async function searchOpenLibrary(query: string): Promise<any[]> {
+    const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=10`;
 
-    const res = await fetch(url);
-    const data = await res.json();
-
-    return (data.items || []).map((item: any) => {
-        const imageLinks = item.volumeInfo?.imageLinks;
-        // Try to get the best quality image available (large > medium > small > thumbnail)
-        let imageUrl = imageLinks?.large
-            || imageLinks?.medium
-            || imageLinks?.small
-            || imageLinks?.thumbnail;
-
-        // Clean up Google Books URL
-        if (imageUrl) {
-            imageUrl = imageUrl.replace('http:', 'https:').replace('&edge=curl', '');
-        }
-
-        // OpenLibrary fallback: if no Google image, try ISBN-based cover
-        if (!imageUrl) {
-            const identifiers = item.volumeInfo?.industryIdentifiers || [];
-            const isbn13 = identifiers.find((i: any) => i.type === 'ISBN_13')?.identifier;
-            const isbn10 = identifiers.find((i: any) => i.type === 'ISBN_10')?.identifier;
-            const isbn = isbn13 || isbn10;
-            if (isbn) {
-                imageUrl = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
+    try {
+        const res = await fetch(url, {
+            headers: {
+                'User-Agent': 'MyBacklog/1.0 (https://thebacklog.vercel.app)',
             }
+        });
+
+        if (!res.ok) {
+            console.warn('[METADATA] OpenLibrary fetch failed:', res.status);
+            return [];
         }
 
-        return {
-            externalId: item.id,
-            externalSource: 'google_books',
-            title: item.volumeInfo?.title,
-            subtitle: item.volumeInfo?.authors?.join(', '),
-            releaseYear: item.volumeInfo?.publishedDate?.split('-')[0],
-            description: item.volumeInfo?.description?.slice(0, 500),
-            imageUrl: imageUrl || null,
-        };
-    });
+        const data = await res.json();
+
+        return (data.docs || []).map((item: any) => {
+            // Cover image from OpenLibrary (use cover_i if available)
+            let imageUrl = null;
+            if (item.cover_i) {
+                imageUrl = `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`;
+            } else if (item.isbn && item.isbn[0]) {
+                imageUrl = `https://covers.openlibrary.org/b/isbn/${item.isbn[0]}-L.jpg`;
+            }
+
+            return {
+                externalId: item.key || item.edition_key?.[0] || String(item.cover_i),
+                externalSource: 'openlibrary',
+                title: item.title,
+                subtitle: item.author_name?.join(', '),
+                releaseYear: item.first_publish_year?.toString(),
+                description: item.first_sentence?.join(' ')?.slice(0, 500) || null,
+                imageUrl: imageUrl,
+            };
+        });
+    } catch (error) {
+        console.error('[METADATA] OpenLibrary search error:', error);
+        return [];
+    }
 }
 
 // RAWG Search (Games)
