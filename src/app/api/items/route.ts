@@ -96,8 +96,9 @@ export async function POST(request: NextRequest) {
 
         try {
             strategy.validate(dataWithListId);
-        } catch (validationError: any) {
-            return NextResponse.json({ error: validationError.message }, { status: 400 });
+        } catch (validationError) {
+            const message = validationError instanceof Error ? validationError.message : 'Validation failed';
+            return NextResponse.json({ error: message }, { status: 400 });
         }
 
         // Check for duplicates in the PRIMARY list (optional: check all? simplified for now)

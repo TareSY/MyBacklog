@@ -3,6 +3,16 @@ import { auth } from '@/auth';
 import { db, isDatabaseConfigured } from '@/lib/db';
 import { lists, items, itemLists } from '@/lib/db/schema';
 import { eq, and, asc, desc } from 'drizzle-orm';
+import { nanoid } from 'nanoid';
+
+// Type for list update payload
+interface ListUpdateData {
+    name?: string;
+    description?: string | null;
+    isPublic?: boolean;
+    shareSlug?: string;
+    updatedAt: Date;
+}
 
 // GET /api/lists/[id] - Get a specific list with items
 export async function GET(
@@ -185,14 +195,12 @@ export async function PUT(
                 .where(and(eq(lists.id, id), eq(lists.userId, session.user.id)));
 
             if (current && !current.shareSlug) {
-                // Generate simple 8-char slug
-                shareSlug = Math.random().toString(36).substring(2, 10);
-                // Check collision (simple loop or just hope? MVP: Retry once)
-                // Real app: use nanoid and loop.
+                // Generate collision-safe 10-char slug using nanoid
+                shareSlug = nanoid(10);
             }
         }
 
-        const updateData: any = {
+        const updateData: ListUpdateData = {
             name,
             description,
             isPublic,
