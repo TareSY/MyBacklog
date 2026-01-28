@@ -276,6 +276,26 @@ export default function BrowsePage() {
                     </ModalHeader>
 
                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        {/* Image Preview */}
+                        {(imageUrl || fetchingMetadata) && (
+                            <div className="flex justify-center mb-4">
+                                {fetchingMetadata ? (
+                                    <div className="w-32 h-40 bg-bg-elevated rounded-lg flex items-center justify-center">
+                                        <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                                    </div>
+                                ) : imageUrl ? (
+                                    <img
+                                        src={imageUrl}
+                                        alt={title}
+                                        className="w-32 h-40 object-cover rounded-lg shadow-lg"
+                                        onError={(e) => {
+                                            (e.target as HTMLImageElement).style.display = 'none';
+                                        }}
+                                    />
+                                ) : null}
+                            </div>
+                        )}
+
                         <Autocomplete
                             label="Title"
                             value={title}

@@ -22,6 +22,21 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'i.scdn.co',
             },
+            // OpenLibrary book covers
+            {
+                protocol: 'https',
+                hostname: 'covers.openlibrary.org',
+            },
+            // RAWG game images
+            {
+                protocol: 'https',
+                hostname: 'media.rawg.io',
+            },
+            // MusicBrainz Cover Art Archive
+            {
+                protocol: 'https',
+                hostname: 'coverartarchive.org',
+            },
         ],
         formats: ['image/avif', 'image/webp'],
     },
