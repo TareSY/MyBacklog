@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Header, Sidebar } from '@/components/layout';
 import { logout } from '@/lib/actions/auth';
+import { DashboardErrorWrapper } from '@/components/DashboardErrorWrapper';
 
 export default async function DashboardLayout({
     children,
@@ -45,9 +46,12 @@ export default async function DashboardLayout({
                 aria-label="Main content"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 pb-safe">
-                    {children}
+                    <DashboardErrorWrapper>
+                        {children}
+                    </DashboardErrorWrapper>
                 </div>
             </main>
         </div>
     );
 }
+
