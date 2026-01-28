@@ -11,6 +11,11 @@ interface ChangelogEntry {
 
 const changelog: ChangelogEntry[] = [
     {
+        version: 'v0.1.18',
+        date: '2026-01-28',
+        content: '🥚💥', // Cracking egg
+    },
+    {
         version: 'v0.1.16',
         date: '2026-01-28',
         content: '🥚',
