@@ -149,9 +149,6 @@ export function SearchDialog() {
             >
                 <Search className="w-4 h-4" />
                 <span>Search...</span>
-                <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-bg-surface text-xs font-mono">
-                    Ctrl+K
-                </kbd>
             </button>
         );
     }

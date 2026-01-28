@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Card, Button } from '@/components/ui';
+import { Card, Button, Modal, ModalContent, ModalHeader, ModalTitle, useToast, ModalBody, ModalFooter } from '@/components/ui';
 import { CreateListModal } from '@/components/CreateListModal';
-import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2 } from 'lucide-react';
-import { curatedContent } from '@/lib/curated-content';
+import { Plus, Search, Sparkles, Film, Tv, BookOpen, Music, Gamepad2, ArrowRight, Loader2, Check } from 'lucide-react';
+import { curatedContent, categoryIdToKey } from '@/lib/curated-content';
 
 interface List {
     id: string;
@@ -23,13 +23,27 @@ interface CategoryStats {
     games: number;
 }
 
+interface QuickAddItem {
+    title: string;
+    subtitle?: string;
+    year?: number;
+    categoryId: number;
+}
+
 export default function DashboardPage() {
+    const { toast } = useToast();
     const [lists, setLists] = useState<List[]>([]);
     const [friends, setFriends] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<CategoryStats>({ movies: 0, tv: 0, books: 0, music: 0, games: 0 });
     const [featured, setFeatured] = useState<Record<string, any[]>>({});
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+    // Quick add modal state
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [itemToAdd, setItemToAdd] = useState<QuickAddItem | null>(null);
+    const [selectedListId, setSelectedListId] = useState<string>('');
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -47,6 +61,9 @@ export default function DashboardPage() {
 
                 if (Array.isArray(listsData)) {
                     setLists(listsData);
+                    if (listsData.length > 0) {
+                        setSelectedListId(listsData[0].id);
+                    }
 
                     // Calculate stats
                     if (listsData.length > 0) {
@@ -82,7 +99,61 @@ export default function DashboardPage() {
         fetchData();
     }, []);
 
+    // Open quick add modal
+    function openQuickAdd(item: QuickAddItem) {
+        setItemToAdd(item);
+        setIsAddModalOpen(true);
+    }
+
+    // Handle quick add submit
+    async function handleQuickAdd() {
+        if (!itemToAdd || !selectedListId) return;
+
+        setSaving(true);
+        try {
+            const res = await fetch('/api/items', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    listIds: [selectedListId],
+                    categoryId: itemToAdd.categoryId,
+                    title: itemToAdd.title,
+                    subtitle: itemToAdd.subtitle || null,
+                    releaseYear: itemToAdd.year || null,
+                    externalSource: 'curated',
+                }),
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                if (res.status === 409) {
+                    throw new Error(data.error || 'Already in your list');
+                }
+                throw new Error(data.error || 'Failed to add');
+            }
+
+            toast(`Added "${itemToAdd.title}" to your backlog!`, 'success');
+            setIsAddModalOpen(false);
+            setItemToAdd(null);
+
+            // Optionally update stats/lists locally if we wanted immediate feedback
+            // keeping it simple for now as stats are aggregated from listsData which is complex to update
+        } catch (error: any) {
+            toast(error.message || 'Failed to add item', 'error');
+        } finally {
+            setSaving(false);
+        }
+    }
+
     const totalItems = stats.movies + stats.tv + stats.books + stats.music + stats.games;
+
+    const categoryConfig = [
+        { key: 'movies', label: 'Top Movies', emoji: '🎬', color: 'text-movies', id: 1 },
+        { key: 'tv', label: 'Top TV Shows', emoji: '📺', color: 'text-tv', id: 2 },
+        { key: 'books', label: 'Top Books', emoji: '📚', color: 'text-books', id: 3 },
+        { key: 'music', label: 'Top Albums', emoji: '🎵', color: 'text-music', id: 4 },
+        { key: 'games', label: 'Top Games', emoji: '🎮', color: 'text-games', id: 5 },
+    ];
 
     return (
         <div className="space-y-8">
@@ -203,13 +274,7 @@ export default function DashboardPage() {
                 <p className="text-text-muted">Top picks from the past decade — add them to your backlog!</p>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {[
-                        { key: 'movies', label: 'Top Movies', emoji: '🎬', color: 'text-movies' },
-                        { key: 'tv', label: 'Top TV Shows', emoji: '📺', color: 'text-tv' },
-                        { key: 'books', label: 'Top Books', emoji: '📚', color: 'text-books' },
-                        { key: 'music', label: 'Top Albums', emoji: '🎵', color: 'text-music' },
-                        { key: 'games', label: 'Top Games', emoji: '🎮', color: 'text-games' },
-                    ].map(cat => (
+                    {categoryConfig.map((cat) => (
                         <Card key={cat.key} variant="glass" className="p-4 space-y-3">
                             <div className="flex items-center gap-2">
                                 <span className="text-xl">{cat.emoji}</span>
@@ -217,9 +282,25 @@ export default function DashboardPage() {
                             </div>
                             <div className="space-y-2">
                                 {curatedContent[cat.key as keyof typeof curatedContent].slice(0, 5).map((item, idx) => (
-                                    <div key={idx} className="flex justify-between items-center text-sm">
-                                        <span className="text-text-primary truncate">{item.title}</span>
-                                        <span className="text-text-muted text-xs shrink-0">{item.year}</span>
+                                    <div key={idx} className="flex justify-between items-center text-sm group">
+                                        <div className="flex-1 min-w-0 mr-2">
+                                            <span className="text-text-primary truncate block">{item.title}</span>
+                                            <span className="text-text-muted text-xs">{item.year}</span>
+                                        </div>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            className="h-7 w-7 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            title="Add to backlog"
+                                            onClick={() => openQuickAdd({
+                                                title: item.title,
+                                                subtitle: item.subtitle,
+                                                year: item.year,
+                                                categoryId: cat.id
+                                            })}
+                                        >
+                                            <Plus className="w-4 h-4" />
+                                        </Button>
                                     </div>
                                 ))}
                             </div>
@@ -323,6 +404,65 @@ export default function DashboardPage() {
                 onClose={() => setIsCreateModalOpen(false)}
                 onCreated={(newList) => setLists(prev => [...prev, newList])}
             />
+
+            {/* Quick Add Modal */}
+            <Modal open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+                <ModalContent>
+                    <ModalHeader>
+                        <ModalTitle>Add to List</ModalTitle>
+                    </ModalHeader>
+                    <ModalBody className="space-y-4">
+                        {itemToAdd && (
+                            <div className="p-4 bg-bg-elevated rounded-lg">
+                                <p className="font-medium text-text-primary">{itemToAdd.title}</p>
+                                {itemToAdd.subtitle && (
+                                    <p className="text-sm text-text-muted">{itemToAdd.subtitle}</p>
+                                )}
+                            </div>
+                        )}
+
+                        <div>
+                            <label className="block text-sm font-medium text-text-secondary mb-2">
+                                Select a list
+                            </label>
+                            <select
+                                value={selectedListId}
+                                onChange={(e) => setSelectedListId(e.target.value)}
+                                className="w-full px-4 py-3 bg-bg-elevated border border-border-default rounded-lg text-text-primary focus:border-primary focus:outline-none"
+                            >
+                                {lists.map((list) => (
+                                    <option key={list.id} value={list.id}>
+                                        {list.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </ModalBody>
+                    <ModalFooter className="flex gap-3">
+                        <Button
+                            variant="secondary"
+                            className="flex-1"
+                            onClick={() => setIsAddModalOpen(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            className="flex-1"
+                            onClick={handleQuickAdd}
+                            disabled={saving || !selectedListId}
+                        >
+                            {saving ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                                <>
+                                    <Plus className="w-4 h-4" />
+                                    Add
+                                </>
+                            )}
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }

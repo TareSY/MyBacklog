@@ -13,7 +13,7 @@ const changelog: ChangelogEntry[] = [
     {
         version: 'v0.1.18',
         date: '2026-01-28',
-        content: '🥚💥', // Cracking egg
+        content: 'Fixings',
     },
     {
         version: 'v0.1.16',
