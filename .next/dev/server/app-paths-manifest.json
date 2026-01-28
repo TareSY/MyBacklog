@@ -1,3 +1,4 @@
 {
-  "/api/lists/route": "app/api/lists/route.js"
+  "/api/metadata/search/route": "app/api/metadata/search/route.js",
+  "/api/requests/route": "app/api/requests/route.js"
 }

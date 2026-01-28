@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Film, Tv, BookOpen, Music, Gamepad2, Plus, Sparkles, Loader2, ArrowRight, Check } from 'lucide-react';
 import { Button, Input, Card, Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, Badge, Autocomplete, useToast } from '@/components/ui';
+import { RequestItemModal } from '@/components/RequestItemModal';
+import { MessageSquarePlus } from 'lucide-react';
 import { curatedContent, type CuratedCategory } from '@/lib/curated-content';
 
 const categories = [
@@ -27,6 +29,7 @@ export default function BrowsePage() {
 
     const [userLists, setUserLists] = useState<any[]>([]);
     const [selectedListIds, setSelectedListIds] = useState<string[]>([]);
+    const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
     // Load user lists
     useEffect(() => {
@@ -150,7 +153,20 @@ export default function BrowsePage() {
                 <p className="text-text-muted text-lg max-w-2xl mx-auto">
                     Pick a category to add something to your backlog
                 </p>
+                <button
+                    onClick={() => setIsRequestModalOpen(true)}
+                    className="mt-4 inline-flex items-center gap-2 text-sm text-primary hover:text-primary-light transition-colors"
+                >
+                    <MessageSquarePlus className="w-4 h-4" />
+                    Can't find what you're looking for? Request it
+                </button>
             </div>
+
+            {/* Request Media Modal */}
+            <RequestItemModal
+                isOpen={isRequestModalOpen}
+                onClose={() => setIsRequestModalOpen(false)}
+            />
 
             {/* Category Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

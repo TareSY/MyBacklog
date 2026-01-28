@@ -163,15 +163,27 @@
 
 ---
 
-## 🚀 Sprint 19: Category Images Fixes 🖼️ (4/5 Complete)
+## 🚀 Sprint 19: Category Images Fixes 🖼️ ✅ COMPLETE
 
 | # | Task | Status |
 |---|------|--------|
 | 19.1 | Fix Books image fallback (OpenLibrary API) | ✅ |
-| 19.2 | Fix Games images (IGDB/RAWG optimization) | ✅ |
+| 19.2 | Fix Games images (RAWG fallback chain) | ✅ |
 | 19.3 | Fix Music images (MusicBrainz primary, Spotify fallback) | ✅ |
-| 19.4 | Add automated image existence checks | |
+| 19.4 | Add automated image existence checks | ⏭️ Deferred |
 | 19.5 | Fix Dashboard stats staying at zero (widget bug) | ✅ |
+
+---
+
+## 🚀 Sprint 20: Item Request Feature 📝 ✅ COMPLETE
+
+| # | Task | Status |
+|---|------|--------|
+| 20.1 | Create `POST /api/requests` endpoint | ✅ |
+| 20.2 | Create `RequestItemModal.tsx` component | ✅ |
+| 20.3 | Add "Request Media" link to Browse page | ✅ |
+| 20.4 | Create `item_requests.md` storage file | ✅ |
+| 20.5 | Add rate limiting (5 requests/day/user) | ⏭️ Optional |
 
 ---
 
@@ -179,11 +191,11 @@
 
 | Document | Purpose |
 |----------|---------|
-| [expected_behaviors.md](file:///C:/Users/slyat/.gemini/antigravity/brain/27c9e75b-15af-42f7-8809-e7cb68896d25/expected_behaviors.md) | Defines how features should work |
-| [lessons_learned.md](file:///C:/Users/slyat/.gemini/antigravity/brain/27c9e75b-15af-42f7-8809-e7cb68896d25/lessons_learned.md) | Bugs and patterns to avoid |
-| [implementation_plan.md](file:///C:/Users/slyat/.gemini/antigravity/brain/27c9e75b-15af-42f7-8809-e7cb68896d25/implementation_plan.md) | Technical architecture |
-| [validation_checklist.md](file:///C:/Users/slyat/.gemini/antigravity/brain/27c9e75b-15af-42f7-8809-e7cb68896d25/validation_checklist.md) | Feature verification status |
-| [walkthrough.md](file:///C:/Users/slyat/.gemini/antigravity/brain/27c9e75b-15af-42f7-8809-e7cb68896d25/walkthrough.md) | Feature summary |
+| [expected_behaviors.md](./expected_behaviors.md) | Defines how features should work |
+| [lessons_learned.md](./lessons_learned.md) | Bugs and patterns to avoid |
+| [implementation_plan.md](./implementation_plan.md) | Technical architecture |
+| [validation_checklist.md](./validation_checklist.md) | Feature verification status |
+| [walkthrough.md](./walkthrough.md) | Feature summary |
 
 ---
 
