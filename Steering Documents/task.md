@@ -175,15 +175,15 @@
 
 ---
 
-## 🚀 Sprint 20: Item Request Feature 📝 ✅ COMPLETE
+## 🚀 Sprint 20: Request Media Feature 📝 ✅ COMPLETE
 
 | # | Task | Status |
 |---|------|--------|
 | 20.1 | Create `POST /api/requests` endpoint | ✅ |
-| 20.2 | Create `RequestItemModal.tsx` component | ✅ |
+| 20.2 | Create `RequestMediaModal.tsx` component | ✅ |
 | 20.3 | Add "Request Media" link to Browse page | ✅ |
-| 20.4 | Create `item_requests.md` storage file | ✅ |
-| 20.5 | Add rate limiting (5 requests/day/user) | ⏭️ Optional |
+| 20.4 | Store requests in Neon database | ✅ |
+| 20.5 | Update changelog to v0.2.0 | ✅ |
 
 ---
 
