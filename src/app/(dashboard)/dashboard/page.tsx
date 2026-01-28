@@ -12,7 +12,7 @@ interface List {
     name: string;
     description: string | null;
     isPublic: boolean;
-    items?: any[];
+    stats?: CategoryStats;
 }
 
 interface CategoryStats {
@@ -65,16 +65,16 @@ export default function DashboardPage() {
                         setSelectedListId(listsData[0].id);
                     }
 
-                    // Calculate stats
+                    // Calculate stats from list.stats (API returns stats object per list)
                     if (listsData.length > 0) {
                         const aggregatedStats = { movies: 0, tv: 0, books: 0, music: 0, games: 0 };
-                        listsData.forEach((list: any) => {
-                            if (list.items) {
-                                aggregatedStats.movies += list.items.filter((i: any) => i.categoryId === 1).length;
-                                aggregatedStats.tv += list.items.filter((i: any) => i.categoryId === 2).length;
-                                aggregatedStats.books += list.items.filter((i: any) => i.categoryId === 3).length;
-                                aggregatedStats.music += list.items.filter((i: any) => i.categoryId === 4).length;
-                                aggregatedStats.games += list.items.filter((i: any) => i.categoryId === 5).length;
+                        listsData.forEach((list: List) => {
+                            if (list.stats) {
+                                aggregatedStats.movies += list.stats.movies || 0;
+                                aggregatedStats.tv += list.stats.tv || 0;
+                                aggregatedStats.books += list.stats.books || 0;
+                                aggregatedStats.music += list.stats.music || 0;
+                                aggregatedStats.games += list.stats.games || 0;
                             }
                         });
                         setStats(aggregatedStats);

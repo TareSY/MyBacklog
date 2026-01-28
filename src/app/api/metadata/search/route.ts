@@ -26,7 +26,11 @@ export async function GET(request: NextRequest) {
                 results = await searchRAWG(query);
                 break;
             case 'music':
-                results = await searchSpotify(query);
+                // Try MusicBrainz first (free, no auth), fallback to Spotify if configured
+                results = await searchMusicBrainz(query);
+                if (results.length === 0) {
+                    results = await searchSpotify(query);
+                }
                 break;
             default:
                 results = [];
@@ -44,13 +48,99 @@ export async function GET(request: NextRequest) {
     }
 }
 
+// MusicBrainz Search (Free, no API key required)
+async function searchMusicBrainz(query: string): Promise<any[]> {
+    const url = `https://musicbrainz.org/ws/2/release?query=${encodeURIComponent(query)}&limit=10&fmt=json`;
+
+    try {
+        const res = await fetch(url, {
+            headers: {
+                'User-Agent': 'MyBacklog/1.0 (https://thebacklog.vercel.app)',
+            }
+        });
+
+        if (!res.ok) {
+            console.warn('[METADATA] MusicBrainz fetch failed:', res.status);
+            return [];
+        }
+
+        const data = await res.json();
+
+        return (data.releases || []).map((item: any) => {
+            // Get artist names
+            const artists = item['artist-credit']?.map((a: any) => a.artist?.name || a.name).filter(Boolean).join(', ');
+            // Cover Art Archive URL (may not always have an image)
+            const imageUrl = item.id ? `https://coverartarchive.org/release/${item.id}/front-250` : null;
+
+            return {
+                externalId: item.id,
+                externalSource: 'musicbrainz',
+                title: item.title,
+                subtitle: artists || 'Unknown Artist',
+                releaseYear: item.date?.split('-')[0],
+                imageUrl: imageUrl,
+                subtype: 'album',
+                description: item['release-group']?.['primary-type'] || 'Album',
+            };
+        });
+    } catch (error) {
+        console.error('[METADATA] MusicBrainz search error:', error);
+        return [];
+    }
+}
+
 // ... existing TMDB/Google/RAWG functions ...
+
+// Spotify Client Credentials token cache
+let spotifyTokenCache: { token: string; expiresAt: number } | null = null;
+
+async function getSpotifyToken(): Promise<string | null> {
+    const clientId = process.env.SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+
+    if (!clientId || !clientSecret) {
+        console.warn('[METADATA] SPOTIFY_CLIENT_ID or SPOTIFY_CLIENT_SECRET not configured');
+        return null;
+    }
+
+    // Return cached token if still valid (with 60s buffer)
+    if (spotifyTokenCache && Date.now() < spotifyTokenCache.expiresAt - 60000) {
+        return spotifyTokenCache.token;
+    }
+
+    try {
+        const res = await fetch('https://accounts.spotify.com/api/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
+            },
+            body: 'grant_type=client_credentials',
+        });
+
+        if (!res.ok) {
+            console.error('[METADATA] Spotify token fetch failed:', res.status);
+            return null;
+        }
+
+        const data = await res.json();
+        spotifyTokenCache = {
+            token: data.access_token,
+            expiresAt: Date.now() + data.expires_in * 1000,
+        };
+        return data.access_token;
+    } catch (error) {
+        console.error('[METADATA] Spotify token error:', error);
+        return null;
+    }
+}
 
 // Spotify Search (Music)
 async function searchSpotify(query: string): Promise<any[]> {
-    // User provided token - normally this should be in env/session
-    // and handled via client credentials flow as these expire quickly.
-    const token = 'BQABVAV1zZERC3ySvqUWYWiuXbINluseOWY8S16V0iEBwzSCjd_8diF3gWP1q7A9xtoVAJE3mCrUYB9bDaOwSj2kLceCzvzKQP91ylVujP1HQFyUiUo-qTH4WcgV8-S4ViweVfDZhYAlk_ZsAJuNyVbDDR-oQy5MsJ0mtG5uYmiPf9fsFDV1ULSejARvr6jdmBduChLBoHM4tWDj31jhBJyziBe0UjUWpyiBwPgJQz4UFjPOFJEZxIXRq7aj4Tzg1LVzN-ws5OxoMks-HjhYStB9w4Y_SblPaI4h1Bcwh7imRCvB';
+    const token = await getSpotifyToken();
+    if (!token) {
+        return [];
+    }
 
     const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=album,track&limit=10`;
 
@@ -62,7 +152,9 @@ async function searchSpotify(query: string): Promise<any[]> {
         });
 
         if (res.status === 401) {
-            console.warn('[METADATA] Spotify token expired or invalid');
+            // Token expired mid-request, clear cache
+            spotifyTokenCache = null;
+            console.warn('[METADATA] Spotify token expired mid-request');
             return [];
         }
 
@@ -75,7 +167,7 @@ async function searchSpotify(query: string): Promise<any[]> {
             title: item.name,
             subtitle: item.artists?.map((a: any) => a.name).join(', '),
             releaseYear: item.release_date?.split('-')[0],
-            imageUrl: item.images?.[0]?.url || item.images?.[1]?.url, // 0 is usually huge, 1 is medium
+            imageUrl: item.images?.[0]?.url || item.images?.[1]?.url,
             subtype: 'album',
             description: `Album • ${item.total_tracks} tracks`,
         }));
@@ -126,7 +218,7 @@ async function searchTMDB(query: string, type: 'movies' | 'tv'): Promise<any[]> 
     }));
 }
 
-// Google Books Search
+// Google Books Search (with OpenLibrary fallback)
 async function searchGoogleBooks(query: string): Promise<any[]> {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=10`;
 
@@ -136,10 +228,26 @@ async function searchGoogleBooks(query: string): Promise<any[]> {
     return (data.items || []).map((item: any) => {
         const imageLinks = item.volumeInfo?.imageLinks;
         // Try to get the best quality image available (large > medium > small > thumbnail)
-        const imageUrl = imageLinks?.large
+        let imageUrl = imageLinks?.large
             || imageLinks?.medium
             || imageLinks?.small
             || imageLinks?.thumbnail;
+
+        // Clean up Google Books URL
+        if (imageUrl) {
+            imageUrl = imageUrl.replace('http:', 'https:').replace('&edge=curl', '');
+        }
+
+        // OpenLibrary fallback: if no Google image, try ISBN-based cover
+        if (!imageUrl) {
+            const identifiers = item.volumeInfo?.industryIdentifiers || [];
+            const isbn13 = identifiers.find((i: any) => i.type === 'ISBN_13')?.identifier;
+            const isbn10 = identifiers.find((i: any) => i.type === 'ISBN_10')?.identifier;
+            const isbn = isbn13 || isbn10;
+            if (isbn) {
+                imageUrl = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
+            }
+        }
 
         return {
             externalId: item.id,
@@ -148,8 +256,7 @@ async function searchGoogleBooks(query: string): Promise<any[]> {
             subtitle: item.volumeInfo?.authors?.join(', '),
             releaseYear: item.volumeInfo?.publishedDate?.split('-')[0],
             description: item.volumeInfo?.description?.slice(0, 500),
-            // Replace http with https and remove edge=curl parameter for cleaner images
-            imageUrl: imageUrl?.replace('http:', 'https:').replace('&edge=curl', '') || null,
+            imageUrl: imageUrl || null,
         };
     });
 }
@@ -167,14 +274,25 @@ async function searchRAWG(query: string): Promise<any[]> {
     const res = await fetch(url);
     const data = await res.json();
 
-    return (data.results || []).map((item: any) => ({
-        externalId: String(item.id),
-        externalSource: 'rawg',
-        title: item.name,
-        subtitle: item.platforms?.map((p: any) => p.platform?.name).join(', '),
-        releaseYear: item.released?.split('-')[0],
-        description: null, // RAWG doesn't return description in search
-        imageUrl: item.background_image || null,
-        platform: item.platforms?.[0]?.platform?.name,
-    }));
+    return (data.results || []).map((item: any) => {
+        // Image fallback chain: background_image > short_screenshots[0] > null
+        let imageUrl = item.background_image;
+        if (!imageUrl && item.short_screenshots?.length > 0) {
+            imageUrl = item.short_screenshots[0]?.image;
+        }
+
+        // Get top 3 platforms for cleaner subtitle
+        const platforms = item.platforms?.slice(0, 3).map((p: any) => p.platform?.name).filter(Boolean).join(', ');
+
+        return {
+            externalId: String(item.id),
+            externalSource: 'rawg',
+            title: item.name,
+            subtitle: platforms || 'Multi-platform',
+            releaseYear: item.released?.split('-')[0],
+            description: null,
+            imageUrl: imageUrl || null,
+            platform: item.platforms?.[0]?.platform?.name,
+        };
+    });
 }
