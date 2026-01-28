@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui';
 import { SearchDialog } from '@/components/SearchDialog';
+import { NotificationBell } from '@/components/NotificationBell';
 import {
     Library,
     Search,
@@ -78,6 +79,7 @@ export function Header({ user, onLogout }: HeaderProps) {
                         {user && <SearchDialog />}
                         {user ? (
                             <>
+                                <NotificationBell />
                                 <Link href="/settings">
                                     <Button variant="ghost" size="icon" className="hidden sm:flex">
                                         <Settings className="w-5 h-5" />

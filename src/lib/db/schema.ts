@@ -177,6 +177,24 @@ export const activities = pgTable('activities', {
 });
 
 // ============================================
+// Notifications
+// ============================================
+
+export const notifications = pgTable('notifications', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  type: text('type').notNull(), // 'friend_request', 'friend_accepted', 'list_shared', 'item_added'
+  title: text('title').notNull(),
+  message: text('message'),
+  link: text('link'), // URL to navigate to
+  actorId: uuid('actor_id').references(() => users.id, { onDelete: 'set null' }),
+  isRead: boolean('is_read').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+// ============================================
 // Relations
 // ============================================
 
